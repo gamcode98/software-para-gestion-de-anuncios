@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const announcementSchema = new mongoose.Schema({
    text: { 
-    type: String 
+     type: String 
    },
    typeOfContent: { 
      planeText: String,
