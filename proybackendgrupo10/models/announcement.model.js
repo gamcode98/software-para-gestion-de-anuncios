@@ -25,13 +25,15 @@ const announcementSchema = new mongoose.Schema({
    state: {
      type : String,
    },
-   receivers: { 
+   receivers: [ 
+     { 
      type: Schema.Types.ObjectId,
      ref: "Role"
-   },
+     },
+    ],
    resouces: {
      pdf: String,
-     images: String,
+     images: [String],
    },
    readingTime: {
      type: String,
