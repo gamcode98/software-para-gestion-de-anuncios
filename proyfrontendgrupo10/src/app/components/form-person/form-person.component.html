@@ -8,7 +8,7 @@
                         <div class="mb-3">
                             <label for="first" class=""> FistName:</label>
                             <input [(ngModel)]="person.firstName" type="text" name="first" class="form-control"
-                                placeholder="Enter Fist Name" required #first="ngModel" />
+                                placeholder="Enter FistName" required #first="ngModel" />
                             <div [hidden]="first.dirty" class="alert alert-danger">
                                 <Span>Required</Span>
                             </div>
@@ -16,7 +16,7 @@
                         <div class="mb-3">
                             <label for="last" class=""> LastName:</label>
                             <input [(ngModel)]="person.lastName" type="text" name="last" class="form-control"
-                                placeholder="Enter last Name" required #last="ngModel" />
+                                placeholder="Enter lastName" required #last="ngModel" />
                             <div [hidden]="last.dirty" class="alert alert-danger">
                                 <Span>Required</Span>
                             </div>
@@ -24,7 +24,7 @@
                         <div class="mb-3">
                             <label for="legajo" class=""> Legajo:</label>
                             <input [(ngModel)]="person.legajo" type="text" id="legajo" name="legajo"
-                                class="form-control mb-2" placeholder="legajo" #legajo="ngModel" required />
+                                class="form-control mb-2" placeholder="Enter Legajo" #legajo="ngModel" required />
                             <div [hidden]="legajo.valid || (legajo.dirty || legajo.untouched)"
                                 class="alert alert-danger" role="alert">
                                 <span>Required</span>
@@ -33,7 +33,7 @@
                         <div class="mb-3">
                             <label for="dni" class=""> DNI:</label>
                             <input [(ngModel)]="person.dni" type="number" id="dni" name="dni" class="form-control mb-2"
-                                placeholder="dni" #dni="ngModel" required />
+                                placeholder="Enter DNI" #dni="ngModel" required />
                             <div [hidden]="dni.valid || (dni.dirty || dni.untouched)" class="alert alert-danger"
                                 role="alert">
                                 <span>Required</span>
@@ -42,7 +42,7 @@
                         <div class="mb-3">
                             <label for="email" class=""> Email:</label>
                             <input [(ngModel)]="person.email" type="email" name="email" class="form-control"
-                                placeholder="Enter last Name" required #email="ngModel" />
+                                placeholder="Enter Email" required #email="ngModel" />
                             <div [hidden]="email.dirty" class="alert alert-danger">
                                 <Span>Required</Span>
                             </div>
