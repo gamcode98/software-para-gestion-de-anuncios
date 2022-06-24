@@ -8,7 +8,7 @@ const PersonSchema = new Schema({
   email: { type: String, require: true },
   infoAreas: [
     {
-      area: { type: Schema.Types.ObjectId, ref: Area, required: true },
+      area: { type: Schema.Types.ObjectId, ref: 'area', required: true },
       roles: [{ type: String }]
     }
   ]
