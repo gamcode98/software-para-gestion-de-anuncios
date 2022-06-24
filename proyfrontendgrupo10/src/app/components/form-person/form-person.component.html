@@ -57,7 +57,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="area" class=""> Area:</label>
-                            <select [(ngModel)]="person.Area" type="text" name="area" class="form-control"
+                            <select [(ngModel)]="person.infoArea" type="text" name="area" class="form-control"
                                 #area="ngModel" required>
                                 <option [value]="p.name" *ngFor="let p of areas">{{p.name}}</option>
                             </select>
