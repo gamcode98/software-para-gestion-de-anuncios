@@ -9,7 +9,7 @@
                             <label for="first" class=""> FistName:</label>
                             <input [(ngModel)]="person.firstName" type="text" name="first" class="form-control"
                                 placeholder="Enter FistName" required #first="ngModel" />
-                            <div [hidden]="first.dirty" class="alert alert-danger">
+                            <div [hidden]="first.valid || (first.dirty || first.untouched)" class="alert alert-danger">
                                 <Span>Required</Span>
                             </div>
                         </div>
@@ -17,7 +17,7 @@
                             <label for="last" class=""> LastName:</label>
                             <input [(ngModel)]="person.lastName" type="text" name="last" class="form-control"
                                 placeholder="Enter lastName" required #last="ngModel" />
-                            <div [hidden]="last.dirty" class="alert alert-danger">
+                            <div [hidden]="last.valid || (last.dirty || last.untouched)" class="alert alert-danger">
                                 <Span>Required</Span>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                             <label for="email" class=""> Email:</label>
                             <input [(ngModel)]="person.email" type="email" name="email" class="form-control"
                                 placeholder="Enter Email" required #email="ngModel" />
-                            <div [hidden]="email.dirty" class="alert alert-danger">
+                            <div [hidden]="email.valid || (email.dirty || email.untouched)" class="alert alert-danger">
                                 <Span>Required</Span>
                             </div>
                         </div>
@@ -51,7 +51,8 @@
                             <label for="password" class=""> Password:</label>
                             <input [(ngModel)]="person.password" type="password" name="password" class="form-control"
                                 placeholder="Enter Password" required #password="ngModel" />
-                            <div [hidden]="password.dirty" class="alert alert-danger">
+                            <div [hidden]="password.valid || (password.dirty || password.untouched)"
+                                class="alert alert-danger">
                                 <Span>Required</Span>
                             </div>
                         </div>
