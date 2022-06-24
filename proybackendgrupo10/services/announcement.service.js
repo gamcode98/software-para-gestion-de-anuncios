@@ -1,4 +1,3 @@
-const validationError = require('../helpers/validationError')
 const AnnouncementModel = require('../models/announcement.model')
 
 class Announcement {
@@ -19,10 +18,7 @@ class Announcement {
         announcement
       }
     } catch (error) {
-      return {
-        created: false,
-        errors: validationError(error.errors)
-      }
+      console.log(error)
     }
   }
 }

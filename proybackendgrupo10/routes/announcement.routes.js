@@ -3,7 +3,7 @@ const AnnouncementService = require('./../services/announcement.service')
 
 function announcement (app) {
   const router = express.Router()
-  app.use('/api/announcement', router)
+  app.use('/api/advertisements', router)
   const announcementServ = new AnnouncementService()
 
   router.get('/', async (req, res) => {

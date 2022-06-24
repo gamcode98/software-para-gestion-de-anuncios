@@ -4,6 +4,9 @@ const cors = require('cors')
 const { port } = require('./config')
 const { connection } = require('./config/db')
 
+const announcement = require('./routes/announcement.routes')
+const area = require('./routes/area.routes')
+
 const app = express()
 const person = require('./routes/person.routes')
 
@@ -19,6 +22,8 @@ app.use(
 )
 
 person(app)
+announcement(app)
+area(app)
 
 app.listen(port, () => {
   console.log(`Listening on: http://localhost:${port}`)
