@@ -28,12 +28,14 @@ const announcementSchema = new mongoose.Schema({
   },
   receivers: [
     {
-      type: Schema.Types.ObjectId,
-      ref: 'Area',
+      area: {
+        type: Schema.Types.ObjectId,
+        ref: 'area'
+      },
       roles: [String]
     }
   ],
-  resouces: {
+  resources: {
     pdf: String,
     images: [String]
   },
@@ -45,7 +47,6 @@ const announcementSchema = new mongoose.Schema({
     ref: 'Person'
   }
 })
-mongoose.models.Role || mongoose.model('Area', AreaSchema)
-mongoose.models.Person || mongoose.model('Person', PersonSchema)
+
 const AnnouncementModel = mongoose.model('announcement', announcementSchema)
 module.exports = AnnouncementModel
