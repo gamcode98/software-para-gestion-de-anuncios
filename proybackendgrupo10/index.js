@@ -5,6 +5,7 @@ const { port } = require('./config')
 const { connection } = require('./config/db')
 
 const app = express()
+const person = require('./routes/person.routes')
 
 connection()
 
@@ -16,6 +17,8 @@ app.use(
     credentials: true
   })
 )
+
+person(app)
 
 app.listen(port, () => {
   console.log(`Listening on: http://localhost:${port}`)
