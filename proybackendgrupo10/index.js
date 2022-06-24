@@ -8,6 +8,7 @@ const announcement = require('./routes/announcement.routes')
 const area = require('./routes/area.routes')
 
 const app = express()
+const person = require('./routes/person.routes')
 
 connection()
 
@@ -20,6 +21,7 @@ app.use(
   })
 )
 
+person(app)
 announcement(app)
 area(app)
 
