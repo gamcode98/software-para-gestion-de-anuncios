@@ -1,24 +1,22 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const announcementSchema = new mongoose.Schema({
+const advertisementsSchema = new mongoose.Schema({
   text: {
     type: String
   },
   typeOfContent: {
-    planeText: String,
-    image: String,
-    html: String,
-    video: String
+    planeText: Boolean,
+    image: Boolean,
+    html: Boolean,
+    video: Boolean
   },
-  publishingMedia: {
-    facebook: Boolean,
-    twitter: Boolean,
-    youtube: Boolean,
-    instagram: Boolean,
-    email: Boolean,
-    tv: Boolean
-  },
+  publishingMedia: [
+    {
+      name: String,
+      accounts: [String]
+    }
+  ],
   entryDate: {
     initial: Date,
     final: Date
@@ -48,5 +46,5 @@ const announcementSchema = new mongoose.Schema({
   }
 })
 
-const AnnouncementModel = mongoose.model('announcement', announcementSchema)
-module.exports = AnnouncementModel
+const AdModel = mongoose.model('ad', advertisementsSchema)
+module.exports = AdModel
