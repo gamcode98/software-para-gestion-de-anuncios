@@ -22,6 +22,15 @@ class Area {
     }
   }
 
+  async findOne (id) {
+    try {
+      const area = await AreaModel.findById(id)
+      return area
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async update (id, data) {
     try {
       const area = await AreaModel.findByIdAndUpdate(id, data, { new: true })

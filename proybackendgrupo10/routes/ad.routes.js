@@ -1,4 +1,5 @@
 const express = require('express')
+const createValidation = require('../middlewares/createValidation')
 const AdService = require('./../services/ad.service')
 
 function ad (app) {
@@ -12,9 +13,7 @@ function ad (app) {
   })
 
   router.post('/', async (req, res) => {
-    const body = req.body
-    const result = await adServ.create(body)
-    return res.json(result)
+    await createValidation(req, res)
   })
   router.put('/:id', async (req, res) => {
     const { id } = req.params
