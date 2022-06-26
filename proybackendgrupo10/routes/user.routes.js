@@ -17,6 +17,20 @@ function user (app) {
     const user = await userServ.create(body)
     return res.json(user)
   })
+
+  router.delete('/:id', async (req, res) => {
+    const { id } = req.params
+    const { body } = req
+    const user = await userServ.delete(id, body)
+    return res.json(user)
+  })
+
+  router.put('/:id', async (req, res) => {
+    const { id } = req.params
+    const { body } = req
+    const user = await userServ.update(id, body)
+    return res.json(user)
+  })
 }
 
 module.exports = user
