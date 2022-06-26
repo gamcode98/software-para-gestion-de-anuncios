@@ -8,7 +8,7 @@ const ad = require('./routes/ad.routes')
 const area = require('./routes/area.routes')
 
 const app = express()
-const person = require('./routes/person.routes')
+const user = require('./routes/user.routes')
 
 connection()
 
@@ -21,8 +21,9 @@ app.use(
   })
 )
 
-person(app)
+
 ad(app)
+user(app)
 area(app)
 
 app.listen(port, () => {
