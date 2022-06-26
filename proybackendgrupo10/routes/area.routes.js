@@ -17,6 +17,19 @@ function area (app) {
     const area = await areaServ.create(body)
     return res.json(area)
   })
+
+  router.put('/:id', async (req, res) => {
+    const { id } = req.params
+    const { body } = req
+    const result = await areaServ.update(id, body)
+    return res.json(result)
+  })
+
+  router.delete('/:id', async (req, res) => {
+    const { id } = req.params
+    const result = await areaServ.delete(id)
+    return res.json(result)
+  })
 }
 
 module.exports = area
