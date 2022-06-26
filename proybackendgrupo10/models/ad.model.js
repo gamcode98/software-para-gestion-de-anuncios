@@ -52,7 +52,7 @@ const advertisementsSchema = new mongoose.Schema({
   editor: {
     required: [true, 'editor is required'],
     type: Schema.Types.ObjectId,
-    ref: 'Person'
+    ref: 'user'
   }
 })
 
