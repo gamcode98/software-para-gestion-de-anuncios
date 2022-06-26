@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index",
-    "start": "node index"
+    "start": "node index",
+    "setup:import": "node config/initialConfig",
+    "setup:destroy": "node config/initialConfig -d"
   },
   "keywords": [],
   "author": "",
