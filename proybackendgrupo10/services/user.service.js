@@ -1,10 +1,10 @@
-const PersonModel = require('../models/person.model')
+const UserModel = require('../models/user.model')
 
-class Person {
+class User {
   async getAll () {
     try {
-      const person = await PersonModel.find()
-      return person
+      const user = await UserModel.find()
+      return user
     } catch (error) {
       console.log(error)
     }
@@ -12,10 +12,10 @@ class Person {
 
   async create (data) {
     try {
-      const person = await PersonModel.create(data)
+      const user = await UserModel.create(data)
       return {
         created: true,
-        person
+        user
       }
     } catch (error) {
       console.log(error)
@@ -23,4 +23,4 @@ class Person {
   }
 }
 
-module.exports = Person
+module.exports = User

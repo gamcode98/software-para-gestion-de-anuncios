@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 const Area = require('./area.model')
 
-const PersonSchema = new Schema({
+const UserSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, require: true },
   legajo: { type: String, require: true },
@@ -15,4 +15,4 @@ const PersonSchema = new Schema({
   ]
 })
 
-module.exports = model('Person', PersonSchema)
+module.exports = model('user', UserSchema)
