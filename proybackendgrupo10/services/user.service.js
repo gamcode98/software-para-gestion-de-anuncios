@@ -21,6 +21,30 @@ class User {
       console.log(error)
     }
   }
+
+  async delete (id) {
+    try {
+      const user = await UserModel.findByIdAndDelete(id)
+      return {
+        deleted: true,
+        user
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async update (id, data) {
+    try {
+      const user = await UserModel.findByIdAndUpdate(id, data, { new: true })
+      return {
+        updated: true,
+        user
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 module.exports = User
