@@ -3,7 +3,7 @@ const AdService = require('./../services/ad.service')
 
 function ad (app) {
   const router = express.Router()
-  app.use('/api/advertisements', router)
+  app.use('/api/ads', router)
   const adServ = new AdService()
 
   router.get('/', async (req, res) => {
