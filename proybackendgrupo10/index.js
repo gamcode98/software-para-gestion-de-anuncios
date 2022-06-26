@@ -6,9 +6,10 @@ const { connection } = require('./config/db')
 
 const ad = require('./routes/ad.routes')
 const area = require('./routes/area.routes')
+const user = require('./routes/user.routes')
+const auth = require('./routes/auth.routes')
 
 const app = express()
-const user = require('./routes/user.routes')
 
 connection()
 
@@ -21,10 +22,10 @@ app.use(
   })
 )
 
-
-ad(app)
 user(app)
+auth(app)
 area(app)
+ad(app)
 
 app.listen(port, () => {
   console.log(`Listening on: http://localhost:${port}`)

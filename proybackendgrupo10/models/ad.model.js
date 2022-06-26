@@ -1,60 +1,56 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const advertisementsSchema = new mongoose.Schema({
-  text: {
-    required: [true, 'text is required'],
-    type: String
-  },
-  typeOfContent: {
-    required: [true, 'Select is required'],
-    planeText: Boolean,
-    image: Boolean,
-    html: Boolean,
-    video: Boolean
-  },
-  publishingMedia: [
-    {
+const advertisementsSchema = new mongoose.Schema(
 
-      name: String,
-      required: [true, 'publishingMedia is required'],
-      accounts: [String]
+  {
+    text: {
+      type: String
+    },
+    typeOfContent: {
+      planeText: Boolean,
+      image: Boolean,
+      html: Boolean,
+      video: Boolean
+    },
+    publishingMedia: [
+      {
+        name: String,
+        accounts: [String]
+      }
+    ],
+    entryDate: {
+      initial: Date,
+      final: Date
+    },
+    state: {
+      type: String
+    },
+    receivers: [
+      {
+        area: {
+          type: Schema.Types.ObjectId,
+          ref: 'area'
+        },
+        areaRoles: [String]
+      }
+    ],
+    resources: {
+      pdf: String,
+      images: [String]
+    },
+    readingTime: {
+      type: String
+    },
+    editor: {
+      type: Schema.Types.ObjectId,
+      ref: 'user'
     }
-  ],
-  entryDate: {
-    required: [true, 'entryDate is required'],
-    initial: Date,
-    final: Date
   },
-  state: {
-    required: [true, 'State is required'],
-    type: String
-  },
-  receivers: [
-    {
-      required: [true, 'receivers is required'],
-      area: {
-        type: Schema.Types.ObjectId,
-        ref: 'area'
-      },
-      roles: [String]
-    }
-  ],
-  resources: {
-    required: [true, 'resouces is required'],
-    pdf: String,
-    images: [String]
-  },
-  readingTime: {
-    required: [true, 'readingTime is required'],
-    type: String
-  },
-  editor: {
-    required: [true, 'editor is required'],
-    type: Schema.Types.ObjectId,
-    ref: 'user'
+  {
+    versionKey: false
   }
-})
+)
 
 const AdModel = mongoose.model('ad', advertisementsSchema)
 module.exports = AdModel

@@ -3,7 +3,7 @@ const AdModel = require('../models/ad.model')
 class Ad {
   async getAll () {
     try {
-      const ads = await AdModel.find()
+      const ads = await AdModel.find().populate({ path: 'receivers', populate: { path: 'area' } }).populate('editor', { firstName: 1, lastName: 1 })
       return ads
     } catch (error) {
       console.log(error)

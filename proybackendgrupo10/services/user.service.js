@@ -1,4 +1,5 @@
 const UserModel = require('../models/user.model')
+const bcrypt = require('bcrypt')
 
 class User {
   async getAll () {
@@ -13,13 +14,15 @@ class User {
   async create (data) {
     try {
       const user = await UserModel.create(data)
-      return {
-        created: true,
-        user
-      }
+      return user
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async getByEmail (email) {
+    const user = await UserModel.findOne({ email }).populate({ path: 'infoAreas', populate: { path: 'area' } })
+    return user
   }
 
   async delete (id) {
@@ -36,7 +39,10 @@ class User {
 
   async update (id, data) {
     try {
-      const user = await UserModel.findByIdAndUpdate(id, data, { new: true })
+      const salt = await bcrypt.genSalt()
+      const hash = await bcrypt.hash(data.password, salt)
+      const user = await UserModel.findByIdAndUpdate(id, { ...data, password: hash }, { new: true })
+
       return {
         updated: true,
         user
