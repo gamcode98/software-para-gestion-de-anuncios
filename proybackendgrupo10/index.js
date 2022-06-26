@@ -4,7 +4,7 @@ const cors = require('cors')
 const { port } = require('./config')
 const { connection } = require('./config/db')
 
-const announcement = require('./routes/announcement.routes')
+const ad = require('./routes/ad.routes')
 const area = require('./routes/area.routes')
 
 const app = express()
@@ -21,8 +21,9 @@ app.use(
   })
 )
 
+
+ad(app)
 user(app)
-announcement(app)
 area(app)
 
 app.listen(port, () => {
