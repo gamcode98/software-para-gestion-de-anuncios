@@ -1,9 +1,8 @@
 const AreaService = require('../services/area.service')
-const AdService = require('./../services/ad.service')
 
-const createValidation = async (req, res) => {
+const createAdValidation = async (req, res, next) => {
   const areaServ = new AreaService()
-  const adServ = new AdService()
+  // const adServ = new AdService()
 
   const { body } = req
   // *TODO HACER DINAMICO
@@ -29,12 +28,11 @@ const createValidation = async (req, res) => {
   if (!isIncluded) {
     return res.status(400).json({
       error: true,
-      message: 'Ivalid roled to assigned'
+      message: 'Invalid roled was assigned'
     })
   }
 
-  const data = await adServ.create(body)
-  return res.status(201).json(data)
+  return next()
 }
 
-module.exports = createValidation
+module.exports = createAdValidation
