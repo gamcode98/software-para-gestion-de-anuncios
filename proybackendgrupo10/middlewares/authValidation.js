@@ -10,7 +10,6 @@ const authValidation = (req, res, next) => {
       try {
         const decoded = jwt.verify(token, jwtSecret)
         req.user = decoded
-
         return next()
       } catch ({ message, name }) {
         return res.status(403).json({

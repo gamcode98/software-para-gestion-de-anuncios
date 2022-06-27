@@ -10,6 +10,24 @@ class Ad {
     }
   }
 
+  async getOne (adId, editorId) {
+    try {
+      const ad = await AdModel.findOne({ _id: adId, editor: editorId })
+      return ad
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getAdsByEditorId (id) {
+    try {
+      const ads = await AdModel.find({ editor: id })
+      return ads
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async create (data) {
     try {
       const ad = await AdModel.create(data)
