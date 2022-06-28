@@ -18,14 +18,10 @@ class AuthService {
   }
 
   async #encrypt (string) {
-    try {
-      const salt = await bcrypt.genSalt()
-      const hash = await bcrypt.hash(string, salt)
+    const salt = await bcrypt.genSalt()
+    const hash = await bcrypt.hash(string, salt)
 
-      return hash
-    } catch (error) {
-      console.log(error)
-    }
+    return hash
   }
 
   #getUserData (user) {

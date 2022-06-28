@@ -12,6 +12,12 @@ function user (app) {
     return res.json(users)
   })
 
+  router.get('/:id', async (req, res) => {
+    const { id } = req.params
+    const user = await userServ.getOne(id)
+    return res.json(user)
+  })
+
   router.post('/', async (req, res) => {
     const { body } = req
     const user = await userServ.create(body)

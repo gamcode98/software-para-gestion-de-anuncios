@@ -5,6 +5,8 @@ class User {
   async getAll () {
     try {
       const user = await UserModel.find()
+        .select('-password')
+        .populate({ path: 'infoAreas', populate: { path: 'area' } })
       return user
     } catch (error) {
       console.log(error)
@@ -13,6 +15,8 @@ class User {
 
   async getOne (id) {
     const user = await UserModel.findById(id)
+      .select('-password')
+      .populate({ path: 'infoAreas', populate: { path: 'area', select: '-areaRoles' } })
     return user
   }
 
