@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card mt-3 mb-3">
+                <div class="card-body text-center">
+                    <span class="title">Person</span>
+                    <form #personForm="ngForm">
+                        <div class="mb-3">
+                            <label for="first" class=""> FistName:</label>
+                            <input [(ngModel)]="person.firstName" type="text" name="first" class="form-control"
+                                placeholder="Enter FistName" required #first="ngModel" />
+                            <div [hidden]="first.valid || (first.dirty || first.untouched)" class="alert alert-danger">
+                                <Span>Required</Span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="last" class=""> LastName:</label>
+                            <input [(ngModel)]="person.lastName" type="text" name="last" class="form-control"
+                                placeholder="Enter lastName" required #last="ngModel" />
+                            <div [hidden]="last.valid || (last.dirty || last.untouched)" class="alert alert-danger">
+                                <Span>Required</Span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="legajo" class=""> Legajo:</label>
+                            <input [(ngModel)]="person.legajo" type="text" id="legajo" name="legajo"
+                                class="form-control mb-2" placeholder="Enter Legajo" #legajo="ngModel" required />
+                            <div [hidden]="legajo.valid || (legajo.dirty || legajo.untouched)"
+                                class="alert alert-danger" role="alert">
+                                <span>Required</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dni" class=""> DNI:</label>
+                            <input [(ngModel)]="person.dni" type="number" id="dni" name="dni" class="form-control mb-2"
+                                placeholder="Enter DNI" #dni="ngModel" required />
+                            <div [hidden]="dni.valid || (dni.dirty || dni.untouched)" class="alert alert-danger"
+                                role="alert">
+                                <span>Required</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class=""> Email:</label>
+                            <input [(ngModel)]="person.email" type="email" name="email" class="form-control"
+                                placeholder="Enter Email" required #email="ngModel" />
+                            <div [hidden]="email.valid || (email.dirty || email.untouched)" class="alert alert-danger">
+                                <Span>Required</Span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class=""> Password:</label>
+                            <input [(ngModel)]="person.password" type="password" name="password" class="form-control"
+                                placeholder="Enter Password" required #password="ngModel" />
+                            <div [hidden]="password.valid || (password.dirty || password.untouched)"
+                                class="alert alert-danger">
+                                <Span>Required</Span>
+                            </div>
+                        </div>
+                        <div class="form-check form-switch" *ngFor="let i of areas">
+                            <input class="form-check-input" type="checkbox" role="switch" id="areas"
+                                (change)="requestArea(i.name)">
+                            <label class="form-check-label" for="areas">{{i.name}}</label>
+                            <div class="form-check" *ngFor="let j of i.roles">
+                                <input class="form-check-input" type="checkbox" value="" id="rol"
+                                    (change)="requestAreaRol(i.name,j)">
+                                <label class="form-check-label" for="rol">
+                                    {{j}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="m-auto pt-4 pb-3">
+                            <button [disabled]="personForm.form.invalid" type="submit" class="btn btn-success fs-4 "
+                                (click)="createPerson()">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

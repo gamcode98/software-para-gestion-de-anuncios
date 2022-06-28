@@ -1,0 +1,32 @@
+.container h1 {
+  margin: 0 auto;
+  text-align: center;
+  font-weight: 800;
+  font: italic bold 70px Georgia, Serif;
+  text-shadow: -4px 3px 0 #d13434, -14px 7px 0 #0a0e27;
+  color: #fff;
+}
+.container a {
+  text-decoration: none;
+  color: #fff;
+}
+.container p {
+  color: #fff;
+  margin: 0 auto;
+  text-align: center;
+  text-shadow: 7px 4px 5px rgb(255, 217, 0);
+  font-style: oblique;
+}
+.nav-link {
+  font-size: 25px;
+  font-weight: 500;
+}
+header {
+  background: rgb(11, 13, 80);
+  background: linear-gradient(
+    0deg,
+    rgb(48, 51, 121) 3%,
+    rgb(26, 32, 202) 39%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
