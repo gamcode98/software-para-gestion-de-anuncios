@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { FormPersonComponent } from './components/form-person/form-person.component';
 import { FormAdComponent } from './components/form-ad/form-ad.component';
 import { FormsModule } from '@angular/forms';
+import { AdViewComponent } from './components/ad-view/ad-view.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     FormPersonComponent,
     FormAdComponent,
+    AdViewComponent,
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [],
