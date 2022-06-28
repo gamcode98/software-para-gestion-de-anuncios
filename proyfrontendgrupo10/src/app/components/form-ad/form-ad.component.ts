@@ -10,10 +10,24 @@ import { AreaService } from 'src/app/services/area.service';
   styleUrls: ['./form-ad.component.css'],
 })
 export class FormAdComponent implements OnInit {
-  ad: Ad = new Ad();
+  ad!: Ad;
   area: Area[] = [];
 
-  constructor(private service: AdService, private serviceArea: AreaService) {}
+  constructor(private service: AdService, private serviceArea: AreaService) {
+    this.ad = new Ad();
+    this.ad.publishingMedia = {
+      facebook: false,
+      twitter: false,
+      youtube: false,
+      instagram: false,
+      email: false,
+      tv: false,
+    };
+    this.ad.entryDate = {
+      initial: new Date(),
+      final: new Date(),
+    };
+  }
 
   ngOnInit(): void {}
   init() {
