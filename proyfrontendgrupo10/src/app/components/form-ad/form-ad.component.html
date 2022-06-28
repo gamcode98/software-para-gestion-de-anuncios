@@ -5,11 +5,11 @@
             <input type="text" class="form-control" id="texto" name="tx" [(ngModel)]="ad.text">
         </div>
 
-        <select class="form-select" aria-label="Default select example">
-            <option value="1">Imagen</option>
-            <option value="2">HTML</option>
-            <option value="3">Video</option>
-            <option selected value="4">Texto</option>
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="sel" (change)="selectContent()">
+            <option value="image">Imagen</option>
+            <option value="html">HTML</option>
+            <option value="video">Video</option>
+            <option selected value="planeText">Texto</option>
         </select>
         <div class="border p-2 m-3">
             <h3>Medios de publicacion</h3>

@@ -2,10 +2,10 @@ export class Ad {
   _id!: string;
   text!: string;
   typeOfContent!: {
-    planeText: String;
-    image: String;
-    html: String;
-    video: String;
+    planeText: Boolean;
+    image: Boolean;
+    html: Boolean;
+    video: Boolean;
   };
   publishingMedia!: {
     facebook: Boolean;

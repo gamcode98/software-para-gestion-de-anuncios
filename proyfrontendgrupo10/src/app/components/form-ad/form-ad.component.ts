@@ -13,6 +13,7 @@ export class FormAdComponent implements OnInit {
   ad!: Ad;
   area: Area[] = [];
   areaAux: Area[] = [];
+  sel: string = '';
 
   constructor(private service: AdService, private serviceArea: AreaService) {
     this.ad = new Ad();
@@ -88,5 +89,41 @@ export class FormAdComponent implements OnInit {
       this.areaAux[index].roles.push(rol);
       console.log(this.areaAux);
     }
+  }
+  selectContent() {
+    console.log(this.sel);
+    if (this.sel === 'planeText') {
+      this.ad.typeOfContent = {
+        planeText: true,
+        image: false,
+        html: false,
+        video: false,
+      };
+    }
+    if (this.sel === 'html') {
+      this.ad.typeOfContent = {
+        planeText: false,
+        image: false,
+        html: true,
+        video: false,
+      };
+    }
+    if (this.sel === 'image') {
+      this.ad.typeOfContent = {
+        planeText: false,
+        image: true,
+        html: false,
+        video: false,
+      };
+    }
+    if (this.sel === 'video') {
+      this.ad.typeOfContent = {
+        planeText: false,
+        image: false,
+        html: false,
+        video: true,
+      };
+    }
+    console.log(this.ad);
   }
 }
