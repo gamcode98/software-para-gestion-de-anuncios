@@ -67,20 +67,19 @@
         </div>
         <div>
             <h3>Dirigido</h3>
-            <!--  
+
             <div class="form-check form-switch" *ngFor="let i of area">
-                <input class="form-check-input" type="checkbox" role="switch" id="areas"
-                    [(ngModel)]="ad.receivers[0].area">
+                <input class="form-check-input" type="checkbox" role="switch" id="areas" (change)="addRecivers(i.name)">
                 <label class="form-check-label" for="areas">{{i.name}}</label>
                 <div class="form-check" *ngFor="let j of i.roles">
                     <input class="form-check-input" type="checkbox" value="" id="rol"
-                        [(ngModel)]="ad.receivers[0].roles">
+                        (change)="addReciversRol(i.name,j)">
                     <label class="form-check-label" for="rol">
                         {{j}}
                     </label>
                 </div>
             </div>
-            -->
+
         </div>
 
 

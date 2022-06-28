@@ -1,6 +1,4 @@
 export class Area {
-  name!: {
-    type: String;
-  };
+  name!: string;
   roles!: string[];
 }
