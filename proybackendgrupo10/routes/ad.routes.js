@@ -2,12 +2,14 @@ const express = require('express')
 const { authValidation } = require('../middlewares/authValidation')
 const adValidation = require('../middlewares/adValidation')
 const AdService = require('./../services/ad.service')
+const UserService = require('./../services/user.service')
 const checkOwnership = require('../middlewares/checkOwnership')
 
 function ad (app) {
   const router = express.Router()
   app.use('/api/ads', router)
   const adServ = new AdService()
+  const userServ = new UserService()
 
   router.get('/', authValidation, async (req, res) => {
     const { id } = req.user
@@ -15,8 +17,15 @@ function ad (app) {
     return res.json(result)
   })
 
-  router.get('/all', async (req, res) => {
+  router.get('/all', authValidation, async (req, res) => {
+    const { id } = req.user
 
+    const user = await userServ.getOne(id)
+    const { infoAreas } = user
+
+    const result = await adServ.getAll(infoAreas)
+
+    return res.json({ result })
   })
 
   router.post('/', authValidation, adValidation, async (req, res) => {

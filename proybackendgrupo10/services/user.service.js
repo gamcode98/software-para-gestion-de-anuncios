@@ -11,6 +11,11 @@ class User {
     }
   }
 
+  async getOne (id) {
+    const user = await UserModel.findById(id)
+    return user
+  }
+
   async create (data) {
     try {
       const user = await UserModel.create(data)

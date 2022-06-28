@@ -5,6 +5,8 @@ const adValidation = async (req, res, next) => {
 
   const { body } = req
   // *TODO HACER DINAMICO
+  const { receivers } = req.body
+  console.log(receivers)
   const areaId = body.receivers[0].area
   const areaRolesToAdd = body.receivers[0].areaRoles
   let isIncluded = true
