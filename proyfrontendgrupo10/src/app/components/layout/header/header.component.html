@@ -1,23 +1,26 @@
 <div class="jumbotron jumbotron-fluid bg-danger"
-    style="background-image: url(../../../../assets/fondo.jpg); background-repeat: no-repeat; background-position: center center ; background-size: cover; background-color:  black">
-    <div class="container">
-        <h1 class="display-4"><a class="" href="#">ANUNCIS</a></h1>
+    style="background-repeat: no-repeat; background-position: center center ; background-size: cover; background-image: radial-gradient(circle, #160101, #4a0e14, #850a1a, #c20018, #ff0303);">
+    <div class="container d-flex align-items-center">
+        <h1 class=""> CREAT </h1>
+        <h1 class="display-4"><a class="" href="#"><img src="../../../../assets/logo.svg"
+                    class="rounded mx-auto d-block" width="200px" alt="..."></a></h1>
+        <h1 class=""> YOUR AD </h1>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand fs-3" href="#">Items </a>
+        <div class="container-fluid justify-content-end">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li routerLinkActive="active" class="nav-item">
-                        <a [routerLink]="['form-person'] " class="nav-link fs-5" href="#">Person</a>
+                        <a [routerLink]="['form-person'] " class="nav-link" href="#">Person</a>
+
                     </li>
                     <li routerLinkActive="active" class="nav-item">
-                        <a [routerLink]="['form-ad'] " class="nav-link fs-5" href="#">Ad</a>
+                        <a [routerLink]="['form-ad'] " class="nav-link" href="#">Ad</a>
                     </li>
                 </ul>
             </div>
