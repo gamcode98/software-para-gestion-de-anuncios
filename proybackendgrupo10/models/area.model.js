@@ -8,9 +8,10 @@ const areaSchema = new mongoose.Schema(
       required: [true, 'Name is required'],
       minlength: [3, 'No less than 3 characters'],
       maxlength: [20, 'No more than 20 characters'],
+      lowercase: true,
       trim: true
     },
-    roles: {
+    areaRoles: {
       type: [String]
     }
   },
