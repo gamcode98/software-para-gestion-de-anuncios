@@ -13,4 +13,8 @@ export class AdService {
   }
 
   getAd(id: string) {}
+
+  getAds() {
+    return this._http.get<Ad[]>('http://localhost:3000/api/advertisements');
+  }
 }
