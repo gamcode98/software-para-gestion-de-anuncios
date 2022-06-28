@@ -6,4 +6,7 @@ body {
     rgba(0, 0, 0, 1) 0%,
     rgba(255, 3, 3, 1) 71%
   );
+.title {
+  font-size: 1.8rem;
+  font-family: "Montserrat", sans-serif;
 }
