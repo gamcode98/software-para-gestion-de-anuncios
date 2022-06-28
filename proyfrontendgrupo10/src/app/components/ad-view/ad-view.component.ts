@@ -11,6 +11,7 @@ import { AdService } from 'src/app/services/ad.service';
 export class AdViewComponent implements OnInit {
   ads: Ad[] = [];
   indice: number = 0;
+  adsImage:Ad[] = []
   ad!: Ad;
 
   constructor(private adService: AdService, private router: Router) {
@@ -19,26 +20,31 @@ export class AdViewComponent implements OnInit {
 
   init() {
     this.ad = this.ads[0];
+    console.log("this.ad")
+    console.log(this.ad)
   }
 
   next() {
-    if (this.indice != this.ads.length - 1) {
+    if (this.indice != this.adsImage.length - 1) {
       this.indice = this.indice + 1;
-      this.ad = this.ads[this.indice];
+      this.ad = this.adsImage[this.indice];
     }
   }
   back() {
     if (this.indice != 0) {
       this.indice = this.indice - 1;
-      this.ad = this.ads[this.indice];
+      this.ad = this.adsImage[this.indice];
     }
   }
 
   viewAds() {
     this.adService.getAds().subscribe((resp) => {
-      console.log(resp);
+      // console.log("resp");
+      // console.log(resp);
       this.ads = resp;
       console.log(this.ads);
+      this.adsImage=this.ads.filter((q:any)=> q.typeOfContent.image===true)
+      console.log(this.adsImage)
     });
   }
 

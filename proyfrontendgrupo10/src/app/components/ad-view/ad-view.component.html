@@ -6,9 +6,9 @@
                     <span class="titulo">ADs</span>
                     <button class="btn btn-success float-end" routerLink="/form-ad">New Ads</button>
 
-                    <div class="container" *ngIf="!ad else ads1">
+                    <!-- <div class="container" *ngIf="!ad else ads1">
                         <img src="../../../assets/cargando.gif" class="rounded mx-auto d-block" alt="...">
-                    </div>
+                    </div> -->
 
 
                     <ng-template #ads1>
@@ -19,7 +19,7 @@
                                         data-bs-ride="carousel">
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
-                                                <img src="{{ad.typeOfContent.image}}"
+                                                <img src="{{ads[0].text}}"
                                                     style="border-radius: 40px; box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.7);"
                                                     class="d-block w-100" alt="...">
                                                 <div class="carousel-caption d-none d-md-block">

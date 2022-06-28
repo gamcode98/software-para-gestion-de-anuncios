@@ -9,12 +9,12 @@ export class AdService {
   constructor(private _http: HttpClient) {}
 
   createAd(ad: Ad) {
-    return this._http.post('http://localhost:3000/api/advertisements', ad);
+    return this._http.post('http://localhost:3000/api/ads', ad);
   }
 
   getAd(id: string) {}
 
   getAds() {
-    return this._http.get<Ad[]>('http://localhost:3000/api/advertisements');
+    return this._http.get<Ad[]>('http://localhost:3000/api/ads');
   }
 }
