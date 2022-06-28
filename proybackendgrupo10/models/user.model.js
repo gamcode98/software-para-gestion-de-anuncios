@@ -35,7 +35,11 @@ const UserSchema = new Schema(
         },
         userRoles: [{ type: String }]
       }
-    ]
+    ],
+    role: {
+      type: Number,
+      default: 1
+    }
   },
   {
     versionKey: false

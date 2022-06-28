@@ -3,7 +3,10 @@ const AdModel = require('../models/ad.model')
 class Ad {
   async getAll () {
     try {
-      const ads = await AdModel.find().populate({ path: 'receivers', populate: { path: 'area' } }).populate('editor', { firstName: 1, lastName: 1 })
+      const ads = await AdModel.find()
+        .populate('editor', { firstName: 1, lastName: 1 })
+        .populate({ path: 'receivers', populate: { path: 'area', areaRoles: 1 } })
+        // .populate({ path: 'receivers', populate: { path: 'area', select: '-areaRoles' } })
       return ads
     } catch (error) {
       console.log(error)
@@ -22,6 +25,8 @@ class Ad {
   async getAdsByEditorId (id) {
     try {
       const ads = await AdModel.find({ editor: id })
+        .populate({ path: 'receivers', populate: { path: 'area', select: '-areaRoles' } })
+        .populate('editor', { firstName: 1, lastName: 1 })
       return ads
     } catch (error) {
       console.log(error)

@@ -33,7 +33,7 @@ class AuthService {
       id: user._id,
       fullName: `${user.firstName} ${user.lastName}`,
       email: user.email,
-      infoAreas: user.infoAreas
+      role: user.role
     }
 
     const token = this.#createToken(userData)

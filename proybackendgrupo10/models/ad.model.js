@@ -20,11 +20,12 @@ const advertisementsSchema = new mongoose.Schema(
       }
     ],
     entryDate: {
-      initial: Date,
-      final: Date
+      initial: { type: Date },
+      final: { type: Date }
     },
     state: {
-      type: String
+      type: String,
+      default: 'confeccionado'
     },
     receivers: [
       {

@@ -15,6 +15,10 @@ function ad (app) {
     return res.json(result)
   })
 
+  router.get('/all', async (req, res) => {
+
+  })
+
   router.post('/', authValidation, adValidation, async (req, res) => {
     const { id } = req.user
     const { body } = req
