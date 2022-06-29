@@ -17,4 +17,8 @@ export class AdService {
   getAds() {
     return this._http.get<Ad[]>('http://localhost:3000/api/ads');
   }
+
+  deleteAd(id: string) {
+    return this._http.delete(`http://localhost:3000/api/ads/${id}`);
+  }
 }
