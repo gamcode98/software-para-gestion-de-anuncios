@@ -78,6 +78,13 @@ function ad (app) {
     return res.json(result)
   })
 
+  router.patch('/:id', async (req, res) => {
+    const { id } = req.params
+    const { body } = req
+    const result = await adServ.update(id, body)
+    return res.json(result)
+  })
+
   router.delete('/:id', async (req, res) => {
     const { id } = req.params
     const result = await adServ.delete(id)
