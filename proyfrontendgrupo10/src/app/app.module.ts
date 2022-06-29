@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +9,9 @@ import { FormPersonComponent } from './components/form-person/form-person.compon
 import { FormAdComponent } from './components/form-ad/form-ad.component';
 import { FormsModule } from '@angular/forms';
 import { AdViewComponent } from './components/ad-view/ad-view.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './auth.guard';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 import { RequestAdViewComponent } from './components/request-ad-view/request-ad-view.component';
 
 @NgModule({
@@ -18,10 +21,18 @@ import { RequestAdViewComponent } from './components/request-ad-view/request-ad-
     FormPersonComponent,
     FormAdComponent,
     AdViewComponent,
+    LoginComponent,
     RequestAdViewComponent,
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
-  providers: [],
+  providers: [
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
