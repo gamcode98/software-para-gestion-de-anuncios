@@ -14,17 +14,14 @@ export class FormAdComponent implements OnInit {
   area: Area[] = [];
   areaAux: Area[] = [];
   sel: string = '';
+  pm: number[] = [];
+  pmUser: number[][] = [];
+  start: boolean = true;
+  startArea: boolean = true;
 
   constructor(private service: AdService, private serviceArea: AreaService) {
     this.ad = new Ad();
-    this.ad.publishingMedia = {
-      facebook: false,
-      twitter: false,
-      youtube: false,
-      instagram: false,
-      email: false,
-      tv: false,
-    };
+
     this.ad.entryDate = {
       initial: new Date(),
       final: new Date(),
@@ -34,20 +31,31 @@ export class FormAdComponent implements OnInit {
 
   ngOnInit(): void {}
   init() {
-    let aux: Area[] = [];
-    let a: Area = new Area();
-    a.name = 'Medicina';
-
-    a.roles = ['rol1', 'rol2', 'rol3'];
-    aux.push(a);
-
-    a.name = 'Academia';
-    aux.push(a);
-    a.name = 'Diseño';
-    aux.push(a);
-    a.name = 'Policia';
-    aux.push(a);
-    this.area = aux;
+    this.serviceArea.getAreas().subscribe((q: any) => {
+      this.area = q;
+    });
+  }
+  newSocial() {
+    if (this.start) {
+      this.pm.push(0);
+      this.pmUser.push([]);
+      this.start = false;
+      this.ad.publishingMedia = [{ name: '', accounts: [] }];
+    } else {
+      this.pm.push(this.pm.length);
+      this.ad.publishingMedia.push({ name: '', accounts: [] });
+      console.log(this.ad);
+    }
+  }
+  newUser(x: number) {
+    if (this.pmUser[x] === undefined) {
+      this.pmUser[x] = [];
+    }
+    this.pmUser[x].push(this.pmUser[x].length);
+    this.ad.publishingMedia[this.ad.publishingMedia.length - 1].accounts.push(
+      ''
+    );
+    console.log(this.ad);
   }
 
   createAd() {
@@ -56,38 +64,48 @@ export class FormAdComponent implements OnInit {
     });
   }
   addRecivers(name: string) {
-    let exist: Boolean = false;
-    for (let i = 0; i < this.areaAux.length; i++) {
-      if (this.areaAux[i].name === name) {
-        this.areaAux.splice(i, 1);
-        exist = true;
+    if (this.startArea) {
+      this.ad.receivers = [{ area: name, areaRoles: [], status: 'confeccion' }];
+      this.startArea = false;
+      console.log(this.ad);
+    } else {
+      let exist: Boolean = false;
+      for (let i = 0; i < this.ad.receivers.length; i++) {
+        if (this.ad.receivers[i].area === name) {
+          console.log(this.ad);
+          this.ad.receivers.splice(i, 1);
+          exist = true;
+        }
       }
-    }
-    if (!exist) {
-      let a: Area = new Area();
-      a.name = name;
-      this.areaAux.push(a);
-      console.log(this.areaAux);
+      if (!exist) {
+        this.ad.receivers.push({
+          area: name,
+          areaRoles: [],
+          status: 'confeccionando',
+        });
+        console.log(this.ad);
+      }
     }
   }
   addReciversRol(name: string, rol: string) {
     let exist: Boolean = false;
     let index: number = 0;
-    for (let i = 0; i < this.areaAux.length; i++) {
-      if (this.areaAux[i].name === name) {
+    for (let i = 0; i < this.ad.receivers.length; i++) {
+      if (this.ad.receivers[i].area === name) {
         index = i;
-        for (let j = 0; j < this.areaAux[i].roles.length; j++) {
-          if (this.areaAux[i].roles[j] === rol) {
-            this.areaAux[i].roles.splice(j, 1);
+        for (let j = 0; j < this.ad.receivers[i].areaRoles.length; j++) {
+          if (this.ad.receivers[i].areaRoles[j] === rol) {
+            this.ad.receivers[i].areaRoles.splice(j, 1);
             exist = true;
+            console.log(this.ad);
           }
         }
       }
     }
     if (!exist) {
       let a: Area = new Area();
-      this.areaAux[index].roles.push(rol);
-      console.log(this.areaAux);
+      this.ad.receivers[index].areaRoles.push(rol);
+      console.log(this.ad);
     }
   }
   selectContent() {

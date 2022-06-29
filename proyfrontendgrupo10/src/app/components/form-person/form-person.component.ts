@@ -12,6 +12,7 @@ export class FormPersonComponent implements OnInit {
   person: Person = new Person();
   areas: Area[] = [];
   areaAux: Area[] = [];
+  startArea: boolean = true;
 
   constructor(
     private servicePerson: PersonService,
@@ -25,7 +26,7 @@ export class FormPersonComponent implements OnInit {
     let a: Area = new Area();
     a.name = 'Medicina';
 
-    a.roles = ['rol1', 'rol2', 'rol3'];
+    a.areaRoles = ['rol1', 'rol2', 'rol3'];
     aux.push(a);
 
     a.name = 'Academia';
@@ -45,19 +46,27 @@ export class FormPersonComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  requestArea(name: string) {
-    let exist: Boolean = false;
-    for (let i = 0; i < this.areaAux.length; i++) {
-      if (this.areaAux[i].name === name) {
-        this.areaAux.splice(i, 1);
-        exist = true;
+  requestArea(id: string, name: string) {
+    if (this.startArea) {
+      this.areaAux = [{ _id: id, name: name, areaRoles: [] }];
+      this.startArea = false;
+    } else {
+      let exist: Boolean = false;
+      for (let i = 0; i < this.areaAux.length; i++) {
+        if (this.areaAux[i].name === name) {
+          console.log(this.areaAux);
+          this.areaAux.splice(i, 1);
+          exist = true;
+        }
       }
-    }
-    if (!exist) {
-      let a: Area = new Area();
-      a.name = name;
-      this.areaAux.push(a);
-      console.log(this.areaAux);
+      if (!exist) {
+        this.areaAux.push({
+          _id: id,
+          name: name,
+          areaRoles: [],
+        });
+        console.log(this.areaAux);
+      }
     }
   }
   requestAreaRol(name: string, rol: string) {
@@ -66,9 +75,9 @@ export class FormPersonComponent implements OnInit {
     for (let i = 0; i < this.areaAux.length; i++) {
       if (this.areaAux[i].name === name) {
         index = i;
-        for (let j = 0; j < this.areaAux[i].roles.length; j++) {
-          if (this.areaAux[i].roles[j] === rol) {
-            this.areaAux[i].roles.splice(j, 1);
+        for (let j = 0; j < this.areaAux[i].areaRoles.length; j++) {
+          if (this.areaAux[i].areaRoles[j] === rol) {
+            this.areaAux[i].areaRoles.splice(j, 1);
             exist = true;
           }
         }
@@ -76,7 +85,7 @@ export class FormPersonComponent implements OnInit {
     }
     if (!exist) {
       let a: Area = new Area();
-      this.areaAux[index].roles.push(rol);
+      this.areaAux[index].areaRoles.push(rol);
       console.log(this.areaAux);
     }
   }
