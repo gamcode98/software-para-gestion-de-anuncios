@@ -1,3 +1,5 @@
+import { Area } from './area';
+
 export class Person {
   _id!: string;
   firstName!: string;
@@ -8,7 +10,7 @@ export class Person {
   password!: string;
   infoAreas!: [
     {
-      area: string;
+      area: Area;
       userRoles: string[];
       status: string;
     }

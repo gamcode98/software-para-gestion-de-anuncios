@@ -9,6 +9,7 @@ import { FormPersonComponent } from './components/form-person/form-person.compon
 import { FormAdComponent } from './components/form-ad/form-ad.component';
 import { FormsModule } from '@angular/forms';
 import { AdViewComponent } from './components/ad-view/ad-view.component';
+import { RequestAdViewComponent } from './components/request-ad-view/request-ad-view.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AdViewComponent } from './components/ad-view/ad-view.component';
     FormPersonComponent,
     FormAdComponent,
     AdViewComponent,
+    RequestAdViewComponent,
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [],

@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-5">
+        <div class="card " *ngFor="let i of adsForMe">
+            <div class="card-header">
+                Anuncio
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{i.publishingMedia}}</h5>
+                <p class="card-text">{{i.text}}</p>
+                <a class="btn btn-primary" (click)="moreDetails(i)">Ver Mas</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-7">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ad.text}}</h5>
+                <p class="card-text">Dirigido</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let x of ad.receivers">{{x.area.name}}
+                    <a class="btn btn-primary" (click)="decideRequest(x.area._id,false)">Aceptar</a>
+                    <a class="btn btn-primary" (click)="decideRequest(x.area._id,true)">Rechazar</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>

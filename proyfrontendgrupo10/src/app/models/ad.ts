@@ -1,3 +1,5 @@
+import { Area } from './area';
+
 export class Ad {
   _id!: string;
   text!: string;
@@ -20,7 +22,7 @@ export class Ad {
 
   receivers!: [
     {
-      area: string;
+      area: Area;
       areaRoles: string[];
       status: string;
     }
