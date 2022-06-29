@@ -7,6 +7,7 @@ import { AdViewComponent } from './components/ad-view/ad-view.component';
 
 const routes: Routes = [
   { path: 'form-ad', component: FormAdComponent },
+  { path: 'form-ad/edit/:id', component: FormAdComponent },
   { path: 'form-person', component: FormPersonComponent },
   { path: 'ad-view', component: AdViewComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'form-person' },

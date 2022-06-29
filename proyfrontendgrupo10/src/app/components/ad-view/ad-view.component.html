@@ -1,82 +1,107 @@
-<<div class="container">
-    <div class="row">
-        <div class="col-lg-10 offset-lg-1">
-            <div class="card mt-3 mb-3">
-                <div class="card-body text-center">
-                    <span class="titulo">ADs</span>
-                    <button class="btn btn-success float-end" routerLink="/form-ad">New Ads</button>
+<div class="row">
+    <div class="col">
+        <!-- Anuncios con imagenes -->
+        <div class="container mb-5">
+            <div class="row mb-5" *ngIf="ad">
+                <div class="col mb-4 mb-md-1">
+                    <div id="carouselExampleDark" class="carousel slide">
 
-                    <!-- <div class="container" *ngIf="!ad else ads1">
-                        <img src="../../../assets/cargando.gif" class="rounded mx-auto d-block" alt="...">
-                    </div> -->
-
-
-                    <ng-template #ads1>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-8 offset-2">
-                                    <div id="carouselExampleCaptions" class="carousel slide m-4 p-4"
-                                        data-bs-ride="carousel">
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                                <img src="{{ads[0].text}}"
-                                                    style="border-radius: 40px; box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.7);"
-                                                    class="d-block w-100" alt="...">
-                                                <div class="carousel-caption d-none d-md-block">
-                                                    <h2 class="">{{ad.text}}</h2>
-                                                    <p class="" style="font-size: 25px; font-family: cursive;">
-                                                        {{ad.editor}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button class="carousel-control-prev " type="button"
-                                            data-bs-target="#carouselExampleCaptions" data-bs-slide="prev"
-                                            (click)="back()">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Siguiente</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button"
-                                            data-bs-target="#carouselExampleCaptions" data-bs-slide="next"
-                                            (click)="next()">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Anterior</span>
-                                        </button>
-                                    </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" data-bs-interval="10000">
+                                <img src="{{ad.text}}" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block text-white">
                                 </div>
                             </div>
-
                         </div>
-                    </ng-template>
+                        <button class="carousel-control-prev" type="button" (click)="back()">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" (click)="next()">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
 
-                    <table class="table border-primary table-striped mt-3">
-                        <thead>
-                            <tr>
-                                <th scope="col">Text Ad</th>
-                                <th scope="col">TypeOfContent</th>
-                                <th scope="col">Date Initial</th>
-                                <th scope="col">Date Final</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
-                            <tr *ngFor="let a of ads ">
-                                <th scope="row">{{a.text}}</th>
-                                <td>{{a.typeOfContent}}</td>
-                                <td>{{a.entryDate.initial}}</td>
-                                <td>{{a.entryDate.final}}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-success" (click)="editAd(a._id)"
-                                            [routerLink]="['/ad-form',a._id]">Modifier</button>
-                                        <button type="button" class="btn btn-danger"
-                                            (click)="deleteAd(a._id)">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="d-md-none text-center">
+                    <h5 class="card-title">{{ad.readingTime}}</h5>
+                </div>
+            </div>
+            <!-- 
+            <a type="button" class="btn btn-primary" [routerLink]="['/form-ad/edit', ad._id]">Modificar</a> -->
+            <button class="btn btn-danger" (click)="showPopUp(ad._id)">Eliminar</button>
+
+        </div>
+        <!-- Anuncios solo con texto -->
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Contenido</th>
+                                    <th scope="col">Tiempo de lectura</th>
+                                    <th scope="col">Editar</th>
+                                    <th scope="col">Eliminar</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let ad of adsWithPlaneText; index as indexOfelement">
+                                    <th scope="row">{{indexOfelement+1}}</th>
+                                    <td>{{ad.text}}</td>
+                                    <td>{{ad.readingTime}}</td>
+                                    <td><a type="button" class="btn btn-primary"
+                                            [routerLink]="['/form-ad/edit', ad._id]">Modificar</a></td>
+                                    <td><button class="btn btn-danger" (click)="showPopUp(ad._id)">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Anuncios con html -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 border mb-3" *ngFor="let ad of adsWithHTML">
+                    <div class="col">
+                        <div innerHTML="{{ad.text}}"></div>
+                        <a type="button" class="btn btn-primary" [routerLink]="['/form-ad/edit', ad._id]">Modificar</a>
+                        <button class="btn btn-danger" (click)="showPopUp(ad._id)">Eliminar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal para eliminar -->
+
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-center"> Desea eliminar?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{adToDelete}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="closePopup()">
+                        Cerrar
+                    </button>
+
+                    <button type="button" class="btn btn-success" (click)="deleteAd()">
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
