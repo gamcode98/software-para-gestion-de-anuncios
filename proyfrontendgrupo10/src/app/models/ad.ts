@@ -7,25 +7,22 @@ export class Ad {
     html: Boolean;
     video: Boolean;
   };
-  publishingMedia!: {
-    facebook: Boolean;
-    twitter: Boolean;
-    youtube: Boolean;
-    instagram: Boolean;
-    email: Boolean;
-    tv: Boolean;
-  };
+  publishingMedia!: [
+    {
+      name: String;
+      accounts: String[];
+    }
+  ];
   entryDate!: {
     initial: Date;
     final: Date;
   };
-  state!: {
-    type: String;
-  };
+
   receivers!: [
     {
       area: string;
-      roles: [String];
+      areaRoles: string[];
+      status: string;
     }
   ];
   resources!: {

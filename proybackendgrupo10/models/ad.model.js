@@ -1,57 +1,57 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const advertisementsSchema = new mongoose.Schema(
-
   {
     text: {
-      type: String
+      type: String,
     },
     typeOfContent: {
       planeText: Boolean,
       image: Boolean,
       html: Boolean,
-      video: Boolean
+      video: Boolean,
     },
     publishingMedia: [
       {
         name: String,
-        accounts: [String]
-      }
+        accounts: [String],
+      },
     ],
     entryDate: {
       initial: { type: Date },
-      final: { type: Date }
+      final: { type: Date },
     },
     state: {
       type: String,
-      default: 'confeccionado'
+      default: "confeccionado",
     },
     receivers: [
       {
         area: {
           type: Schema.Types.ObjectId,
-          ref: 'area'
+          ref: "area",
         },
-        areaRoles: [String]
-      }
+        areaRoles: [String],
+        status: { type: String },
+      },
     ],
     resources: {
       pdf: String,
-      images: [String]
+      images: [String],
     },
     readingTime: {
-      type: String
+      type: String,
     },
     editor: {
       type: Schema.Types.ObjectId,
-      ref: 'user'
-    }
+      ref: "user",
+    },
   },
   {
-    versionKey: false
+    versionKey: false,
   }
-)
+);
 
-const AdModel = mongoose.model('ad', advertisementsSchema)
-module.exports = AdModel
+const AdModel = mongoose.model("ad", advertisementsSchema);
+module.exports = AdModel;

@@ -7,7 +7,7 @@ import { Person } from '../models/person';
   providedIn: 'root',
 })
 export class PersonService {
-  urlApi = 'http://localhost:3000/api/persons/';
+  urlApi = 'http://localhost:3000/api/users';
   constructor(private _http: HttpClient) {}
 
   getPerson() {

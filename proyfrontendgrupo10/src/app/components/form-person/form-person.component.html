@@ -58,11 +58,11 @@
                         </div>
                         <div class="form-check form-switch" *ngFor="let i of areas">
                             <input class="form-check-input" type="checkbox" role="switch" id="areas"
-                                (change)="requestArea(i.name)">
+                                (change)="requestArea(i._id,i.name)">
                             <label class="form-check-label" for="areas">{{i.name}}</label>
-                            <div class="form-check" *ngFor="let j of i.roles">
+                            <div class="form-check" *ngFor="let j of i.areaRoles">
                                 <input class="form-check-input" type="checkbox" value="" id="rol"
-                                    (change)="requestAreaRol(i.name,j)">
+                                    (change)="requestAreaRol(i._id,j)">
                                 <label class="form-check-label" for="rol">
                                     {{j}}
                                 </label>
