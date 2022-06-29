@@ -22,20 +22,6 @@ export class FormPersonComponent implements OnInit {
       console.log(resp);
       this.areas = resp;
     });
-    let aux: Area[] = [];
-    let a: Area = new Area();
-    a.name = 'Medicina';
-
-    a.areaRoles = ['rol1', 'rol2', 'rol3'];
-    aux.push(a);
-
-    a.name = 'Academia';
-    aux.push(a);
-    a.name = 'Diseño';
-    aux.push(a);
-    a.name = 'Policia';
-    aux.push(a);
-    this.areas = aux;
   }
 
   createPerson() {
@@ -48,45 +34,47 @@ export class FormPersonComponent implements OnInit {
 
   requestArea(id: string, name: string) {
     if (this.startArea) {
-      this.areaAux = [{ _id: id, name: name, areaRoles: [] }];
+      this.person.infoAreas = [
+        { area: id, status: 'pendiente', userRoles: [] },
+      ];
       this.startArea = false;
     } else {
       let exist: Boolean = false;
-      for (let i = 0; i < this.areaAux.length; i++) {
-        if (this.areaAux[i].name === name) {
-          console.log(this.areaAux);
-          this.areaAux.splice(i, 1);
+      for (let i = 0; i < this.person.infoAreas.length; i++) {
+        if (this.person.infoAreas[i].area === id) {
+          console.log(this.person);
+          this.person.infoAreas.splice(i, 1);
           exist = true;
         }
       }
       if (!exist) {
-        this.areaAux.push({
-          _id: id,
-          name: name,
-          areaRoles: [],
+        this.person.infoAreas.push({
+          area: id,
+          status: 'pendiente',
+          userRoles: [],
         });
-        console.log(this.areaAux);
+        console.log(this.person);
       }
     }
   }
   requestAreaRol(name: string, rol: string) {
     let exist: Boolean = false;
     let index: number = 0;
-    for (let i = 0; i < this.areaAux.length; i++) {
-      if (this.areaAux[i].name === name) {
+    for (let i = 0; i < this.person.infoAreas.length; i++) {
+      if (this.person.infoAreas[i].area === name) {
         index = i;
-        for (let j = 0; j < this.areaAux[i].areaRoles.length; j++) {
-          if (this.areaAux[i].areaRoles[j] === rol) {
-            this.areaAux[i].areaRoles.splice(j, 1);
+        for (let j = 0; j < this.person.infoAreas[i].userRoles.length; j++) {
+          if (this.person.infoAreas[i].userRoles[j] === rol) {
+            this.person.infoAreas[i].userRoles.splice(j, 1);
             exist = true;
+            console.log(this.person);
           }
         }
       }
     }
     if (!exist) {
-      let a: Area = new Area();
-      this.areaAux[index].areaRoles.push(rol);
-      console.log(this.areaAux);
+      this.person.infoAreas[index].userRoles.push(rol);
+      console.log(this.person);
     }
   }
 }

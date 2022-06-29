@@ -54,7 +54,7 @@
                 <label class="form-check-label" for="areas">{{i.name}}</label>
                 <div class="form-check" *ngFor="let j of i.areaRoles">
                     <input class="form-check-input" type="checkbox" value="" id="rol"
-                        (change)="addReciversRol(i.name,j)">
+                        (change)="addReciversRol(i._id,j)">
                     <label class="form-check-label" for="rol">
                         {{j}}
                     </label>

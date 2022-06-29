@@ -6,10 +6,11 @@ export class Person {
   dni!: number;
   email!: string;
   password!: string;
-  infoArea!: [
+  infoAreas!: [
     {
       area: string;
-      roles: string[];
+      userRoles: string[];
+      status: string;
     }
   ];
 }

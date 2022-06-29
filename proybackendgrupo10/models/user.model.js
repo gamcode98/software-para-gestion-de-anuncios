@@ -1,49 +1,50 @@
-const { Schema, model } = require('mongoose')
-const Area = require('./area.model')
+const { Schema, model } = require("mongoose");
+const Area = require("./area.model");
 
 const UserSchema = new Schema(
   {
     firstName: {
       type: String,
-      required: true
+      required: true,
     },
     lastName: {
       type: String,
-      require: true
+      require: true,
     },
     legajo: {
       type: String,
-      require: true
+      require: true,
     },
     dni: {
       type: Number,
-      require: true
+      require: true,
     },
     email: {
       type: String,
-      require: true
+      require: true,
     },
     password: {
       type: String,
-      require: true
+      require: true,
     },
     infoAreas: [
       {
         area: {
           type: Schema.Types.ObjectId,
-          ref: Area
+          ref: Area,
         },
-        userRoles: [{ type: String }]
-      }
+        userRoles: [{ type: String }],
+        status: { type: String },
+      },
     ],
     role: {
       type: Number,
-      default: 1
-    }
+      default: 1,
+    },
   },
   {
-    versionKey: false
+    versionKey: false,
   }
-)
+);
 
-module.exports = model('user', UserSchema)
+module.exports = model("user", UserSchema);
