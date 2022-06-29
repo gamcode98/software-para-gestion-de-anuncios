@@ -35,13 +35,17 @@ export class FormPersonComponent implements OnInit {
   requestArea(id: string, name: string) {
     if (this.startArea) {
       this.person.infoAreas = [
-        { area: id, status: 'pendiente', userRoles: [] },
+        {
+          area: { _id: id, areaRoles: [], name: '' },
+          status: 'pendiente',
+          userRoles: [],
+        },
       ];
       this.startArea = false;
     } else {
       let exist: Boolean = false;
       for (let i = 0; i < this.person.infoAreas.length; i++) {
-        if (this.person.infoAreas[i].area === id) {
+        if (this.person.infoAreas[i].area._id === id) {
           console.log(this.person);
           this.person.infoAreas.splice(i, 1);
           exist = true;
@@ -49,7 +53,7 @@ export class FormPersonComponent implements OnInit {
       }
       if (!exist) {
         this.person.infoAreas.push({
-          area: id,
+          area: { _id: id, areaRoles: [], name: '' },
           status: 'pendiente',
           userRoles: [],
         });
@@ -61,7 +65,7 @@ export class FormPersonComponent implements OnInit {
     let exist: Boolean = false;
     let index: number = 0;
     for (let i = 0; i < this.person.infoAreas.length; i++) {
-      if (this.person.infoAreas[i].area === name) {
+      if (this.person.infoAreas[i].area._id === name) {
         index = i;
         for (let j = 0; j < this.person.infoAreas[i].userRoles.length; j++) {
           if (this.person.infoAreas[i].userRoles[j] === rol) {

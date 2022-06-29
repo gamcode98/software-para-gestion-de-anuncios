@@ -6,6 +6,7 @@ import { FormAdComponent } from './components/form-ad/form-ad.component';
 import { AdViewComponent } from './components/ad-view/ad-view.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth.guard';
+import { RequestAdViewComponent } from './components/request-ad-view/request-ad-view.component';
 
 const routes: Routes = [
   { path: 'form-ad', component: FormAdComponent, canActivate: [AuthGuard] },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'form-person', component: FormPersonComponent },
   { path: 'ad-view', component: AdViewComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'admin-reques-ad', component: RequestAdViewComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'form-person' },
 ];
 

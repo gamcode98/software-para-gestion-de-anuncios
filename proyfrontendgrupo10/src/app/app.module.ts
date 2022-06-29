@@ -12,6 +12,7 @@ import { AdViewComponent } from './components/ad-view/ad-view.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { RequestAdViewComponent } from './components/request-ad-view/request-ad-view.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     FormAdComponent,
     AdViewComponent,
     LoginComponent,
+    RequestAdViewComponent,
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [
