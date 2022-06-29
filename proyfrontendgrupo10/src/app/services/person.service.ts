@@ -13,6 +13,9 @@ export class PersonService {
   getPerson() {
     return this._http.get<Person[]>(`${this.urlApi}`);
   }
+  getPersonById(id: string) {
+    return this._http.get<Person>(`${this.urlApi}/${id}`);
+  }
   addPerson(person: Person): Observable<any> {
     return this._http.post(this.urlApi, person);
   }

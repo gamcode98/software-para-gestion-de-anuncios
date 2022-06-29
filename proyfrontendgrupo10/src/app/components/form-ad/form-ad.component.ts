@@ -65,13 +65,19 @@ export class FormAdComponent implements OnInit {
   }
   addRecivers(name: string) {
     if (this.startArea) {
-      this.ad.receivers = [{ area: name, areaRoles: [], status: 'confeccion' }];
+      this.ad.receivers = [
+        {
+          area: { _id: name, areaRoles: [], name: '' },
+          areaRoles: [],
+          status: 'confeccionado',
+        },
+      ];
       this.startArea = false;
       console.log(this.ad);
     } else {
       let exist: Boolean = false;
       for (let i = 0; i < this.ad.receivers.length; i++) {
-        if (this.ad.receivers[i].area === name) {
+        if (this.ad.receivers[i].area._id === name) {
           console.log(this.ad);
           this.ad.receivers.splice(i, 1);
           exist = true;
@@ -79,7 +85,7 @@ export class FormAdComponent implements OnInit {
       }
       if (!exist) {
         this.ad.receivers.push({
-          area: name,
+          area: { _id: name, areaRoles: [], name: '' },
           areaRoles: [],
           status: 'confeccionando',
         });
@@ -91,7 +97,7 @@ export class FormAdComponent implements OnInit {
     let exist: Boolean = false;
     let index: number = 0;
     for (let i = 0; i < this.ad.receivers.length; i++) {
-      if (this.ad.receivers[i].area === name) {
+      if (this.ad.receivers[i].area._id === name) {
         index = i;
         for (let j = 0; j < this.ad.receivers[i].areaRoles.length; j++) {
           if (this.ad.receivers[i].areaRoles[j] === rol) {
