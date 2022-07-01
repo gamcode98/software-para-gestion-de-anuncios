@@ -1,9 +1,52 @@
 const AdModel = require('../models/ad.model')
 
 class Ad {
-  async getAll () {
+  async getAllAll () {
+    const ads = await AdModel.find().populate({
+      path: 'receivers',
+      populate: { path: 'area', select: '-areaRoles' }
+    })
+    return ads
+  }
+
+  async getAdsWhereUserIsEncargado () {
+    const ads = await AdModel.find({})
+
+    return ads
+  }
+
+  async getAll (infoAreas) {
+    const adsArray = []
+
+    for (let index = 0; index < infoAreas.length; index++) {
+      const ads = await AdModel.find({
+        'receivers.area': infoAreas[index].area,
+        'receivers.areaRoles': { $in: infoAreas[index].userRoles },
+        'receivers.status': 'autorizado'
+      })
+      adsArray.push(ads)
+    }
+
+    return adsArray
+  }
+
+  async getOne (adId, editorId) {
     try {
-      const ads = await AdModel.find()
+      const ad = await AdModel.findOne({ _id: adId, editor: editorId })
+      return ad
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getAdsByEditorId (id) {
+    try {
+      const ads = await AdModel.find({ editor: id })
+        .populate({
+          path: 'receivers',
+          populate: { path: 'area', select: '-areaRoles' }
+        })
+        .populate('editor', { firstName: 1, lastName: 1 })
       return ads
     } catch (error) {
       console.log(error)
