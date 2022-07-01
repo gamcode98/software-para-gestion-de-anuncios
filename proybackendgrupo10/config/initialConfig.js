@@ -1,6 +1,8 @@
 const dotenv = require('dotenv')
 const areas = require('../data/areas')
+const superadmin = require('../data/user')
 const AreaModel = require('../models/area.model')
+const UserModel = require('../models/user.model')
 const { connection } = require('./db')
 
 dotenv.config()
@@ -11,6 +13,7 @@ const importAreas = async () => {
   try {
     await AreaModel.deleteMany()
     await AreaModel.insertMany(areas)
+    await UserModel.create(superadmin)
     console.log('Data Imported')
     process.exit()
   } catch (error) {
