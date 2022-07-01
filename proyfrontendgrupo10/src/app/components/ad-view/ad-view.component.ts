@@ -9,47 +9,72 @@ import { AdService } from 'src/app/services/ad.service';
   styleUrls: ['./ad-view.component.css'],
 })
 export class AdViewComponent implements OnInit {
+  adsWithImages: Ad[] = [];
+  adsWithPlaneText: Ad[] = [];
+  adsWithHTML: Ad[] = [];
+  adsWithVideo: Ad[] = [];
   ads: Ad[] = [];
-  indice: number = 0;
   ad!: Ad;
+  displayStyle!: string;
+  adToDelete!: string;
+  adToDoActions!: Ad;
 
   constructor(private adService: AdService, private router: Router) {
     this.viewAds();
   }
 
-  init() {
-    this.ad = this.ads[0];
+  showPopUp(id: string) {
+    this.displayStyle = 'block';
+    this.adToDelete = id;
   }
 
-  next() {
-    if (this.indice != this.ads.length - 1) {
-      this.indice = this.indice + 1;
-      this.ad = this.ads[this.indice];
-    }
-  }
-  back() {
-    if (this.indice != 0) {
-      this.indice = this.indice - 1;
-      this.ad = this.ads[this.indice];
-    }
-  }
-
-  viewAds() {
-    this.adService.getAds().subscribe((resp) => {
-      console.log(resp);
-      this.ads = resp;
-      console.log(this.ads);
+  deleteAd() {
+    this.adService.deleteAd(this.adToDelete).subscribe((data) => {
+      this.closePopup();
     });
   }
 
-  deleteAd(id: string) {}
-
   editAd(id: string) {
-    this.router.navigate(['form-ad', id]);
+    console.log(id);
   }
 
+  closePopup() {
+    this.displayStyle = 'none';
+  }
+
+  getInfo() {
+    console.log(this.ads);
+  }
+
+  selectAd(id: string) {
+    this.ads.forEach((ad) => {
+      if (ad._id === id) {
+        this.adToDoActions = ad;
+      }
+    });
+    console.log(this.adToDoActions);
+  }
+  viewAds() {
+    this.adService.getAds().subscribe((res) => {
+      this.ads = res;
+      this.ads.forEach((ad) => {
+        if (ad.typeOfContent.html) {
+          this.adsWithHTML.push(ad);
+        } else if (ad.typeOfContent.image) {
+          this.adsWithImages.push(ad);
+        } else if (ad.typeOfContent.planeText) {
+          this.adsWithPlaneText.push(ad);
+        } else if (ad.typeOfContent.video) {
+          this.adsWithVideo.push(ad);
+        }
+      });
+      // this.init();
+    });
+  }
+  init() {
+    this.ad = this.adsWithImages[0];
+  }
   ngOnInit(): void {
     this.viewAds();
-    this.init();
   }
 }
