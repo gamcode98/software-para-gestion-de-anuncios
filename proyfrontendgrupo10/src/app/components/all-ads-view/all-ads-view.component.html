@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col">
+        <!-- Anuncios con imagenes -->
+        <div class="container mb-5">
+            <h2 class="text-center mb-2">Anuncios con imagenes</h2>
+            <div class="row mb-5" *ngIf="ad">
+                <div class="col mb-4 mb-md-1">
+                    <div id="carouselExampleDark" class="carousel slide">
+
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" data-bs-interval="10000">
+                                <img src="{{ad.text}}" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block text-white">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" (click)="back()">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" (click)="next()">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="d-md-none text-center">
+                    <h5 class="card-title">{{ad.readingTime}}</h5>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- Anuncios solo con texto -->
+        <div class="container">
+            <h2 class="text-center mb-2">Anuncios de texto</h2>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Contenido</th>
+                                    <th scope="col">Tiempo de lectura</th>
+                                    <th scope="col">Editar</th>
+                                    <th scope="col">Eliminar</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let ad of adsWithPlaneText; index as indexOfelement">
+                                    <th scope="row">{{indexOfelement+1}}</th>
+                                    <td>{{ad.text}}</td>
+                                    <td>{{ad.readingTime}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Anuncios con html -->
+
+        <div class="container">
+            <h2 class="text-center mb-2">Anuncios con html</h2>
+            <div class="row">
+                <div class="col-12 border mb-3" *ngFor="let ad of adsWithHTML">
+                    <div class="col">
+                        <div innerHTML="{{ad.text}}"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
