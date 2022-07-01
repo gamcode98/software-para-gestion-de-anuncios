@@ -5,7 +5,7 @@ const AdService = require('./../services/ad.service')
 const UserService = require('./../services/user.service')
 const checkOwnership = require('../middlewares/checkOwnership')
 
-function ad(app) {
+function ad (app) {
   const router = express.Router()
   app.use('/api/ads', router)
   const adServ = new AdService()
@@ -108,13 +108,13 @@ function ad(app) {
 
       return res.json({
         success: true,
-        result,
+        result
       })
     } catch (error) {
       console.log(error)
       return res.status(500).json({
         success: false,
-        message: 'Something went wrong',
+        message: 'Something went wrong'
       })
     }
   })
@@ -130,20 +130,33 @@ function ad(app) {
   //   return res.status(201).json(result)
   // })
 
+  router.get('/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      const ad = await adServ.getOneAd(id)
+      return res.json(ad)
+    } catch (error) {
+      return res.json({
+        error: true,
+        message: 'Something went wrong'
+      })
+    }
+  })
+
   router.post('/', authValidation, async (req, res) => {
     try {
       const { id } = req.user
       const { body } = req
       const data = {
         ...body,
-        editor: id,
+        editor: id
       }
       const result = await adServ.create(data)
       return res.status(201).json(result)
     } catch (error) {
       return res.status(500).json({
         error: true,
-        message: 'Something were wrong',
+        message: 'Something were wrong'
       })
     }
   })

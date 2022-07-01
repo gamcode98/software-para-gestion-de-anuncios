@@ -39,6 +39,11 @@ class Ad {
     }
   }
 
+  async getOneAd (id) {
+    const ad = await AdModel.findById(id)
+    return ad
+  }
+
   async getAdsByEditorId (id) {
     try {
       const ads = await AdModel.find({ editor: id })
