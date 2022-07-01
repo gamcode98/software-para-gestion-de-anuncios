@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col">
+        <h1 class="text-center mb-4">Acciones para anuncios</h1>
+        <div class="row mx-2">
+
+            <div class="col-4 py-3 border ms-4 me-5">
+
+                <!-- Anuncios con imagenes  -->
+                <div class="card mb-3" *ngFor="let ad of adsWithHTML">
+                    <div class="card-body">
+                        <h5 class="card-title">Tipo de contenido: HTML</h5>
+
+                        <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
+                    </div>
+                </div>
+
+                <!-- Anuncios con imagenes  -->
+                <div class="card mb-3" *ngFor="let ad of adsWithImages">
+                    <div class="card-body">
+                        <h5 class="card-title">Tipo de contenido: Imagenes</h5>
+
+                        <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
+                    </div>
+                </div>
+
+                <!-- Anuncios con texto plano   -->
+                <div class="card mb-3" *ngFor="let ad of adsWithPlaneText">
+                    <div class="card-body">
+                        <h5 class="card-title">Tipo de contenido: Texto plano</h5>
+
+                        <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Detalles del anuncio seleccionado -->
+            <div class="col-7 border">
+
+                <div class="card mb-3 mt-2" *ngIf="adToDoActions">
+                    <div class="card-body">
+                        <h5 class="card-title">Tipo de contenido: </h5>
+                        <p class="card-text" *ngIf="!adToDoActions.typeOfContent.image">Texto: {{adToDoActions.text}}
+                        </p>
+                        <img *ngIf="adToDoActions.typeOfContent.image" src="{{adToDoActions.text}}"
+                            class="card-img-top mb-2" alt="...">
+
+                        <div class="card-text" *ngFor="let receivers of adToDoActions.receivers">
+                            <p>Area: {{receivers.area}}</p>
+                            <button class="btn btn-danger me-2"
+                                (click)="showPopUp(receivers.area._id,'decline')">Rechazar</button>
+                            <button class="btn btn-success"
+                                (click)="showPopUp(receivers.area._id,'authorize')">Autorizar</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para eliminar -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">¿Esta seguro que desea {{authorize?"autorizar":"rechazar"}} el
+                    anuncio?</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{adToAuthorize}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="closePopup()">
+                    Cancelar
+                </button>
+
+                <button *ngIf="authorize" type="button" class="btn btn-primary" (click)="authorizeAd()">
+                    Autorizar
+                </button>
+                <button *ngIf="decline" type="button" class="btn btn-primary" (click)="declineAd()">
+                    Rechazar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-primary" (click)="getInfo()">get info</button>
