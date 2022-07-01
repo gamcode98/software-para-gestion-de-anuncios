@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { AdViewComponent } from './components/ad-view/ad-view.component';
 import { RequestAdViewComponent } from './components/request-ad-view/request-ad-view.component';
 import { AllAdsViewComponent } from './components/all-ads-view/all-ads-view.component';
+import { LoginComponent } from './components/login/login.component';
 import { RequestPersonViewComponent } from './components/request-person-view/request-person-view.component';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { RequestPersonViewComponent } from './components/request-person-view/req
     AdViewComponent,
     RequestAdViewComponent,
     AllAdsViewComponent,
+    LoginComponent,
     RequestPersonViewComponent,
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
