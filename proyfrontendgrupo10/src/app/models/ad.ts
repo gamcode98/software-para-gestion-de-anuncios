@@ -1,31 +1,30 @@
+import { Area } from './area';
+
 export class Ad {
   _id!: string;
   text!: string;
   typeOfContent!: {
-    planeText: String;
-    image: String;
-    html: String;
-    video: String;
+    planeText: Boolean;
+    image: Boolean;
+    html: Boolean;
+    video: Boolean;
   };
-  publishingMedia!: {
-    facebook: Boolean;
-    twitter: Boolean;
-    youtube: Boolean;
-    instagram: Boolean;
-    email: Boolean;
-    tv: Boolean;
-  };
+  publishingMedia!: [
+    {
+      name: String;
+      accounts: String[];
+    }
+  ];
   entryDate!: {
     initial: Date;
     final: Date;
   };
-  state!: {
-    type: String;
-  };
+
   receivers!: [
     {
-      area: string;
-      roles: [String];
+      area: Area;
+      areaRoles: string[];
+      status: string;
     }
   ];
   resources!: {
