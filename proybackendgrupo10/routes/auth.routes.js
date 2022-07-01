@@ -7,8 +7,12 @@ const auth = (app) => {
   app.use('/api/auth', router)
 
   router.post('/login', async (req, res) => {
-    const result = await authServ.login(req.body)
-    return res.status(result.error ? 400 : 200).json(result)
+    try {
+      const result = await authServ.login(req.body)
+      return res.status(result.error ? 400 : 200).json(result)
+    } catch (error) {
+      console.log(error)
+    }
   })
 
   router.post('/signup', async (req, res) => {
