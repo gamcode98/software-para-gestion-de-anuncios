@@ -41,4 +41,12 @@ export class AdService {
   deleteAd(id: string) {
     return this._http.delete(`${this.URL}/ads/${id}`);
   }
+
+  getAdById(id:string) {
+    return this._http.get<Ad>(`${this.URL}/ads/${id}`);
+  }
+
+  updateAd(ad: Ad) {
+    return this._http.put(`${this.URL}/ads/${ad._id}`,ad);
+  }
 }

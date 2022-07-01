@@ -16,34 +16,27 @@ export class AdViewComponent implements OnInit {
   ads: Ad[] = [];
   ad!: Ad;
   displayStyle!: string;
-  adToDelete!: string;
+  idOfAdToDelete!: string;
   adToDoActions!: Ad;
 
-  constructor(private adService: AdService, private router: Router) {
-    this.viewAds();
-  }
+  constructor(private adService: AdService, private router: Router) {}
 
   showPopUp(id: string) {
     this.displayStyle = 'block';
-    this.adToDelete = id;
+    this.idOfAdToDelete = id;
   }
 
-  deleteAd() {
-    this.adService.deleteAd(this.adToDelete).subscribe((data) => {
+  deleteAd() {    
+    this.adService.deleteAd(this.idOfAdToDelete).subscribe((res) => {      
       this.closePopup();
+      this.router
+      .navigateByUrl('/', { skipLocationChange: true })
+      .then(() => this.router.navigate(['my-ads']));
     });
-  }
-
-  editAd(id: string) {
-    console.log(id);
   }
 
   closePopup() {
     this.displayStyle = 'none';
-  }
-
-  getInfo() {
-    console.log(this.ads);
   }
 
   selectAd(id: string) {
@@ -52,13 +45,13 @@ export class AdViewComponent implements OnInit {
         this.adToDoActions = ad;
       }
     });
-    console.log(this.adToDoActions);
   }
+
   viewAds() {
-    this.adService.getAds().subscribe((res) => {
-      this.ads = res;
+    this.adService.getAds().subscribe((ads) => {      
+      this.ads = ads;
       this.ads.forEach((ad) => {
-        if (ad.typeOfContent.html) {
+        if (ad.typeOfContent.html) {          
           this.adsWithHTML.push(ad);
         } else if (ad.typeOfContent.image) {
           this.adsWithImages.push(ad);
@@ -67,14 +60,12 @@ export class AdViewComponent implements OnInit {
         } else if (ad.typeOfContent.video) {
           this.adsWithVideo.push(ad);
         }
-      });
-      // this.init();
+      });      
     });
   }
-  init() {
-    this.ad = this.adsWithImages[0];
-  }
-  ngOnInit(): void {
+  
+  ngOnInit(): void { 
     this.viewAds();
   }
+  
 }
