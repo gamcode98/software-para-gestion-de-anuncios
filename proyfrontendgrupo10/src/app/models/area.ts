@@ -1,4 +1,5 @@
 export class Area {
+  _id!: string;
   name!: string;
-  roles!: string[];
+  areaRoles!: string[];
 }
