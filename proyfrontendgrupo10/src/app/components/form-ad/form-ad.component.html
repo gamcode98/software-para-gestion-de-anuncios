@@ -2,95 +2,75 @@
     <div class="offset-2 border mt-5 p-5 col-8">
         <div class="mb-3">
             <label for="texto" class="form-label">Texto</label>
-            <input type="text" class="form-control" id="texto" name="tx" [(ngModel)]="ad.text">
+            <input type="text" class="form-control" id="texto" name="tx" [(ngModel)]="ad.text" />
         </div>
 
-        <select class="form-select" aria-label="Default select example">
-            <option value="1">Imagen</option>
-            <option value="2">HTML</option>
-            <option value="3">Video</option>
-            <option selected value="4">Texto</option>
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="sel" (change)="selectContent()">
+            <option value="image">Imagen</option>
+            <option value="html">HTML</option>
+            <option value="video">Video</option>
+            <option selected value="planeText">Texto</option>
         </select>
         <div class="border p-2 m-3">
             <h3>Medios de publicacion</h3>
+            <div *ngFor="let i of pm">
+                <select class="form-select" aria-label="Default select example" name="namePM"
+                    [(ngModel)]="ad.publishingMedia[i].name">
+                    <option value="Twitter">Twitter</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Youtube">Youtube</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Tv">Tv</option>
+                    <option value="Email">Email</option>
+                </select>
 
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="face" name="fa"
-                    [(ngModel)]="ad.publishingMedia.facebook">
-                <label class="form-check-label" for="face">
-                    Facebook
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="twitter" name="tw"
-                    [(ngModel)]="ad.publishingMedia.twitter">
-                <label class="form-check-label" for="twitter">
-                    Twitter
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="youtube" name="yo"
-                    [(ngModel)]="ad.publishingMedia.youtube">
-                <label class="form-check-label" for="youtube">
-                    Youtube
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="instagram" name="in"
-                    [(ngModel)]="ad.publishingMedia.instagram">
-                <label class="form-check-label" for="instagram">
-                    Instagram
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="em" name="em"
-                    [(ngModel)]="ad.publishingMedia.email">
-                <label class="form-check-label" for="em">
-                    Email
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="tv" name="tv"
-                    [(ngModel)]="ad.publishingMedia.tv">
-                <label class="form-check-label" for="tv">
-                    TV
-                </label>
+                <div class="mb-3" *ngFor="let j of pmUser[i]">
+                    <label for="u" class="form-label">Usuario</label>
+                    <input type="text" class="form-control" id="u" name="userPM"
+                        [(ngModel)]="ad.publishingMedia[i].accounts[j]" />
+                </div>
+                <button type="button" class="btn btn-primary" (click)="newUser(i)">
+                    Añadir Usuario
+                </button>
             </div>
 
+            <button type="button" class="btn btn-primary" (click)="newSocial()">
+                Añadir
+            </button>
         </div>
 
         <div class="mb-3">
             <label for="init" class="form-label">Fecha de Inicio</label>
-            <input type="date" class="form-control" id="init" name="fi" [(ngModel)]="ad.entryDate.initial">
+            <input type="date" class="form-control" id="init" name="fi" [(ngModel)]="ad.entryDate.initial" />
             <label for="end" class="form-label" name="ff">Fecha Final</label>
-            <input type="date" class="form-control" id="end" [(ngModel)]="ad.entryDate.final">
+            <input type="date" class="form-control" id="end" [(ngModel)]="ad.entryDate.final" />
         </div>
         <div>
             <h3>Dirigido</h3>
 
             <div class="form-check form-switch" *ngFor="let i of area">
-                <input class="form-check-input" type="checkbox" role="switch" id="areas" (change)="addRecivers(i.name)">
-                <label class="form-check-label" for="areas">{{i.name}}</label>
-                <div class="form-check" *ngFor="let j of i.roles">
+                <input class="form-check-input" type="checkbox" role="switch" id="areas"
+                    (change)="addRecivers(i._id)" />
+                <label class="form-check-label" for="areas">{{ i.name }}</label>
+                <div class="form-check" *ngFor="let j of i.areaRoles">
                     <input class="form-check-input" type="checkbox" value="" id="rol"
-                        (change)="addReciversRol(i.name,j)">
+                        (change)="addReciversRol(i._id, j)" />
                     <label class="form-check-label" for="rol">
-                        {{j}}
+                        {{ j }}
                     </label>
                 </div>
             </div>
-
         </div>
-
-
 
         <div class="mb-3">
             <label for="timeRead" class="form-label">Tiempo de Lectura</label>
-            <input type="text" class="form-control" id="timeRead">
+            <input type="text" class="form-control" id="timeRead" />
         </div>
 
         <div class="m-auto pt-4 pb-3">
-            <button type="submit" class="btn btn-success fs-4 " (click)="createAd()">Save</button>
+            <button type="submit" class="btn btn-success fs-4" (click)="createAd()">
+                Save
+            </button>
         </div>
     </div>
 </div>
