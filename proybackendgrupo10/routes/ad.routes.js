@@ -128,5 +128,3 @@ function ad (app) {
 }
 
 module.exports = ad
-
-module.exports = ad
