@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RequestPersonViewComponent } from './components/request-person-view/request-person-view.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { AdDetailsComponent } from './components/ad-details/ad-details.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +29,15 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     AllAdsViewComponent,
     LoginComponent,
     RequestPersonViewComponent,
+    AdDetailsComponent,
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    QRCodeModule,
+  ],
   providers: [
     AuthGuard,
     {

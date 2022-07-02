@@ -118,6 +118,15 @@ export class FormAdComponent implements OnInit {
       this.router.navigate(['my-ads']);
     });
   }
+  sendAd() {
+    this.ad.receivers.forEach((q) => {
+      q.status = 'confeccionado';
+    });
+    this.service.createAd(this.ad).subscribe((q) => {
+      console.log(q);
+      this.router.navigate(['my-ads']);
+    });
+  }
 
   addRecivers(name: string) {
     if (this.startArea) {
@@ -125,7 +134,7 @@ export class FormAdComponent implements OnInit {
         {
           area: { _id: name, areaRoles: [], name: '' },
           areaRoles: [],
-          status: 'confeccionado',
+          status: 'edicion',
         },
       ];
       this.startArea = false;
@@ -143,7 +152,7 @@ export class FormAdComponent implements OnInit {
         this.ad.receivers.push({
           area: { _id: name, areaRoles: [], name: '' },
           areaRoles: [],
-          status: 'confeccionado',
+          status: 'edicion',
         });
         console.log(this.ad);
       }

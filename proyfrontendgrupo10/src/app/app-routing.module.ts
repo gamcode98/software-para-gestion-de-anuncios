@@ -10,6 +10,7 @@ import { AllAdsViewComponent } from './components/all-ads-view/all-ads-view.comp
 import { LoginComponent } from './components/login/login.component';
 import { RequestPersonViewComponent } from './components/request-person-view/request-person-view.component';
 import { AuthGuard } from './auth.guard';
+import { AdDetailsComponent } from './components/ad-details/ad-details.component';
 
 const routes: Routes = [
   { path: 'form-ad', component: FormAdComponent, canActivate: [AuthGuard] },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin-reques-ad-v2', component: RequestAdViewComponent },
   { path: 'admin-reques-person-v2', component: RequestPersonViewComponent },
+  { path: 'ad-details/:id', component: AdDetailsComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' },
 ];
 
