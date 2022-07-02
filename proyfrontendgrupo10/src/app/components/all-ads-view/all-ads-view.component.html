@@ -54,6 +54,11 @@
                                     <th scope="row">{{indexOfelement+1}}</th>
                                     <td>{{ad.text}}</td>
                                     <td>{{ad.readingTime}}</td>
+                                    <td>
+                                        <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id" [width]="256"
+                                            [errorCorrectionLevel]="'M'">
+                                        </qrcode>
+                                    </td>
 
                                 </tr>
                             </tbody>
