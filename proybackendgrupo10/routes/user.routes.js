@@ -21,45 +21,63 @@ function user (app) {
       const { infoAreas } = user
       const areasWhereUserIsEncargado = []
       let isIncluded = true
-      let isIncluded2 = true
 
-      infoAreas.forEach(el => {
-        isIncluded = el.userRoles.includes('Encargado')
-        if (isIncluded) {
-          areasWhereUserIsEncargado.push(el)
+      for (let index = 0; index < users.length; index++) {
+        if (users[index]._id.toString() === id) {
+          users.splice(index, 1)
+          break
         }
+      }
+
+      infoAreas.forEach(infoArea => {
+        isIncluded = infoArea.userRoles.includes('Encargado') && infoArea.status === 'aceptado'
+        if (isIncluded) areasWhereUserIsEncargado.push(infoArea)
       })
 
       const areasId = []
 
-      areasWhereUserIsEncargado.forEach(el => {
-        areasId.push(el.area._id.toString())
-      })
-      const positionsToDelete = []
+      areasWhereUserIsEncargado.forEach(el => areasId.push(el.area._id.toString()))
+
+      // console.log(areasId)
+
+      let isIncluded2 = true
 
       for (let j = 0; j < users.length; j++) {
         for (let index = 0; index < users[j].infoAreas.length; index++) {
-          console.log(users[j].infoAreas[index].area._id.toString())
           isIncluded2 = areasId.includes(users[j].infoAreas[index].area._id.toString())
-          console.log('isIncluded2', isIncluded2)
-          if (!isIncluded2) {
+          if (isIncluded2 === false) {
             users[j].infoAreas.splice(index, 1)
+            index = -1
+          } else {
+            isIncluded2 = true
           }
-          if (users[j].infoAreas.length === 0) {
-            positionsToDelete.push(j)
+        }
+
+        if (users[j].infoAreas.length === 0) {
+          users.splice(j, 1)
+          j = 0
+        }
+      }
+
+      for (let index = 0; index < users.length; index++) {
+        // console.log('users[index].infoAreas => ', users[index].infoAreas)
+        if (users[index].infoAreas !== undefined) {
+          for (let j = 0; j < users[index].infoAreas.length; index++) {
+            console.log('users[index].infoAreas[j]=> ', users[index].infoAreas[j])
+
+            if (users[index].infoAreas[j].status !== 'pendiente') {
+              users.splice(index, 1)
+              index = -1
+            }
           }
         }
       }
 
-      for (let index = 0; index < positionsToDelete.length; index++) {
-        users.splice(positionsToDelete[index], 1)
-      }
-
-      // console.log(areasWhereUserIsEncargado)
-      // console.log(areasId)
+      console.log(users)
 
       return res.json(users)
     } catch (error) {
+      console.log(error)
       return res.status(500).json({
         error: true,
         message: 'Something went wrong'
@@ -98,11 +116,24 @@ function user (app) {
     const user = await userServ.update(id, body)
     return res.json(user)
   })
+
   router.patch('/:id', async (req, res) => {
     const { id } = req.params
-    const { body } = req
-    const user = await userServ.updatePartial(id, body)
-    return res.json(user)
+    const { infoAreas } = req.body
+
+    const user = await userServ.getOne(id)
+
+    // console.log(infoAreas)
+
+    for (let index = 0; index < user.infoAreas.length; index++) {
+      if (infoAreas[0].area._id === user.infoAreas[index].area._id.toString()) {
+        user.infoAreas.splice(index, 1, infoAreas[index])
+      }
+    }
+
+    const userUpdated = await userServ.updatePartial(id, user)
+    return res.json(userUpdated)
+    // return res.json({ message: 'working' })
   })
 }
 
