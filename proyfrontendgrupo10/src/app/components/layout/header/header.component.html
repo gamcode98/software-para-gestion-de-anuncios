@@ -131,9 +131,23 @@
                     </ul>
                 </li>
 
-                <a class="btn btn-primary me-2" routerLink="/login">Inciar sesión</a>
-                <a class="btn btn-primary" routerLink="/form-person">Registrarse</a>
+                <!-- <a class="btn btn-primary me-2" routerLink="/login">Inciar sesión</a>
+                <a class="btn btn-primary" routerLink="/form-person">Registrarse</a> -->
 
+                <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
+                    <li class="nav-item">
+                      <a class="btn btn-primary" routerLink="/login" routerLinkActive="active">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="btn btn-primary" routerLink="/form-person" routerLinkActive="active">Registrarse</a>
+                    </li>
+                  </ng-container>
+
+                <ng-template #loggedIn>
+                    <li class="nav-item">
+                      <a class="btn btn-primary" (click)="authService.logout()">Logout</a>
+                    </li>
+                  </ng-template> 
                 <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
