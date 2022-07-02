@@ -79,11 +79,6 @@ function user(app) {
             i = 0;
           }
         }
-        console.log(
-          users[index].infoAreas.length,
-          "uuuuuuuuuuuuuuuuu==================",
-          users[index]
-        );
 
         if (users[index].infoAreas.length === 0) {
           users.splice(index, 1);

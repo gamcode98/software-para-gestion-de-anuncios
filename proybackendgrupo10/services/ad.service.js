@@ -10,7 +10,10 @@ class Ad {
   }
 
   async getAdsWhereUserIsEncargado() {
-    const ads = await AdModel.find({});
+    const ads = await AdModel.find().populate({
+      path: "receivers",
+      populate: { path: "area", select: "-areaRoles" },
+    });
 
     return ads;
   }
