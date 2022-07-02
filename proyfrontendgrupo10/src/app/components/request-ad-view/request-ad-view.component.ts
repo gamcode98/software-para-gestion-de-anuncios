@@ -83,8 +83,7 @@ export class RequestAdViewComponent implements OnInit {
     var apiMethod: ApiMethod = 'post';
     this.fb.api('/109192058513786/feed', apiMethod, {
       message: this.mensaje,
-      access_token:
-        'EAARYySe8AZA0BAPZBkZCEI6PqsjssK0IRlfe2eZBTjIeHx9vtxOmGBYQnOGmVDJx1SzqQtbPzZCqlZBI0mf47W7CZAeP2ObZAMNo44UuUzkdcyv8z5KjTDD1mpvN7IiJYUgrd0ZCoZCrlTz5kHsmD0A08JNyQToIgrAd0lNSu3oONRGry1jwQMOJPdzgOe76xv8g5XNoJOkpPWZApUycx6vi0gDZCr1XMsCpzSYZD',
+      access_token: '',
     });
   }
 
