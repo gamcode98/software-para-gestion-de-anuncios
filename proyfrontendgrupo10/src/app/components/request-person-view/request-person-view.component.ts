@@ -66,8 +66,8 @@ export class RequestPersonViewComponent implements OnInit {
         this.userToDoActions.infoAreas[i].status = 'aceptado';
       }
     }
-    this.userService.updateUser(this.userToDoActions).subscribe((res) => {
-      console.log(res);
+    
+    this.userService.updateUser(this.userToDoActions).subscribe((res) => {      
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() => this.router.navigate(['admin-reques-person-v2']));
@@ -86,5 +86,9 @@ export class RequestPersonViewComponent implements OnInit {
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() => this.router.navigate(['admin-reques-person-v2']));
     });
+  }
+
+  getInfo(){
+    console.log("this.userToDoActions =>", this.userToDoActions)
   }
 }
