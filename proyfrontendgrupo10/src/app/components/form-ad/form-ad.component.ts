@@ -6,6 +6,7 @@ import { AdService } from 'src/app/services/ad.service';
 import { AreaService } from 'src/app/services/area.service';
 import { PersonService } from 'src/app/services/person.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-form-ad',
@@ -25,6 +26,8 @@ export class FormAdComponent implements OnInit {
   myAreas!: any[];
   edit: boolean = false;
   title: string = 'Crear anuncio';
+  fileName: string = '';
+  base64Output!: string;
 
   constructor(
     private service: AdService,
@@ -52,6 +55,37 @@ export class FormAdComponent implements OnInit {
         this.title = 'Modificar anuncio';
       });
     }
+  }
+
+  onFileSelected(event: any) {
+    for (let i = 0; i < event.target.files.length; i++) {
+      console.log(event.target.files[i].name);
+      this.convertFile(event.target.files[i]).subscribe((base64) => {
+        console.log(base64);
+        this.base64Output = base64;
+      });
+    }
+    //const files: File = event.target.files;
+
+    // if (file) {
+    //   this.fileName = file.name;
+
+    //   const formData = new FormData();
+
+    //   formData.append('thumbnail', file);
+
+    //   // const upload$ = this.http.post('/api/thumbnail-upload', formData);
+
+    //   // upload$.subscribe();
+    // }
+  }
+  convertFile(file: File): Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = (event: any) =>
+      result.next(btoa(event.target.result.toString()));
+    return result;
   }
 
   editAd(ad: Ad) {

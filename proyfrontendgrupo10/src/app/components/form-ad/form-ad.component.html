@@ -75,6 +75,8 @@
                     <label for="timeRead" class="form-label">Tiempo de lectura</label>
                     <input type="text" class="form-control" id="timeRead" />
                 </div>
+                <input type="file" class="file-upload" (change)="onFileSelected($event)">
+
 
                 <div class="m-auto">
                     <button type="submit" class="btn btn-primary"
