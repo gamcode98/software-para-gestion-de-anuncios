@@ -44,7 +44,8 @@ export class RequestAdViewComponent implements OnInit {
       console.log(res.result);
       // this.ads.forEach((el:any) => {
       // });
-      this.ads.forEach((subEl: any) => {
+      this.ads.forEach((subEl: Ad) => {
+        console.log(subEl.typeOfContent.html);
         if (subEl.typeOfContent.html) {
           this.adsWithHTML.push(subEl);
         } else if (subEl.typeOfContent.image) {
@@ -123,6 +124,7 @@ export class RequestAdViewComponent implements OnInit {
         this.adToDoActions.receivers[i].status = 'autorizado';
       }
     }
+    console.log(this.adToDoActions);
     this.adService.updatePartialAd(this.adToDoActions).subscribe((q) => {
       console.log(q);
       this.router

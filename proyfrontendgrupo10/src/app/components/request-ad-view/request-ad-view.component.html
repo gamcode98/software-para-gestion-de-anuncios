@@ -46,7 +46,8 @@
                             class="card-img-top mb-2" alt="...">
 
                         <div class="card-text" *ngFor="let receivers of adToDoActions.receivers">
-                            <p>Area: {{receivers.area}}</p>
+                            <p>Area: {{receivers.area.name}}</p>
+                            <p>Area: {{receivers.status}}</p>
                             <button class="btn btn-danger me-2"
                                 (click)="showPopUp(receivers.area._id,'decline')">Rechazar</button>
                             <button class="btn btn-success"
