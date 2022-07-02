@@ -24,7 +24,7 @@ export class FormAdComponent implements OnInit {
   me: Person = new Person();
   myAreas!: any[];
   edit: boolean = false;
-  title: string = 'Crear anuncio'
+  title: string = 'Crear anuncio';
 
   constructor(
     private service: AdService,
@@ -47,14 +47,14 @@ export class FormAdComponent implements OnInit {
     if (params['id']) {
       this.service.getAdById(params['id']).subscribe((data) => {
         this.ad = data;
-        console.log(data)
+        console.log(data);
         this.edit = true;
         this.title = 'Modificar anuncio';
       });
     }
   }
 
-  editAd(ad: Ad){
+  editAd(ad: Ad) {
     this.service.updateAd(ad).subscribe((data) => {
       this.router.navigate(['/my-ads']);
     });
@@ -118,6 +118,15 @@ export class FormAdComponent implements OnInit {
       this.router.navigate(['my-ads']);
     });
   }
+  sendAd() {
+    this.ad.receivers.forEach((q) => {
+      q.status = 'confeccionado';
+    });
+    this.service.createAd(this.ad).subscribe((q) => {
+      console.log(q);
+      this.router.navigate(['my-ads']);
+    });
+  }
 
   addRecivers(name: string) {
     if (this.startArea) {
@@ -125,7 +134,7 @@ export class FormAdComponent implements OnInit {
         {
           area: { _id: name, areaRoles: [], name: '' },
           areaRoles: [],
-          status: 'confeccionado',
+          status: 'edicion',
         },
       ];
       this.startArea = false;
@@ -143,7 +152,7 @@ export class FormAdComponent implements OnInit {
         this.ad.receivers.push({
           area: { _id: name, areaRoles: [], name: '' },
           areaRoles: [],
-          status: 'confeccionando',
+          status: 'edicion',
         });
         console.log(this.ad);
       }
@@ -204,6 +213,6 @@ export class FormAdComponent implements OnInit {
         html: false,
         video: true,
       };
-    }    
+    }
   }
 }

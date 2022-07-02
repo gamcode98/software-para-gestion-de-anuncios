@@ -46,6 +46,7 @@
                             class="card-img-top mb-2" alt="...">
                         <a type="button" class="btn btn-primary me-2"
                             [routerLink]="['/form-ad/edit', adToDoActions._id]">Modificar</a>
+                        <button class="btn btn-success me-2" (click)="sendAd()">Enviar</button>
                         <button class="btn btn-danger" (click)="showPopUp(adToDoActions._id)">Eliminar</button>
                     </div>
                 </div>
