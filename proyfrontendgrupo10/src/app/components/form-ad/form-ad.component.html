@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row mb-4">    
+    <div class="row mb-4">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto border rounded p-4">
             <form>
                 <h1 class="text-center">{{title}}</h1>
@@ -8,8 +8,8 @@
                     <label for="texto" class="form-label">Texto</label>
                     <input type="text" class="form-control" id="texto" name="tx" [(ngModel)]="ad.text" />
                 </div>
-        
-               <div class="mb-3">
+
+                <div class="mb-3">
                     <h4>Tipo de contenido</h4>
                     <select class="form-select" name="typeOfContent" [(ngModel)]="sel" (change)="selectContent()">
                         <option value="image">Imagen</option>
@@ -17,13 +17,12 @@
                         <option value="video">Video</option>
                         <option selected value="planeText">Texto</option>
                     </select>
-               </div>
+                </div>
 
                 <div class="border rounded p-2 mb-3">
                     <h3>Medios de publicación</h3>
                     <div *ngFor="let i of pm">
-                        <select class="form-select" name="namePM"
-                            [(ngModel)]="ad.publishingMedia[i].name">
+                        <select class="form-select" name="namePM" [(ngModel)]="ad.publishingMedia[i].name">
                             <option value="Twitter">Twitter</option>
                             <option value="Facebook">Facebook</option>
                             <option value="Youtube">Youtube</option>
@@ -31,7 +30,7 @@
                             <option value="Tv">Tv</option>
                             <option value="Email">Email</option>
                         </select>
-        
+
                         <div class="mb-3" *ngFor="let j of pmUser[i]">
                             <label for="u" class="form-label">Usuario</label>
                             <input type="text" class="form-control" id="u" name="userPM"
@@ -41,12 +40,12 @@
                             Añadir Usuario
                         </button>
                     </div>
-        
+
                     <button type="button" class="btn btn-primary" (click)="newSocial()">
                         Añadir
                     </button>
                 </div>
-        
+
                 <div class="mb-3">
                     <label for="init" class="form-label">Fecha de Inicio</label>
                     <input type="date" class="form-control" id="init" name="fi" [(ngModel)]="ad.entryDate.initial" />
@@ -71,17 +70,18 @@
                         </div>
                     </div>
                 </div>
-        
+
                 <div class="mb-3">
                     <label for="timeRead" class="form-label">Tiempo de lectura</label>
                     <input type="text" class="form-control" id="timeRead" />
                 </div>
-        
+
                 <div class="m-auto">
                     <button type="submit" class="btn btn-primary"
-                    (click)="edit ? editAd(ad) : createAd()">Guardar</button>
+                        (click)="edit ? editAd(ad) : createAd()">Guardar</button>
+                    <button type="submit" class="btn btn-success" (click)="sendAd()">Enviar</button>
                 </div>
-            </form>  
-        </div> 
+            </form>
+        </div>
     </div>
 </div>
