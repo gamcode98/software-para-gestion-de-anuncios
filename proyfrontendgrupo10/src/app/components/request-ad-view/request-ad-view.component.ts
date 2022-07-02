@@ -4,6 +4,8 @@ import { Ad } from 'src/app/models/ad';
 import { Person } from 'src/app/models/person';
 import { AdService } from 'src/app/services/ad.service';
 import { PersonService } from 'src/app/services/person.service';
+import { FacebookService, InitParams } from 'ngx-facebook';
+import { ApiMethod } from 'ngx-facebook/providers/facebook';
 
 @Component({
   selector: 'app-request-ad-view',
@@ -14,6 +16,7 @@ export class RequestAdViewComponent implements OnInit {
   // adsForMe: Ad[] = [];
   // ads: Ad[] = [];
   // ad: Ad = new Ad();
+  mensaje: string = 'probando';
   adsWithImages: Ad[] = [];
   adsWithPlaneText: Ad[] = [];
   adsWithHTML: Ad[] = [];
@@ -35,13 +38,15 @@ export class RequestAdViewComponent implements OnInit {
   constructor(
     private adService: AdService,
     private serviceUser: PersonService,
-    private router: Router
+    private router: Router,
+    private fb: FacebookService
   ) {}
 
   ngOnInit(): void {
     this.adService.getAdsWhereUserIsEncargado().subscribe((res) => {
       this.ads = res.result;
       console.log(res.result);
+      this.iniciarFb();
       // this.ads.forEach((el:any) => {
       // });
       this.ads.forEach((subEl: any) => {
@@ -64,6 +69,23 @@ export class RequestAdViewComponent implements OnInit {
 
     // console.log("this.myAreas")
     // console.log(this.myAreas)
+  }
+  iniciarFb() {
+    let initParams: InitParams = {
+      appId: '1223520885146013',
+      autoLogAppEvents: true,
+      xfbml: true,
+      version: 'v14.0',
+    };
+    this.fb.init(initParams);
+  }
+  postFb() {
+    var apiMethod: ApiMethod = 'post';
+    this.fb.api('/109192058513786/feed', apiMethod, {
+      message: this.mensaje,
+      access_token:
+        'EAARYySe8AZA0BAPZBkZCEI6PqsjssK0IRlfe2eZBTjIeHx9vtxOmGBYQnOGmVDJx1SzqQtbPzZCqlZBI0mf47W7CZAeP2ObZAMNo44UuUzkdcyv8z5KjTDD1mpvN7IiJYUgrd0ZCoZCrlTz5kHsmD0A08JNyQToIgrAd0lNSu3oONRGry1jwQMOJPdzgOe76xv8g5XNoJOkpPWZApUycx6vi0gDZCr1XMsCpzSYZD',
+    });
   }
 
   selectAd(id: string) {
@@ -125,6 +147,7 @@ export class RequestAdViewComponent implements OnInit {
     }
     this.adService.updatePartialAd(this.adToDoActions).subscribe((q) => {
       console.log(q);
+      this.postFb();
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() => this.router.navigate(['admin-reques-ad-v2']));

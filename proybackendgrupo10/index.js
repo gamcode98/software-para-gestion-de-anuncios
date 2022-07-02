@@ -1,32 +1,32 @@
-const express = require('express')
-const morgan = require('morgan')
-const cors = require('cors')
-const { port } = require('./config')
-const { connection } = require('./config/db')
+const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
+const { port } = require("./config");
+const { connection } = require("./config/db");
 
-const ad = require('./routes/ad.routes')
-const area = require('./routes/area.routes')
-const user = require('./routes/user.routes')
-const auth = require('./routes/auth.routes')
+const ad = require("./routes/ad.routes");
+const area = require("./routes/area.routes");
+const user = require("./routes/user.routes");
+const auth = require("./routes/auth.routes");
 
-const app = express()
+const app = express();
 
-connection()
+connection();
 
-app.use(morgan('dev'))
-app.use(express.json())
+app.use(morgan("dev"));
+app.use(express.json());
 app.use(
   cors({
-    origin: ['http://localhost:4200'],
+    origin: ["https://localhost:4200"],
     credentials: true,
   })
-)
+);
 
-ad(app)
-user(app)
-area(app)
-auth(app)
+ad(app);
+user(app);
+area(app);
+auth(app);
 
 app.listen(port, () => {
-  console.log(`Listening on: http://localhost:${port}`)
-})
+  console.log(`Listening on: http://localhost:${port}`);
+});
