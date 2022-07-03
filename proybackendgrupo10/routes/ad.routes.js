@@ -279,36 +279,36 @@ function ad (app) {
 
       users.forEach(user => { adminEmails.push(user.email) })
 
-      const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-          user: emailToNodemailer,
-          pass: nodemailerSecret
-        }
-      })
+      // const transporter = nodemailer.createTransport({
+      //   host: 'smtp.gmail.com',
+      //   port: 465,
+      //   secure: true,
+      //   auth: {
+      //     user: emailToNodemailer,
+      //     pass: nodemailerSecret
+      //   }
+      // })
 
-      const mailOptions = {
-        from: '"Fred Foo 👻" <sitemadeanuncios@gmail.com>',
-        to: `${adminEmails.join(', ')}`, // admins del area
-        subject: 'Solicitud de ingreso al/as area/s',
-        html: `
-              <p>Se solicita la revision del anuncio confeccionado</p>
-              <br>
-              <a href="http://localhost:4200/api/auth/login">Link de acceso al sistema</a>
-              `
-      }
+      // const mailOptions = {
+      //   from: '"Fred Foo 👻" <sitemadeanuncios@gmail.com>',
+      //   to: `${adminEmails.join(', ')}`, // admins del area
+      //   subject: 'Solicitud de ingreso al/as area/s',
+      //   html: `
+      //         <p>Se solicita la revision del anuncio confeccionado</p>
+      //         <br>
+      //         <a href="http://localhost:4200/api/auth/login">Link de acceso al sistema</a>
+      //         `
+      // }
 
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          res.status(500).send(error.message)
-        } else {
-          console.log('email enviado')
+      // transporter.sendMail(mailOptions, (error, info) => {
+      //   if (error) {
+      //     res.status(500).send(error.message)
+      //   } else {
+      //     console.log('email enviado')
 
-          return res.status(201).json(result)
-        }
-      })
+      //   }
+      // })
+      return res.status(201).json(result)
     } catch (error) {
       return res.status(500).json({
         error: true,

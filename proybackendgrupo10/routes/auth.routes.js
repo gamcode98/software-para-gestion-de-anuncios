@@ -86,36 +86,36 @@ const auth = (app) => {
       infoAreasToSend.push('<br>')
     }
 
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        user: emailToNodemailer,
-        pass: nodemailerSecret
-      }
-    })
+    // const transporter = nodemailer.createTransport({
+    //   host: 'smtp.gmail.com',
+    //   port: 465,
+    //   secure: true,
+    //   auth: {
+    //     user: emailToNodemailer,
+    //     pass: nodemailerSecret
+    //   }
+    // })
 
-    const mailOptions = {
-      from: '"Fred Foo 👻" <sitemaanuncios@gmail.com>',
-      to: `${adminEmails.join(', ')}`, // admins del area
-      subject: 'Solicitud de ingreso al/as area/s',
-      html: `
-            <p>Se solicita el ingreso para:</p>
-            ${infoAreasToSend.join(' ')}
-            <br>
-            <a href="http://localhost:4200/api/auth/login">Link de acceso al sistema</a>
-            `
-    }
+    // const mailOptions = {
+    //   from: '"Fred Foo 👻" <sitemaanuncios@gmail.com>',
+    //   to: `${adminEmails.join(', ')}`, // admins del area
+    //   subject: 'Solicitud de ingreso al/as area/s',
+    //   html: `
+    //         <p>Se solicita el ingreso para:</p>
+    //         ${infoAreasToSend.join(' ')}
+    //         <br>
+    //         <a href="http://localhost:4200/api/auth/login">Link de acceso al sistema</a>
+    //         `
+    // }
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        res.status(500).send(error.message)
-      } else {
-        console.log('email enviado')
-        return res.status(result.error ? 400 : 200).json(result)
-      }
-    })
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     res.status(500).send(error.message)
+    //   } else {
+    //     console.log('email enviado')
+    //   }
+    // })
+    return res.status(result.error ? 400 : 200).json(result)
   })
 }
 
