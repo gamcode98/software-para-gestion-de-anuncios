@@ -1,5 +1,66 @@
 <div class="row">
     <div class="col">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand">Filtro</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page">Link</a>
+                        </li>
+
+
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            name="tx" [(ngModel)]="textfilter">
+
+                        <select class="form-select" aria-label="Default select example" name="so"
+                            [(ngModel)]="socialFilter">
+                            <option value="">Ninguno</option>
+                            <option value="Twitter">Twitter</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Youtube">Youtube</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Tv">Tv</option>
+                            <option value="Email">Email</option>
+                        </select>
+
+                        <select class="form-select" name="typeOfContent" [(ngModel)]="typeFilter">
+                            <option value="image">Imagen</option>
+                            <option value="html">HTML</option>
+                            <option value="video">Video</option>
+                            <option value="planeText">Texto</option>
+                        </select>
+                        <select class="form-select" name="editor" [(ngModel)]="userFiler">
+                            <option *ngFor="let q of users" value="{{q._id}}">{{q.firstName}}</option>
+
+                        </select>
+                        <input type="date" class="form-control" id="init" name="idd" [(ngModel)]="dateFilter" />
+
+                        <select class="form-select" name="af" [(ngModel)]="areasFilter">
+                            <option *ngFor="let i of me.infoAreas" value="{{i.area._id}}">{{i.area.name}}</option>
+
+                        </select>
+
+                        <button class="btn btn-outline-success" (click)="filter()">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+            <div *ngFor="let i of adsFilter">{{i.text}}</div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <!-- Anuncios con imagenes -->
         <div class="container mb-5">
             <h2 class="text-center mb-2">Anuncios con imagenes</h2>
