@@ -60,27 +60,49 @@ export class AllAdsViewComponent implements OnInit {
   }
 
   viewAds() {
-    this.personService.myInfo().subscribe((q) => {
-      this.me = q;
-      console.log(this.me);
-    });
-    this.adService.getAdsThatBelongToTheArea().subscribe((res) => {
-      console.log(res.result);
-      this.ads = res.result;
-      res.result.forEach((el: any) => {
-        if (el.typeOfContent.html) {
-          this.adsWithHTML.push(el);
-        } else if (el.typeOfContent.image) {
-          this.adsWithImages.push(el);
-        } else if (el.typeOfContent.planeText) {
-          this.adsWithPlaneText.push(el);
-        } else if (el.typeOfContent.video) {
-          this.adsWithVideo.push(el);
-        }
-      });
+    this.personService.myInfo().subscribe(
+      (q) => {
+        this.me = q;
+        this.adService.getAdsThatBelongToTheArea().subscribe((res) => {
+          console.log(res.result);
+          this.ads = res.result;
+          res.result.forEach((el: any) => {
+            if (el.typeOfContent.html) {
+              this.adsWithHTML.push(el);
+            } else if (el.typeOfContent.image) {
+              this.adsWithImages.push(el);
+            } else if (el.typeOfContent.planeText) {
+              this.adsWithPlaneText.push(el);
+            } else if (el.typeOfContent.video) {
+              this.adsWithVideo.push(el);
+            }
+          });
 
-      this.init();
-    });
+          this.init();
+        });
+      },
+      (err) => {
+        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+        this.adService.getAdsPublic().subscribe((p) => {
+          this.ads = p;
+          console.log(p);
+          p.forEach((el: any) => {
+            console.log(el);
+            if (el.typeOfContent.html) {
+              this.adsWithHTML.push(el);
+            } else if (el.typeOfContent.image) {
+              this.adsWithImages.push(el);
+            } else if (el.typeOfContent.planeText) {
+              console.log('llllllllllllllllllllllllllll');
+              this.adsWithPlaneText.push(el);
+            } else if (el.typeOfContent.video) {
+              this.adsWithVideo.push(el);
+            }
+          });
+        });
+        this.init();
+      }
+    );
   }
   filter() {
     let first: boolean = true;
