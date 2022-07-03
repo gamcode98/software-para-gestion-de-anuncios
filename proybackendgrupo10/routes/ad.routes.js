@@ -64,6 +64,11 @@ function ad (app) {
     return res.json(ads)
   })
 
+  router.get('/public', async (req, res) => {
+    const ads = await adServ.getPublic()
+    return res.json(ads)
+  })
+
   router.get('/all-to-encargado', authValidation, async (req, res) => {
     try {
       const { id } = req.user
