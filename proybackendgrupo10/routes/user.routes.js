@@ -1,3 +1,4 @@
+const nodemailer = require('nodemailer')
 const express = require('express')
 const { authValidation } = require('../middlewares/authValidation')
 const UserService = require('../services/user.service')
@@ -103,6 +104,32 @@ function user (app) {
     const { body } = req
     const user = await userServ.updatePartial(id, body)
     return res.json(user)
+  })
+  router.post('/send-email', (req, res) => {
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'sebasr432@gmail.com',
+        pass: 'opfuhkodhbcszosp'
+      }
+    })
+    const mailOptions = {
+      from: '"Fred Foo 👻" <superadmin@gmail.com>', // sender address
+      to: 'tomiir432@gmail.com,', // list of receivers
+      subject: 'Hello ✔', // Subject line
+      text: 'Hello world?' // plain text body
+    }
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        res.status(500).send(error.message)
+      } else {
+        console.log('email enviado')
+        res.status(200).jsonp(req.body)
+      }
+    })
   })
 }
 

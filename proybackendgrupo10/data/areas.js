@@ -1,27 +1,27 @@
 const areas = [
   {
     name: 'Secretaria',
-    roles: ['Encargado', 'Secretario']
+    areaRoles: ['Encargado', 'Secretario']
   },
   {
     name: 'Direccion',
-    roles: ['Encargado', 'Director']
+    areaRoles: ['Encargado', 'Director']
   },
   {
     name: 'Preceptoria',
-    roles: ['Encargado', 'Preceptor']
+    areaRoles: ['Encargado', 'Preceptor']
   },
   {
     name: 'Primer anio',
-    roles: ['Encargado', 'Alumno']
+    areaRoles: ['Encargado', 'Alumno']
   },
   {
     name: 'Segundo anio',
-    roles: ['Encargado', 'Alumno']
+    areaRoles: ['Encargado', 'Alumno']
   },
   {
     name: 'Tercer anio',
-    roles: ['Encargado', 'Alumno']
+    areaRoles: ['Encargado', 'Alumno']
   }
 ]
 
