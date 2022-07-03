@@ -33,18 +33,21 @@
                         </select>
 
                         <select class="form-select" name="typeOfContent" [(ngModel)]="typeFilter">
+                            <option value="">Ninguno</option>
                             <option value="image">Imagen</option>
                             <option value="html">HTML</option>
                             <option value="video">Video</option>
                             <option value="planeText">Texto</option>
                         </select>
                         <select class="form-select" name="editor" [(ngModel)]="userFiler">
+                            <option value="">Ninguno</option>
                             <option *ngFor="let q of users" value="{{q._id}}">{{q.firstName}}</option>
 
                         </select>
                         <input type="date" class="form-control" id="init" name="idd" [(ngModel)]="dateFilter" />
 
                         <select class="form-select" name="af" [(ngModel)]="areasFilter">
+                            <option value="">Ninguno</option>
                             <option *ngFor="let i of me.infoAreas" value="{{i.area._id}}">{{i.area.name}}</option>
 
                         </select>

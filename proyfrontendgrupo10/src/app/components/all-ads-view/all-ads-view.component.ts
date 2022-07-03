@@ -20,14 +20,15 @@ export class AllAdsViewComponent implements OnInit {
   ads: Ad[] = [];
   adsFilter: Ad[] = [];
   textfilter: string = '';
-  socialFilter!: string;
-  typeFilter!: string;
-  userFiler!: string;
+  socialFilter: string = '';
+  typeFilter: string = '';
+  userFiler: string = '';
   dateFilter!: Date;
-  areasFilter!: string;
-  roleFilter!: string;
+  areasFilter: string = '';
+  roleFilter: string = '';
   users: Person[] = [];
   me!: Person;
+  filterFile: boolean = false;
   constructor(
     private adService: AdService,
     private router: Router,
@@ -82,58 +83,186 @@ export class AllAdsViewComponent implements OnInit {
     });
   }
   filter() {
+    let first: boolean = true;
     this.adsFilter = [];
+    this.filterFile = false;
     if (this.textfilter !== '') {
+      const aux: Ad[] = [];
       this.ads.forEach((q) => {
         if (q.text.match(this.textfilter)) {
-          this.adsFilter.push(q);
+          aux.push(q);
         }
       });
+      console.log(aux, '    ', this.filterFile);
+      if (aux.length === 0) {
+        this.adsFilter === [];
+        this.filterFile = true;
+      } else {
+        first = false;
+        this.filterFile = false;
+        aux.forEach((a) => {
+          this.adsFilter.push(a);
+        });
+      }
     }
     if (this.socialFilter !== '') {
+      const aux: Ad[] = [];
       this.ads.forEach((q) => {
         for (let i = 0; i < q.publishingMedia.length; i++) {
           if (q.publishingMedia[i].name === this.socialFilter) {
-            this.adsFilter.push(q);
+            aux.push(q);
           }
         }
       });
+      if (aux.length === 0 || this.filterFile) {
+        this.adsFilter === [];
+        this.filterFile = true;
+      } else {
+        if (first) {
+          first = false;
+          aux.forEach((a) => {
+            this.adsFilter.push(a);
+          });
+        } else {
+          const aux2: Ad[] = [];
+          this.filterFile = false;
+          this.adsFilter.forEach((af) => {
+            aux.forEach((a) => {
+              if (af._id === a._id) {
+                aux2.push(af);
+              }
+            });
+          });
+          this.adsFilter = aux2;
+        }
+      }
     }
     if (this.typeFilter !== '') {
+      const aux: Ad[] = [];
       this.ads.forEach((q) => {
         if ((q.typeOfContent as any)[this.typeFilter] === true) {
-          this.adsFilter.push(q);
+          aux.push(q);
         }
       });
+      console.log(aux, '    ', this.filterFile);
+      if (aux.length === 0 || this.filterFile) {
+        this.adsFilter === [];
+        this.filterFile = true;
+      } else {
+        if (first) {
+          first = false;
+          aux.forEach((a) => {
+            this.adsFilter.push(a);
+          });
+        } else {
+          const aux2: Ad[] = [];
+          this.filterFile = false;
+          this.adsFilter.forEach((af) => {
+            aux.forEach((a) => {
+              if (af._id === a._id) {
+                aux2.push(af);
+              }
+            });
+          });
+          this.adsFilter = aux2;
+        }
+      }
     }
-    if (this.userFiler !== undefined) {
+    if (this.userFiler !== '') {
+      const aux: Ad[] = [];
       this.ads.forEach((q) => {
-        console.log(this.userFiler);
-        console.log(q.editor, '     =          ', this.userFiler);
         if (q.editor === this.userFiler) {
-          this.adsFilter.push(q);
+          aux.push(q);
         }
       });
+      console.log(aux, '    ', this.userFiler);
+      if (aux.length === 0 || this.filterFile) {
+        this.adsFilter === [];
+        this.filterFile = true;
+      } else {
+        if (first) {
+          first = false;
+          aux.forEach((a) => {
+            this.adsFilter.push(a);
+          });
+        } else {
+          const aux2: Ad[] = [];
+          this.filterFile = false;
+          this.adsFilter.forEach((af) => {
+            aux.forEach((a) => {
+              if (af._id === a._id) {
+                aux2.push(af);
+              }
+            });
+          });
+          this.adsFilter = aux2;
+        }
+      }
     }
     if (this.dateFilter !== undefined) {
+      const aux: Ad[] = [];
       this.ads.forEach((q) => {
         console.log(this.dateFilter);
         if (q.entryDate.initial.toString().match(this.dateFilter.toString())) {
-          this.adsFilter.push(q);
+          aux.push(q);
         }
       });
+      console.log(aux, '    ', this.filterFile);
+      if (aux.length === 0 || this.filterFile) {
+        this.adsFilter === [];
+        this.filterFile = true;
+      } else {
+        if (first) {
+          first = false;
+          aux.forEach((a) => {
+            this.adsFilter.push(a);
+          });
+        } else {
+          const aux2: Ad[] = [];
+          this.filterFile = false;
+          this.adsFilter.forEach((af) => {
+            aux.forEach((a) => {
+              if (af._id === a._id) {
+                aux2.push(af);
+              }
+            });
+          });
+          this.adsFilter = aux2;
+        }
+      }
     }
     if (this.areasFilter !== '') {
+      const aux: Ad[] = [];
       this.ads.forEach((q) => {
-        console.log(this.areasFilter);
         for (let i = 0; i < q.receivers.length; i++) {
-          console.log(q.receivers[i].area._id);
           if (q.receivers[i].area.toString() === this.areasFilter) {
-            console.log('ezzzzzzzzzzzzzzzzzzzz');
-            this.adsFilter.push(q);
+            aux.push(q);
           }
         }
       });
+      console.log(aux, '    ', this.filterFile);
+      if (aux.length === 0 || this.filterFile) {
+        this.adsFilter === [];
+        this.filterFile = true;
+      } else {
+        if (first) {
+          first = false;
+          aux.forEach((a) => {
+            this.adsFilter.push(a);
+          });
+        } else {
+          const aux2: Ad[] = [];
+          this.filterFile = false;
+          this.adsFilter.forEach((af) => {
+            aux.forEach((a) => {
+              if (af._id === a._id) {
+                aux2.push(af);
+              }
+            });
+          });
+          this.adsFilter = aux2;
+        }
+      }
     }
   }
   ngOnInit(): void {
