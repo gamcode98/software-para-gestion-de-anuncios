@@ -3,14 +3,10 @@ const bcrypt = require('bcrypt')
 
 class User {
   async getAll () {
-    try {
-      const user = await UserModel.find()
-        .select('-password')
-        .populate({ path: 'infoAreas', populate: { path: 'area' } })
-      return user
-    } catch (error) {
-      console.log(error)
-    }
+    const user = await UserModel.find()
+      .select('-password')
+      .populate({ path: 'infoAreas', populate: { path: 'area' } })
+    return user
   }
 
   async getOne (id) {

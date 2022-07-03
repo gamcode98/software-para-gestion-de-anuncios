@@ -5,7 +5,7 @@ import { Area } from 'src/app/models/area';
 import { AdService } from 'src/app/services/ad.service';
 import { AreaService } from 'src/app/services/area.service';
 import { PersonService } from 'src/app/services/person.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-ad',
@@ -23,12 +23,15 @@ export class FormAdComponent implements OnInit {
   startArea: boolean = true;
   me: Person = new Person();
   myAreas!: any[];
+  edit: boolean = false;
+  title: string = 'Crear anuncio';
 
   constructor(
     private service: AdService,
     private serviceArea: AreaService,
     private userService: PersonService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.ad = new Ad();
 
@@ -39,7 +42,24 @@ export class FormAdComponent implements OnInit {
     this.init();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const params = this.activatedRoute.snapshot.params;
+    if (params['id']) {
+      this.service.getAdById(params['id']).subscribe((data) => {
+        this.ad = data;
+        console.log(data);
+        this.edit = true;
+        this.title = 'Modificar anuncio';
+      });
+    }
+  }
+
+  editAd(ad: Ad) {
+    this.service.updateAd(ad).subscribe((data) => {
+      this.router.navigate(['/my-ads']);
+    });
+  }
+
   init() {
     // this.serviceArea.getAreas().subscribe((q: any) => {
     //   this.area = q;
@@ -51,14 +71,14 @@ export class FormAdComponent implements OnInit {
       this.myAreas = el.infoAreas;
       this.me = el;
       for (let i = 0; i < this.me.infoAreas.length; i++) {
-        console.log(this.me.infoAreas[i].status);
-        console.log(i);
+        // console.log(this.me.infoAreas[i].status);
+        // console.log(i);
         if (this.me.infoAreas[i].status === 'aceptado') {
           let aux: Area = new Area();
           aux = this.me.infoAreas[i].area;
           aux.areaRoles = this.me.infoAreas[i].userRoles;
           this.area.push(aux);
-          console.log(this.me);
+          // console.log(this.me);
         }
       }
       // this.myAreas.forEach((a) => {
@@ -98,13 +118,23 @@ export class FormAdComponent implements OnInit {
       this.router.navigate(['my-ads']);
     });
   }
+  sendAd() {
+    this.ad.receivers.forEach((q) => {
+      q.status = 'confeccionado';
+    });
+    this.service.createAd(this.ad).subscribe((q) => {
+      console.log(q);
+      this.router.navigate(['my-ads']);
+    });
+  }
+
   addRecivers(name: string) {
     if (this.startArea) {
       this.ad.receivers = [
         {
           area: { _id: name, areaRoles: [], name: '' },
           areaRoles: [],
-          status: 'confeccionado',
+          status: 'edicion',
         },
       ];
       this.startArea = false;
@@ -122,12 +152,13 @@ export class FormAdComponent implements OnInit {
         this.ad.receivers.push({
           area: { _id: name, areaRoles: [], name: '' },
           areaRoles: [],
-          status: 'confeccionando',
+          status: 'edicion',
         });
         console.log(this.ad);
       }
     }
   }
+
   addReciversRol(name: string, rol: string) {
     let exist: Boolean = false;
     let index: number = 0;
@@ -149,8 +180,8 @@ export class FormAdComponent implements OnInit {
       console.log(this.ad);
     }
   }
+
   selectContent() {
-    console.log(this.sel);
     if (this.sel === 'planeText') {
       this.ad.typeOfContent = {
         planeText: true,
@@ -183,6 +214,5 @@ export class FormAdComponent implements OnInit {
         video: true,
       };
     }
-    console.log(this.ad);
   }
 }

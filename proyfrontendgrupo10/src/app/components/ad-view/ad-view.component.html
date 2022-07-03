@@ -5,7 +5,7 @@
 
             <div class="col-4 py-3 border ms-4 me-5">
 
-                <!-- Anuncios con imagenes  -->
+                <!-- Anuncios con html  -->
                 <div class="card mb-3" *ngFor="let ad of adsWithHTML">
                     <div class="card-body">
                         <h5 class="card-title">Tipo de contenido: HTML</h5>
@@ -46,32 +46,34 @@
                             class="card-img-top mb-2" alt="...">
                         <a type="button" class="btn btn-primary me-2"
                             [routerLink]="['/form-ad/edit', adToDoActions._id]">Modificar</a>
+                        <button class="btn btn-success me-2" (click)="sendAd()">Enviar</button>
                         <button class="btn btn-danger" (click)="showPopUp(adToDoActions._id)">Eliminar</button>
                     </div>
                 </div>
 
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- Modal para eliminar -->
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+<!-- Modal para eliminar el anuncio -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}" *ngIf="adToDoActions">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-center"> Desea eliminar?</h4>
+                <h4 class="modal-title text-center"> ¿Está seguro que desea eliminar el anuncio?</h4>
             </div>
             <div class="modal-body">
-                <p>{{adToDelete}}</p>
+                <p>{{adToDoActions.text}}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" (click)="closePopup()">
+                <button type="button" class="btn btn-primary" (click)="closePopup()">
                     Cerrar
                 </button>
 
-                <button type="button" class="btn btn-success" (click)="deleteAd()">
-                    Eliminar
+                <button type="button" class="btn btn-danger" (click)="deleteAd()">
+                    Aceptar
                 </button>
             </div>
         </div>

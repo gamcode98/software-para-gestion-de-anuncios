@@ -16,34 +16,40 @@ export class AdViewComponent implements OnInit {
   ads: Ad[] = [];
   ad!: Ad;
   displayStyle!: string;
-  adToDelete!: string;
+  idOfAdToDelete!: string;
   adToDoActions!: Ad;
 
-  constructor(private adService: AdService, private router: Router) {
-    this.viewAds();
+  constructor(private adService: AdService, private router: Router) {}
+
+  sendAd() {
+    console.log(this.adToDoActions);
+    this.adToDoActions.receivers.forEach((q) => {
+      q.status = 'confeccionado';
+    });
+    this.adService.updateAd(this.adToDoActions).subscribe((q) => {
+      console.log(q);
+      this.router
+        .navigateByUrl('/', { skipLocationChange: true })
+        .then(() => this.router.navigate(['my-ads']));
+    });
   }
 
   showPopUp(id: string) {
     this.displayStyle = 'block';
-    this.adToDelete = id;
+    this.idOfAdToDelete = id;
   }
 
   deleteAd() {
-    this.adService.deleteAd(this.adToDelete).subscribe((data) => {
+    this.adService.deleteAd(this.idOfAdToDelete).subscribe((res) => {
       this.closePopup();
+      this.router
+        .navigateByUrl('/', { skipLocationChange: true })
+        .then(() => this.router.navigate(['my-ads']));
     });
-  }
-
-  editAd(id: string) {
-    console.log(id);
   }
 
   closePopup() {
     this.displayStyle = 'none';
-  }
-
-  getInfo() {
-    console.log(this.ads);
   }
 
   selectAd(id: string) {
@@ -52,11 +58,11 @@ export class AdViewComponent implements OnInit {
         this.adToDoActions = ad;
       }
     });
-    console.log(this.adToDoActions);
   }
+
   viewAds() {
-    this.adService.getAds().subscribe((res) => {
-      this.ads = res;
+    this.adService.getAds().subscribe((ads) => {
+      this.ads = ads;
       this.ads.forEach((ad) => {
         if (ad.typeOfContent.html) {
           this.adsWithHTML.push(ad);
@@ -68,12 +74,9 @@ export class AdViewComponent implements OnInit {
           this.adsWithVideo.push(ad);
         }
       });
-      // this.init();
     });
   }
-  init() {
-    this.ad = this.adsWithImages[0];
-  }
+
   ngOnInit(): void {
     this.viewAds();
   }

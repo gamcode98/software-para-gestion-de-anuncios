@@ -1,27 +1,23 @@
 const areas = [
   {
-    name: 'Secretaria',
-    areaRoles: ['Encargado', 'Secretario']
+    name: 'Administracion',
+    areaRoles: ['Encargado', 'Secretario', 'Contador']
   },
   {
-    name: 'Direccion',
-    areaRoles: ['Encargado', 'Director']
+    name: 'Escuela',
+    areaRoles: ['Encargado', 'Director', 'Profesor', 'Alumno', 'Preceptor', 'Ordenanza']
   },
   {
-    name: 'Preceptoria',
-    areaRoles: ['Encargado', 'Preceptor']
+    name: 'Hospital',
+    areaRoles: ['Encargado', 'Doctor', 'Enfermero', 'Farmaceutico', 'Limpieza', 'Cocina', 'Paciente']
   },
   {
-    name: 'Primer anio',
-    areaRoles: ['Encargado', 'Alumno']
+    name: 'Policia',
+    areaRoles: ['Encargado', 'Comisario', 'Cadete', 'Oficial', 'SubOficial']
   },
   {
-    name: 'Segundo anio',
-    areaRoles: ['Encargado', 'Alumno']
-  },
-  {
-    name: 'Tercer anio',
-    areaRoles: ['Encargado', 'Alumno']
+    name: 'Publica',
+    areaRoles: ['Encargado', 'Usuario']
   }
 ]
 
