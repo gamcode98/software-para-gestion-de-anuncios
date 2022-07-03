@@ -20,16 +20,28 @@ class Ad {
 
   async getAll(infoAreas) {
     const adsArray = [];
-
     for (let index = 0; index < infoAreas.length; index++) {
       const ads = await AdModel.find({
         "receivers.area": infoAreas[index].area,
         "receivers.areaRoles": { $in: infoAreas[index].userRoles },
         "receivers.status": "autorizado",
       });
-      adsArray.push(ads);
-    }
 
+      for (let i = 0; i < ads.length; i++) {
+        let existe = false;
+        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        for (let j = 0; j < adsArray.length; j++) {
+          console.log(ads[i]._id, "===", adsArray[j]._id);
+          if (ads[i]._id.toString() === adsArray[j]._id.toString()) {
+            console.log("ezzzzzzzzzzzzz");
+            existe = true;
+          }
+        }
+        if (!existe) {
+          adsArray.push(ads[i]);
+        }
+      }
+    }
     return adsArray;
   }
 

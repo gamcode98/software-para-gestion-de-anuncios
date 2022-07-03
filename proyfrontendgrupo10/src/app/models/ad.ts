@@ -34,7 +34,5 @@ export class Ad {
   readingTime!: {
     type: String;
   };
-  editor!: {
-    ref: 'Person';
-  };
+  editor!: string;
 }
