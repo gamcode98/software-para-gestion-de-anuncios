@@ -2,14 +2,18 @@ const express = require('express')
 const { authValidation } = require('../middlewares/authValidation')
 const adValidation = require('../middlewares/adValidation')
 const AdService = require('./../services/ad.service')
+const AreaService = require('../services/area.service')
 const UserService = require('./../services/user.service')
 const checkOwnership = require('../middlewares/checkOwnership')
+const { nodemailerSecret, emailToNodemailer } = require('../config')
+const nodemailer = require('nodemailer')
 
-function ad(app) {
+function ad (app) {
   const router = express.Router()
   app.use('/api/ads', router)
   const adServ = new AdService()
   const userServ = new UserService()
+  const areaServ = new AreaService()
 
   // router.get('/', async (req, res) => {
   //   const id = '62ba6ba2b9c4dd4d6627e58f'
@@ -108,13 +112,13 @@ function ad(app) {
 
       return res.json({
         success: true,
-        result,
+        result
       })
     } catch (error) {
       console.log(error)
       return res.status(500).json({
         success: false,
-        message: 'Something went wrong',
+        message: 'Something went wrong'
       })
     }
   })
@@ -134,16 +138,102 @@ function ad(app) {
     try {
       const { id } = req.user
       const { body } = req
+      const { receivers } = body
+
       const data = {
         ...body,
-        editor: id,
+        editor: id
       }
+
       const result = await adServ.create(data)
-      return res.status(201).json(result)
+      const users = await userServ.getAll()
+      const areasId = []
+      const adminEmails = []
+      let isIncluded2 = true
+
+      receivers.forEach(el => { areasId.push(el.area.toString()) })
+
+      console.log(areasId)
+
+      for (let j = 0; j < users.length; j++) {
+        for (let index = 0; index < users[j].infoAreas.length; index++) {
+          isIncluded2 = areasId.includes(
+            users[j].infoAreas[index].area._id.toString()
+          )
+          if (isIncluded2 === false) {
+            users[j].infoAreas.splice(index, 1)
+            index = -1
+          } else {
+            isIncluded2 = true
+          }
+        }
+
+        if (users[j].infoAreas.length === 0) {
+          users.splice(j, 1)
+          j = 0
+        }
+      }
+
+      let index = 0
+
+      while (index < users.length) {
+        let i = 0
+        while (i < users[index].infoAreas.length) {
+          let aux = false
+          if (users[index].infoAreas[i].status === 'pendiente' || users[index].infoAreas[i].status === 'rechazado') {
+            users[index].infoAreas.splice(i, 1)
+            aux = true
+          }
+          i++
+          if (aux) {
+            i = 0
+          }
+        }
+
+        if (users[index].infoAreas.length === 0) {
+          users.splice(index, 1)
+          index = 0
+        } else {
+          index++
+        }
+      }
+
+      users.forEach(user => { adminEmails.push(user.email) })
+
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: emailToNodemailer,
+          pass: nodemailerSecret
+        }
+      })
+
+      const mailOptions = {
+        from: '"Fred Foo 👻" <sitemadeanuncios@gmail.com>',
+        to: `${adminEmails.join(', ')}`, // admins del area
+        subject: 'Solicitud de ingreso al/as area/s',
+        html: `
+              <p>Se solicita la revision del anuncio confeccionado</p>
+              <br>
+              <a href="http://localhost:4200/api/auth/login">Link de acceso al sistema</a>
+              `
+      }
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          res.status(500).send(error.message)
+        } else {
+          console.log('email enviado')
+
+          return res.status(201).json(result)
+        }
+      })
     } catch (error) {
       return res.status(500).json({
         error: true,
-        message: 'Something were wrong',
+        message: 'Something were wrong'
       })
     }
   })
