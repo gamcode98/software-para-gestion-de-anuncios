@@ -48,7 +48,7 @@
 
                         <select class="form-select" name="af" [(ngModel)]="areasFilter">
                             <option value="">Ninguno</option>
-                            <option *ngFor="let i of me.infoAreas" value="{{i.area._id}}">{{i.area.name}}</option>
+                            <option *ngFor="let i of me?.infoAreas" value="{{i.area._id}}">{{i.area.name}}</option>
 
                         </select>
 
