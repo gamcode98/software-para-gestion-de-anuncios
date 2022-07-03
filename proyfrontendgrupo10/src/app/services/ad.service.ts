@@ -29,6 +29,9 @@ export class AdService {
   getAdsThatBelongToTheArea() {
     return this._http.get<any>(`${this.URL}/ads/all`);
   }
+  getAdsPublic() {
+    return this._http.get<Ad[]>(`${this.URL}/ads/public`);
+  }
 
   getAdsWhereUserIsEncargado() {
     return this._http.get<any>(`${this.URL}/ads/all-to-encargado`);
@@ -42,11 +45,11 @@ export class AdService {
     return this._http.delete(`${this.URL}/ads/${id}`);
   }
 
-  getAdById(id:string) {
+  getAdById(id: string) {
     return this._http.get<Ad>(`${this.URL}/ads/${id}`);
   }
 
   updateAd(ad: Ad) {
-    return this._http.put(`${this.URL}/ads/${ad._id}`,ad);
+    return this._http.put(`${this.URL}/ads/${ad._id}`, ad);
   }
 }
