@@ -12,6 +12,12 @@ function area (app) {
     return res.json(areas)
   })
 
+  router.get('/:id', async (req, res) => {
+    const { id } = req.params
+    const area = await areaServ.findOne(id)
+    return res.json(area)
+  })
+
   router.post('/', async (req, res) => {
     const { body } = req
     const area = await areaServ.create(body)
