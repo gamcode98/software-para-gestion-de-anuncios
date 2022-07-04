@@ -51,8 +51,9 @@
                       class="card-img-top mb-2" alt="..."> -->
                     <!-- <img *ngIf="adToDoActions.typeOfContent.image" src="{{adToDoActions.resources.images[0]}}"
                       class="card-img-top mb-2"> -->
-
-                    <img [src]="adToDoActions.resources.images[0]" class="card-img-top mb-2">
+                    <div *ngFor="let img of adToDoActions.resources.images">
+                      <img [src]="img" class="card-img-top mb-2">
+                    </div>
 
                     <!-- <p>{{adToDoActions.resources.images[0] | json }}</p> -->
                     <a type="button" class="btn btn-primary me-2"

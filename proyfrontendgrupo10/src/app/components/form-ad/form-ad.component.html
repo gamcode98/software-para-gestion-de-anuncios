@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row mb-4">
-    <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto border rounded p-4">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto border rounded my-4 p-4 bg-white">
       <form>
         <h1 class="text-center">{{title}}</h1>
 
@@ -77,8 +77,9 @@
             alife-file-to-base64 multiple
             (onFileChanged)="onFileChanges($event)"
             accept="image/x-png,image/gif,image/jpeg" />
-
-          <img [src]="stringimage" class="img-fluid  d-block mx-auto mt-3">
+          <div *ngFor="let img of stringImagenes">
+            <img [src]="img" class="img-fluid  d-block mx-auto mt-3">
+          </div>
         </div>
         <!--* END IMAGE -->
 

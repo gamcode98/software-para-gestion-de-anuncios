@@ -29,7 +29,7 @@ export class Ad {
   ];
   resources!: {
     pdf?: String;
-    images: [String];
+    images: String[];
   };
   readingTime!: {
     type: String;
