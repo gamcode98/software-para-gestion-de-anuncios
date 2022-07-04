@@ -17,6 +17,7 @@ import { RequestPersonViewComponent } from './components/request-person-view/req
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AdDetailsComponent } from './components/ad-details/ad-details.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,9 @@ import { AdDetailsComponent } from './components/ad-details/ad-details.component
     HttpClientModule,
     AppRoutingModule,
     QRCodeModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ],
   providers: [
     AuthGuard,
