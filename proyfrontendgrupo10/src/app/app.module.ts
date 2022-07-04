@@ -18,6 +18,7 @@ import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AdDetailsComponent } from './components/ad-details/ad-details.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     LoginComponent,
     RequestPersonViewComponent,
     AdDetailsComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
