@@ -78,7 +78,7 @@ class Ad {
 
   async getAdsByEditorId (id) {
     try {
-      const ads = await AdModel.find({ editor: id })
+      const ads = await AdModel.find({ editor: id, 'receivers.status': 'edicion' })
         .populate({
           path: 'receivers',
           populate: { path: 'area', select: '-areaRoles' }
