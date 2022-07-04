@@ -32,6 +32,56 @@ export class RequestAdViewComponent implements OnInit {
   ads: any[] = [];
   adsArea1: any[] = [];
 
+  //stadistic
+  initOpts = {
+    renderer: 'svg',
+    width: 500,
+    height: 300,
+  };
+
+  options: any = {
+    title: {
+      text: 'Estadisticas de Anuncios',
+      subtext: 'Datos',
+      x: 'center',
+    },
+    color: ['#3398DB'],
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow',
+      },
+    },
+    grid: {
+      left: '2%',
+      right: '3%',
+      bottom: '2%',
+      containLabel: true,
+    },
+    xAxis: [
+      {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        axisTick: {
+          alignWithLabel: true,
+        },
+      },
+    ],
+    yAxis: [
+      {
+        type: 'value',
+      },
+    ],
+    series: [
+      {
+        name: 'Counters',
+        type: 'bar',
+        barWidth: '60%',
+        data: [10, 52, 200, 334, 390, 330, 220],
+      },
+    ],
+  };
+
   constructor(
     private adService: AdService,
     private serviceUser: PersonService,
