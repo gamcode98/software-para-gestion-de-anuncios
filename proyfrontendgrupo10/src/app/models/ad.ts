@@ -28,7 +28,7 @@ export class Ad {
     }
   ];
   resources!: {
-    pdf: String;
+    pdf?: String;
     images: [String];
   };
   readingTime!: {

@@ -1,92 +1,98 @@
 <div class="container">
-    <div class="row">
-        <div class="card mt-3 mb-3 " style="border-radius: 1.2rem;">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <h1 class="text-center mb-4">Mis anuncios</h1>
-                        <div class="row mx-2">
+  <div class="row">
+    <div class="card mt-3 mb-3 " style="border-radius: 1.2rem;">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h1 class="text-center mb-4">Mis anuncios</h1>
+            <div class="row mx-2">
 
-                            <div class="col-4 py-3 border ms-4 me-5">
+              <div class="col-4 py-3 border ms-4 me-5">
 
-                                <!-- Anuncios con html  -->
-                                <div class="card mb-3" *ngFor="let ad of adsWithHTML">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Tipo de contenido: HTML</h5>
-                                        <!-- <p class="card-text">Fecha: {{ad.entryDate.initial}}</p> -->
-                                        <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
-                                    </div>
-                                </div>
-
-                                <!-- Anuncios con imagenes  -->
-                                <div class="card mb-3" *ngFor="let ad of adsWithImages">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Tipo de contenido: Imagenes</h5>
-                                        <!-- <p class="card-text">Fecha: {{ad.entryDate.initial}}</p> -->
-                                        <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
-                                    </div>
-                                </div>
-
-                                <!-- Anuncios con texto plano   -->
-                                <div class="card mb-3" *ngFor="let ad of adsWithPlaneText">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Tipo de contenido: Texto plano</h5>
-                                        <!-- <p class="card-text">Fecha: {{ad.entryDate.initial}}</p> -->
-                                        <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- Detalles del anuncio seleccionado -->
-                            <div class="col-7 border">
-
-                                <div class="card mb-3 mt-2" *ngIf="adToDoActions">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Tipo de contenido: </h5>
-                                        <p class="card-text" *ngIf="!adToDoActions.typeOfContent.image">Texto:
-                                            {{adToDoActions.text}}
-                                        </p>
-                                        <img *ngIf="adToDoActions.typeOfContent.image" src="{{adToDoActions.text}}"
-                                            class="card-img-top mb-2" alt="...">
-                                        <a type="button" class="btn btn-primary me-2"
-                                            [routerLink]="['/form-ad/edit', adToDoActions._id]">Modificar</a>
-                                        <button class="btn btn-success me-2" (click)="sendAd()">Enviar</button>
-                                        <button class="btn btn-danger"
-                                            (click)="showPopUp(adToDoActions._id)">Eliminar</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
+                <!-- Anuncios con html  -->
+                <div class="card mb-3" *ngFor="let ad of adsWithHTML">
+                  <div class="card-body">
+                    <h5 class="card-title">Tipo de contenido: HTML</h5>
+                    <!-- <p class="card-text">Fecha: {{ad.entryDate.initial}}</p> -->
+                    <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
+                  </div>
                 </div>
 
-                <!-- Modal para eliminar el anuncio -->
-                <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}"
-                    *ngIf="adToDoActions">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title text-center"> ¿Está seguro que desea eliminar el anuncio?</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>{{adToDoActions.text}}</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" (click)="closePopup()">
-                                    Cerrar
-                                </button>
-
-                                <button type="button" class="btn btn-danger" (click)="deleteAd()">
-                                    Aceptar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Anuncios con imagenes  -->
+                <div class="card mb-3" *ngFor="let ad of adsWithImages">
+                  <div class="card-body">
+                    <h5 class="card-title">Tipo de contenido: Imagenes</h5>
+                    <!-- <p class="card-text">Fecha: {{ad.entryDate.initial}}</p> -->
+                    <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
+                  </div>
                 </div>
+
+                <!-- Anuncios con texto plano   -->
+                <div class="card mb-3" *ngFor="let ad of adsWithPlaneText">
+                  <div class="card-body">
+                    <h5 class="card-title">Tipo de contenido: Texto plano</h5>
+                    <!-- <p class="card-text">Fecha: {{ad.entryDate.initial}}</p> -->
+                    <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Detalles del anuncio seleccionado -->
+              <div class="col-7 border">
+
+                <div class="card mb-3 mt-2" *ngIf="adToDoActions">
+                  <div class="card-body">
+                    <h5 class="card-title">Tipo de contenido: </h5>
+                    <p class="card-text" *ngIf="!adToDoActions.typeOfContent.image">Texto:
+                      {{adToDoActions.text}}
+                    </p>
+                    <!-- <img *ngIf="adToDoActions.typeOfContent.image" src="{{adToDoActions.text}}"
+                      class="card-img-top mb-2" alt="..."> -->
+                    <!-- <img *ngIf="adToDoActions.typeOfContent.image" src="{{adToDoActions.resources.images[0]}}"
+                      class="card-img-top mb-2"> -->
+
+                    <img [src]="adToDoActions.resources.images[0]" class="card-img-top mb-2">
+
+                    <!-- <p>{{adToDoActions.resources.images[0] | json }}</p> -->
+                    <a type="button" class="btn btn-primary me-2"
+                      [routerLink]="['/form-ad/edit', adToDoActions._id]">Modificar</a>
+                    <button class="btn btn-success me-2" (click)="sendAd()">Enviar</button>
+                    <button class="btn btn-danger"
+                      (click)="showPopUp(adToDoActions._id)">Eliminar</button>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
+          </div>
         </div>
+
+        <!-- Modal para eliminar el anuncio -->
+        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}"
+          *ngIf="adToDoActions">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title text-center"> ¿Está seguro que desea eliminar el anuncio?</h4>
+              </div>
+              <div class="modal-body">
+                <p>{{adToDoActions.text}}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="closePopup()">
+                  Cerrar
+                </button>
+
+                <button type="button" class="btn btn-danger" (click)="deleteAd()">
+                  Aceptar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

@@ -20,6 +20,8 @@ import { AdDetailsComponent } from './components/ad-details/ad-details.component
 import { NgxEchartsModule } from 'ngx-echarts';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlifeFileToBase64Module } from 'alife-file-to-base64';
+
 
 //Angular Material
 
@@ -47,6 +49,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       echarts: () => import('echarts'),
     }),
     BrowserAnimationsModule,
+    AlifeFileToBase64Module
   ],
   providers: [
     AuthGuard,
