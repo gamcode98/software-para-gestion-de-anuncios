@@ -25,6 +25,7 @@ export class FormAdComponent implements OnInit {
   myAreas!: any[];
   edit: boolean = false;
   title: string = 'Crear anuncio';
+  stringImagenes: string[] = [];
 
   constructor(
     private service: AdService,
@@ -214,5 +215,15 @@ export class FormAdComponent implements OnInit {
         video: true,
       };
     }
+  }
+
+  //* ADD IMAGES
+  onFileChanges(files:any){
+    [...files].forEach(img => this.stringImagenes.push(img.base64));
+    //* Object Resources
+    this.ad.resources = {
+      images: this.stringImagenes,
+    }
+    console.log(this.ad.resources);
   }
 }

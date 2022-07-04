@@ -28,8 +28,8 @@ export class Ad {
     }
   ];
   resources!: {
-    pdf: String;
-    images: [String];
+    pdf?: String;
+    images: String[];
   };
   readingTime!: {
     type: String;
