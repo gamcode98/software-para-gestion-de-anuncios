@@ -19,6 +19,9 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AdDetailsComponent } from './components/ad-details/ad-details.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { FooterComponent } from './components/layout/footer/footer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//Angular Material
 
 @NgModule({
   declarations: [
@@ -43,6 +46,7 @@ import { FooterComponent } from './components/layout/footer/footer.component';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthGuard,

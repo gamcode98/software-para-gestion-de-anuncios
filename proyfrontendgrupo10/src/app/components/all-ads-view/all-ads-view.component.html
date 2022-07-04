@@ -1,150 +1,174 @@
-<div class="row">
-    <div class="col">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand">Filtro</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<div class="container">
+    <div class="row">
+        <div class="card mt-3 mb-3 " style="border-radius: 1.2rem;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <nav class="navbar navbar-expand-lg navbar-light ">
+                            <div class="container-fluid">
+                                <a class="navbar-brand mt-2" href="#">Seleccione Filtro : </a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#filterContent" aria-controls="filterContent" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="filterContent">
 
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page">Link</a>
-                        </li>
+                                    <form class="d-flex">
+                                        <input class="form-control me-2" type="search" placeholder="Search"
+                                            aria-label="Search" name="tx" [(ngModel)]="textfilter">
 
+                                        <select class="form-select" aria-label="Default select example" name="so"
+                                            [(ngModel)]="socialFilter">
+                                            <option value="">Ninguno</option>
+                                            <option value="Twitter">Twitter</option>
+                                            <option value="Facebook">Facebook</option>
+                                            <option value="Youtube">Youtube</option>
+                                            <option value="Instagram">Instagram</option>
+                                            <option value="Tv">Tv</option>
+                                            <option value="Email">Email</option>
+                                        </select>
 
-                    </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            name="tx" [(ngModel)]="textfilter">
+                                        <select class="form-select" name="typeOfContent" [(ngModel)]="typeFilter">
+                                            <option value="">Ninguno</option>
+                                            <option value="image">Imagen</option>
+                                            <option value="html">HTML</option>
+                                            <option value="video">Video</option>
+                                            <option value="planeText">Texto</option>
+                                        </select>
 
-                        <select class="form-select" aria-label="Default select example" name="so"
-                            [(ngModel)]="socialFilter">
-                            <option value="">Ninguno</option>
-                            <option value="Twitter">Twitter</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="Youtube">Youtube</option>
-                            <option value="Instagram">Instagram</option>
-                            <option value="Tv">Tv</option>
-                            <option value="Email">Email</option>
-                        </select>
+                                        <select class="form-select" name="editor" [(ngModel)]="userFiler">
+                                            <option value="">Ninguno</option>
+                                            <option *ngFor="let q of users" value="{{q._id}}">{{q.firstName}}</option>
 
-                        <select class="form-select" name="typeOfContent" [(ngModel)]="typeFilter">
-                            <option value="">Ninguno</option>
-                            <option value="image">Imagen</option>
-                            <option value="html">HTML</option>
-                            <option value="video">Video</option>
-                            <option value="planeText">Texto</option>
-                        </select>
-                        <select class="form-select" name="editor" [(ngModel)]="userFiler">
-                            <option value="">Ninguno</option>
-                            <option *ngFor="let q of users" value="{{q._id}}">{{q.firstName}}</option>
+                                        </select>
 
-                        </select>
-                        <input type="date" class="form-control" id="init" name="idd" [(ngModel)]="dateFilter" />
+                                        <input type="date" class="form-control" id="init" name="idd"
+                                            [(ngModel)]="dateFilter" />
 
-                        <select class="form-select" name="af" [(ngModel)]="areasFilter">
-                            <option value="">Ninguno</option>
-                            <option *ngFor="let i of me?.infoAreas" value="{{i.area._id}}">{{i.area.name}}</option>
+                                        <select class="form-select" name="af" [(ngModel)]="areasFilter">
+                                            <option value="">Ninguno</option>
+                                            <option *ngFor="let i of me?.infoAreas" value="{{i.area._id}}">
+                                                {{i.area.name}}
+                                            </option>
 
-                        </select>
+                                        </select>
 
-                        <button class="btn btn-outline-success" (click)="filter()">Search</button>
-                    </form>
+                                        <button class="btn btn-outline-warning btn-lg"
+                                            (click)="filter()">Aplicar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </nav>
+                        <div class="row mt-2">
+                            <div *ngFor="let i of adsFilter">Filtro : {{i.text}}</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </nav>
-        <div class="row">
-            <div *ngFor="let i of adsFilter">{{i.text}}</div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <!-- Anuncios con imagenes -->
-        <div class="container mb-5">
-            <h2 class="text-center mb-2">Anuncios con imagenes</h2>
-            <div class="row mb-5" *ngIf="ad">
-                <div class="col mb-4 mb-md-1">
-                    <div id="carouselExampleDark" class="carousel slide">
+                <div class="row">
+                    <div class="col">
+                        <!-- Anuncios con imagenes -->
+                        <div class="container mb-5">
+                            <h2 class="title text-center mb-2">Anuncios con imagenes</h2>
+                            <div class="row mb-5" *ngIf="ad">
+                                <div class="col mb-4 mb-md-1">
+                                    <div id="carouselExampleDark" class="carousel slide">
 
-                        <div class="carousel-inner">
-                            <div class="carousel-item active" data-bs-interval="10000">
-                                <img src="{{ad.text}}" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block text-white">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active" data-bs-interval="10000">
+                                                <img src="{{ad.text}}" class="d-block w-100" alt="...">
+                                                <div class="carousel-caption d-none d-md-block text-white">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" (click)="back()">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" (click)="next()">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="d-md-none text-center">
+                                    <h5 class="card-title">{{ad.readingTime}}</h5>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- Anuncios solo con texto -->
+                        <div class="container">
+                            <h2 class="title text-center mb-2">Anuncios de texto</h2>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Contenido</th>
+                                                    <th scope="col">Tiempo de lectura</th>
+                                                    <th scope="col">Codigo QR</th>
+                                                    <th scope="col">Editor</th>
+                                                    <th scope="col">Fecha de Creacion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let ad of adsWithPlaneText; index as indexOfelement">
+                                                    <th scope="row">{{indexOfelement+1}}</th>
+                                                    <td>{{ad.text}}</td>
+                                                    <td>{{ad.readingTime}}</td>
+                                                    <td>
+                                                        <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id"
+                                                            [width]="256" [errorCorrectionLevel]="'M'">
+                                                        </qrcode>
+                                                    </td>
+                                                    <td>{{ad.editor}</td>
+                                                    <td>{{ad.entryDate.initial}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" (click)="back()">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" (click)="next()">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="d-md-none text-center">
-                    <h5 class="card-title">{{ad.readingTime}}</h5>
-                </div>
-            </div>
-
-
-        </div>
-        <!-- Anuncios solo con texto -->
-        <div class="container">
-            <h2 class="text-center mb-2">Anuncios de texto</h2>
-            <div class="row">
-                <div class="col">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Contenido</th>
-                                    <th scope="col">Tiempo de lectura</th>
-                                    <th scope="col">Editar</th>
-                                    <th scope="col">Eliminar</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let ad of adsWithPlaneText; index as indexOfelement">
-                                    <th scope="row">{{indexOfelement+1}}</th>
-                                    <td>{{ad.text}}</td>
-                                    <td>{{ad.readingTime}}</td>
-                                    <td>
-                                        <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id" [width]="256"
-                                            [errorCorrectionLevel]="'M'">
-                                        </qrcode>
-                                    </td>
-
-                                </tr>
-                            </tbody>
-                        </table>
+                        <!-- Anuncios con html -->
+                        <div class="container">
+                            <h2 class="title text-center mb-2">Anuncios con html</h2>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col"> Direccion HTML</th>
+                                                    <th scope="col">Editor</th>
+                                                    <th scope="col">Fecha de Creacion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let ad of adsWithHTML; index as indexOfelement">
+                                                    <th scope="row">{{indexOfelement+1}}</th>
+                                                    <td>
+                                                        <div innerHTML="{{ad.text}}"></div>
+                                                    </td>
+                                                    <td>{{ad.editor}</td>
+                                                    <td>{{ad.entryDate.initial}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Anuncios con html -->
-
-        <div class="container">
-            <h2 class="text-center mb-2">Anuncios con html</h2>
-            <div class="row">
-                <div class="col-12 border mb-3" *ngFor="let ad of adsWithHTML">
-                    <div class="col">
-                        <div innerHTML="{{ad.text}}"></div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-
 </div>
