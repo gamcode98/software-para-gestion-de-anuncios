@@ -25,6 +25,7 @@ function ad (app) {
   router.get('/', authValidation, async (req, res) => {
     const { id } = req.user
     const result = await adServ.getAdsByEditorId(id)
+
     return res.json(result)
   })
 
