@@ -1,73 +1,86 @@
-<div class="row">
-    <div class="col">
-        <h1 class="text-center mb-4">Acciones para aceptar persona</h1>
-        <div class="row mx-2">
+<div class="container">
+    <div class="row">
+        <div class="card mt-3 mb-3 " style="border-radius: 1.2rem;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="text-center mb-4">Acciones para aceptar persona</h1>
+                        <div class="row mx-2">
 
-            <div class="col-4 py-3 border ms-4 me-5">
+                            <div class="col-4 py-3 border ms-4 me-5">
 
-                <!-- Anuncios con imagenes  -->
-                <div class="card mb-3" *ngFor="let user of users">
-                    <div class="card-body">
-                        <h5 class="card-title">Usuario</h5>
+                                <!-- Anuncios con imagenes  -->
+                                <div class="card mb-3" *ngFor="let user of users">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Usuario</h5>
 
-                        <button class="btn btn-primary" (click)="selectUser(user._id)">Ver detalles</button>
-                    </div>
-                </div>
+                                        <button class="btn btn-primary" (click)="selectUser(user._id)">Ver
+                                            detalles</button>
+                                    </div>
+                                </div>
 
-            </div>
+                            </div>
 
-            <!-- Detalles del anuncio seleccionado -->
-            <div class="col-7 border">
+                            <!-- Detalles del anuncio seleccionado -->
+                            <div class="col-7 border">
 
-                <div class="card mb-3 mt-2" *ngIf="userToDoActions">
-                    <div class="card-body">
-                        <h5 class="card-title">Datos del usuario: {{userToDoActions.firstName}} </h5>
+                                <div class="card mb-3 mt-2" *ngIf="userToDoActions">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Datos del usuario: {{userToDoActions.firstName}} </h5>
 
 
-                        <div class="card-text" *ngFor="let infoAreas of userToDoActions.infoAreas">
-                            <p>Area: {{infoAreas.area._id}}</p>
-                            <p>Estado: {{infoAreas.status}}</p>
+                                        <div class="card-text" *ngFor="let infoAreas of userToDoActions.infoAreas">
+                                            <p>Area: {{infoAreas.area._id}}</p>
+                                            <p>Estado: {{infoAreas.status}}</p>
 
-                            <button class="btn btn-danger me-2"
-                                (click)="showPopUp(infoAreas.area._id,'decline')">Rechazar</button>
-                            <button class="btn btn-success"
-                                (click)="showPopUp(infoAreas.area._id, 'authorize')">Autorizar</button>
+                                            <button class="btn btn-danger me-2"
+                                                (click)="showPopUp(infoAreas.area._id,'decline')">Rechazar</button>
+                                            <button class="btn btn-success"
+                                                (click)="showPopUp(infoAreas.area._id, 'authorize')">Autorizar</button>
 
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-
                     </div>
                 </div>
 
+                <!-- Modal para eliminar -->
+                <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title text-center">¿Esta seguro que desea
+                                    {{authorize?"autorizar":"rechazar"}} el
+                                    anuncio?</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Jellouda</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" (click)="closePopup()">
+                                    Cancelar
+                                </button>
+
+                                <button *ngIf="authorize" type="button" class="btn btn-primary"
+                                    (click)="authorizeUser()">
+                                    Autorizar
+                                </button>
+                                <button *ngIf="decline" type="button" class="btn btn-primary" (click)="declineUser()">
+                                    Rechazar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" (click)="getInfo()">get info</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal para eliminar -->
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-center">¿Esta seguro que desea {{authorize?"autorizar":"rechazar"}} el
-                    anuncio?</h4>
-            </div>
-            <div class="modal-body">
-                <p>Jellouda</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="closePopup()">
-                    Cancelar
-                </button>
-
-                <button *ngIf="authorize" type="button" class="btn btn-primary" (click)="authorizeUser()">
-                    Autorizar
-                </button>
-                <button *ngIf="decline" type="button" class="btn btn-primary" (click)="declineUser()">
-                    Rechazar
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<button class="btn btn-primary" (click)="getInfo()">get info</button>
+<
