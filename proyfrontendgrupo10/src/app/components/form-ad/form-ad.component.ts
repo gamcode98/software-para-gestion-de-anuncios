@@ -6,6 +6,8 @@ import { AdService } from 'src/app/services/ad.service';
 import { AreaService } from 'src/app/services/area.service';
 import { PersonService } from 'src/app/services/person.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FacebookService, InitParams } from 'ngx-facebook';
+import { ApiMethod } from 'ngx-facebook/providers/facebook';
 
 @Component({
   selector: 'app-form-ad',
@@ -26,13 +28,14 @@ export class FormAdComponent implements OnInit {
   edit: boolean = false;
   title: string = 'Crear anuncio';
   stringImagenes: string[] = [];
-
+  mensaje: string = '';
   constructor(
     private service: AdService,
     private serviceArea: AreaService,
     private userService: PersonService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private fb: FacebookService
   ) {
     this.ad = new Ad();
 
@@ -41,6 +44,34 @@ export class FormAdComponent implements OnInit {
       final: new Date(),
     };
     this.init();
+    this.iniciarFb();
+  }
+
+  postFb() {
+    let apiMethod: ApiMethod = 'post';
+    // token a refrescar cada media hora
+    let token =
+      'EAAFAYJvrhDcBAAuPy7V03YxNKkpQlG2od4HniDQfZBxZCgq3Tu8MHKlKBsLeOnHNLD5zPO0WQkJvZAV4k89li3dWiCZAqIxF0cXZAJfZAf63ZANXZCRZC07ABatYPTuNRVlvCbTr2MSBPi0OK6RBCHPoPSqb03bAm074fVeiV4SU22Lb6SWYxVbvNcv6pN3F9P4aHfJxVbib9zaQ6H1GSonbG';
+
+    // id de la pagina de facebook
+    let pageId = '109497428485411';
+
+    this.fb.api(`/${pageId}/feed`, apiMethod, {
+      message: this.ad.text,
+      access_token: token,
+    });
+  }
+
+  iniciarFb() {
+    // id de la aplicacion de facebook
+    let applicationId = '352258653652023';
+    let initParams: InitParams = {
+      appId: applicationId,
+      autoLogAppEvents: true,
+      xfbml: true,
+      version: 'v7.0',
+    };
+    this.fb.init(initParams);
   }
 
   ngOnInit(): void {
@@ -115,6 +146,7 @@ export class FormAdComponent implements OnInit {
 
   createAd() {
     this.service.createAd(this.ad).subscribe((q) => {
+      this.postFb();
       console.log(q);
       this.router.navigate(['my-ads']);
     });
@@ -218,12 +250,12 @@ export class FormAdComponent implements OnInit {
   }
 
   //* ADD IMAGES
-  onFileChanges(files:any){
-    [...files].forEach(img => this.stringImagenes.push(img.base64));
+  onFileChanges(files: any) {
+    [...files].forEach((img) => this.stringImagenes.push(img.base64));
     //* Object Resources
     this.ad.resources = {
       images: this.stringImagenes,
-    }
+    };
     console.log(this.ad.resources);
   }
 }

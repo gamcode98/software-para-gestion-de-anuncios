@@ -21,6 +21,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
+import { FacebookModule } from 'ngx-facebook';
 
 
 //Angular Material
@@ -49,7 +50,8 @@ import { AlifeFileToBase64Module } from 'alife-file-to-base64';
       echarts: () => import('echarts'),
     }),
     BrowserAnimationsModule,
-    AlifeFileToBase64Module
+    AlifeFileToBase64Module,
+    FacebookModule.forRoot()
   ],
   providers: [
     AuthGuard,
