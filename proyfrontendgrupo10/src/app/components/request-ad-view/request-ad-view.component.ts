@@ -6,6 +6,8 @@ import { Person } from 'src/app/models/person';
 import { AdService } from 'src/app/services/ad.service';
 import { AreaService } from 'src/app/services/area.service';
 import { PersonService } from 'src/app/services/person.service';
+import { FacebookService, InitParams } from 'ngx-facebook';
+import { ApiMethod } from 'ngx-facebook/providers/facebook';
 
 @Component({
   selector: 'app-request-ad-view',
@@ -56,13 +58,13 @@ export class RequestAdViewComponent implements OnInit {
     private adService: AdService,
     private serviceUser: PersonService,
     private router: Router,
-    private areaService: AreaService
+    private areaService: AreaService,
+    private fb: FacebookService
   ) {}
 
   ngOnInit(): void {
     this.adService.getAdsWhereUserIsEncargado().subscribe((res) => {
       this.ads = res.result;
-      console.log(res.result);
       // this.ads.forEach((el:any) => {
       // });
       this.ads.forEach((subEl: Ad) => {
@@ -91,6 +93,34 @@ export class RequestAdViewComponent implements OnInit {
     // console.log("this.myAreas")
     // console.log(this.myAreas)
   }
+
+  postFb() {
+    let apiMethod: ApiMethod = 'post';
+    // token a refrescar cada media hora
+    let token =
+      'EAAFAYJvrhDcBADEZCEDw2ZCI10vXl8p39gh6S3exTXNP9IbFeCntvwzWnJOgZB2fe9nAxO1Jx9KpqZA4KhKOwxDCQYhtCzWfBiIvis9wWs45WXabToIJ0OKVtVFGIDUl5F8E0PIS5KmPGNdRHwWHAhQMMSfQVKYZCM7IWWQtFj7MxtOdxC5QghWtrZC5RQZCEmqBKEGtGR2GkYU8aSFHYuI';
+
+    // id de la pagina de facebook
+    let pageId = '109497428485411';
+
+    this.fb.api(`/${pageId}/feed`, apiMethod, {
+      message: this.adToDoActions.text,
+      access_token: token,
+    });
+  }
+
+  iniciarFb() {
+    // id de la aplicacion de facebook
+    let applicationId = '352258653652023';
+    let initParams: InitParams = {
+      appId: applicationId,
+      autoLogAppEvents: true,
+      xfbml: true,
+      version: 'v7.0',
+    };
+    this.fb.init(initParams);
+  }
+
   areaChange() {
     if (this.areaFilter._id === '') {
       this.areaFilter = new Area();
@@ -334,6 +364,7 @@ export class RequestAdViewComponent implements OnInit {
     console.log(this.adToDoActions);
     this.adService.updatePartialAd(this.adToDoActions).subscribe((q) => {
       console.log(q);
+      this.postFb();
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() => this.router.navigate(['admin-reques-ad-v2']));

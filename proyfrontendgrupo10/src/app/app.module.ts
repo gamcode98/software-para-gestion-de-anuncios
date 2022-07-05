@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { QRCodeModule } from 'angularx-qrcode';
+import { FacebookModule } from 'ngx-facebook';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +22,6 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
-
 
 //Angular Material
 
@@ -48,8 +48,9 @@ import { AlifeFileToBase64Module } from 'alife-file-to-base64';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
+    FacebookModule.forRoot(),
     BrowserAnimationsModule,
-    AlifeFileToBase64Module
+    AlifeFileToBase64Module,
   ],
   providers: [
     AuthGuard,

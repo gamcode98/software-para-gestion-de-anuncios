@@ -6,6 +6,8 @@ import { AdService } from 'src/app/services/ad.service';
 import { AreaService } from 'src/app/services/area.service';
 import { PersonService } from 'src/app/services/person.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FacebookService, InitParams } from 'ngx-facebook';
+import { ApiMethod } from 'ngx-facebook/providers/facebook';
 
 @Component({
   selector: 'app-form-ad',
@@ -32,7 +34,8 @@ export class FormAdComponent implements OnInit {
     private serviceArea: AreaService,
     private userService: PersonService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private fb: FacebookService
   ) {
     this.ad = new Ad();
 
@@ -218,12 +221,12 @@ export class FormAdComponent implements OnInit {
   }
 
   //* ADD IMAGES
-  onFileChanges(files:any){
-    [...files].forEach(img => this.stringImagenes.push(img.base64));
+  onFileChanges(files: any) {
+    [...files].forEach((img) => this.stringImagenes.push(img.base64));
     //* Object Resources
     this.ad.resources = {
       images: this.stringImagenes,
-    }
+    };
     console.log(this.ad.resources);
   }
 }
