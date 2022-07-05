@@ -36,7 +36,7 @@
               <input type="text" class="form-control" id="u" name="userPM"
                 [(ngModel)]="ad.publishingMedia[i].accounts[j]" />
             </div>
-            <button type="button" class="btn btn-primary" (click)="newUser(i)">
+            <button type="button" class="btn btn-primary my-2" (click)="newUser(i)">
               Añadir Usuario
             </button>
           </div>
@@ -47,23 +47,21 @@
         </div>
 
         <div class="mb-3">
-          <label for="init" class="form-label">Fecha de Inicio</label>
+          <label for="init" class="form-label">Fecha de inicio</label>
           <input type="date" class="form-control" id="init" name="fi" [(ngModel)]="ad.entryDate.initial" />
         </div>
         <div class="mb-3">
-          <label for="end" class="form-label">Fecha Final</label>
+          <label for="end" class="form-label">Fecha final</label>
           <input type="date" class="form-control" id="end" name="ff" [(ngModel)]="ad.entryDate.final" />
         </div>
 
         <div class="border rounded p-2 mb-2">
           <h3>Seleccione a quienes va dirigido</h3>
           <div class="form-check form-switch" *ngFor="let i of area">
-            <input class="form-check-input" type="checkbox" role="switch" id="areas"
-              (change)="addRecivers(i._id)" />
+            <input class="form-check-input" type="checkbox" role="switch" id="areas" (change)="addRecivers(i._id)" />
             <label class="form-check-label" for="areas">{{ i.name }}</label>
             <div class="form-check" *ngFor="let j of i.areaRoles">
-              <input class="form-check-input" type="checkbox" value="" id="rol"
-                (change)="addReciversRol(i._id, j)" />
+              <input class="form-check-input" type="checkbox" value="" id="rol" (change)="addReciversRol(i._id, j)" />
               <label class="form-check-label" for="rol">
                 {{ j }}
               </label>
@@ -73,9 +71,7 @@
 
         <!--* IMAGE -->
         <div class="my-4">
-          <input type="file" class="form-control"
-            alife-file-to-base64 multiple
-            (onFileChanged)="onFileChanges($event)"
+          <input type="file" class="form-control" alife-file-to-base64 multiple (onFileChanged)="onFileChanges($event)"
             accept="image/x-png,image/gif,image/jpeg" />
           <div *ngFor="let img of stringImagenes">
             <img [src]="img" class="img-fluid  d-block mx-auto mt-3">
@@ -89,9 +85,8 @@
         </div>
 
         <div class="m-auto">
-          <button type="submit" class="btn btn-primary"
-            (click)="edit ? editAd(ad) : createAd()">Guardar</button>
-          <button type="submit" class="btn btn-success" (click)="sendAd()">Enviar</button>
+          <button type="submit" class="btn btn-primary me-2" (click)="edit ? editAd(ad) : createAd()">Guardar</button>
+          <button type="submit" class="btn btn-primary" (click)="sendAd()">Enviar</button>
         </div>
       </form>
     </div>

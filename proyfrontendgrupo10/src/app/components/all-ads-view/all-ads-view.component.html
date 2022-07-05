@@ -6,7 +6,7 @@
                     <div class="col">
                         <nav class="navbar navbar-expand-lg navbar-light ">
                             <div class="container-fluid">
-                                <a class="navbar-brand mt-2" href="#">Seleccione Filtro : </a>
+                                <a class="navbar-brand mt-2" href="#">Seleccione filtro : </a>
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#filterContent" aria-controls="filterContent" aria-expanded="false"
                                     aria-label="Toggle navigation">
@@ -15,7 +15,7 @@
                                 <div class="collapse navbar-collapse" id="filterContent">
 
                                     <form class="d-flex">
-                                        <input class="form-control me-2" type="search" placeholder="Search"
+                                        <input class="form-control me-2" type="search" placeholder="Buscar"
                                             aria-label="Search" name="tx" [(ngModel)]="textfilter">
 
                                         <select class="form-select" aria-label="Default select example" name="so"
@@ -68,16 +68,17 @@
                 <div class="row">
                     <div class="col">
                         <!-- Anuncios con imagenes -->
-                        <div class="container mb-5">
+                        <div class="container my-3">
                             <h2 class="title text-center mb-2">Anuncios con imagenes</h2>
-                            <div class="row mb-5" *ngIf="ad">
+                            <div class="row mb-1" *ngIf="ad">
                                 <div class="col mb-4 mb-md-1">
                                     <div id="carouselExampleDark" class="carousel slide">
 
                                         <div class="carousel-inner">
                                             <div class="carousel-item active" data-bs-interval="10000">
-                                                <img src="{{ad.text}}" class="d-block w-100" alt="...">
+                                                <img src="{{ad.resources.images[0]}}" class="d-block w-100" alt="...">
                                                 <div class="carousel-caption d-none d-md-block text-white">
+
                                                 </div>
                                             </div>
                                         </div>
@@ -92,79 +93,72 @@
                                     </div>
                                 </div>
 
+
                                 <div class="d-md-none text-center">
                                     <h5 class="card-title">{{ad.readingTime}}</h5>
                                 </div>
                             </div>
-
+                            <div class="row border">
+                                <div class="col-4">
+                                    <div class="alert alert-primary" role="alert">
+                                        Escanea el siguiente código qr para ver mas detalles
+                                    </div>
+                                    <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id" [width]="256"
+                                        [errorCorrectionLevel]="'M'">
+                                    </qrcode>
+                                </div>
+                                <div class="col-8 mt-5">
+                                    <h3>Resumen:</h3>
+                                    <p>Fecha inicial: {{ad.entryDate.initial | date: 'dd/mm/yy'}}</p>
+                                    <p>Fecha final: {{ad.entryDate.final | date: 'dd/mm/yy'}}</p>
+                                    <p>Texto del anuncio: </p>
+                                    <p>{{ad.text}}</p>
+                                </div>
+                            </div>
 
                         </div>
                         <!-- Anuncios solo con texto -->
-                        <div class="container">
-                            <h2 class="title text-center mb-2">Anuncios de texto</h2>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Contenido</th>
-                                                    <th scope="col">Tiempo de lectura</th>
-                                                    <th scope="col">Codigo QR</th>
-                                                    <th scope="col">Editor</th>
-                                                    <th scope="col">Fecha de Creacion</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let ad of adsWithPlaneText; index as indexOfelement">
-                                                    <th scope="row">{{indexOfelement+1}}</th>
-                                                    <td>{{ad.text}}</td>
-                                                    <td>{{ad.readingTime}}</td>
-                                                    <td>
-                                                        <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id"
-                                                            [width]="256" [errorCorrectionLevel]="'M'">
-                                                        </qrcode>
-                                                    </td>
-                                                    <td>{{ad.editor}</td>
-                                                    <td>{{ad.entryDate.initial}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                        <div class="container my-3">
+                            <h2 class="title text-center mb-2">Anuncios tipo texto plano</h2>
+                            <div class="d-flex">
+                                <div class="card me-2" style="width: 18rem;" *ngFor="let ad of adsWithPlaneText">
+                                    <div class="card-body">
+                                        <h3>Resumen:</h3>
+                                        <p>Texto del anuncio: </p>
+
+                                        <p class="card-text">{{ad.text}}</p>
+                                        <div class="alert alert-primary" role="alert">
+                                            Escanea el siguiente código qr para ver mas detalles
+                                        </div>
+                                        <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id" [width]="256"
+                                            [errorCorrectionLevel]="'M'">
+                                        </qrcode>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Anuncios con html -->
+
+                        <!-- Anuncios solo con html -->
                         <div class="container">
-                            <h2 class="title text-center mb-2">Anuncios con html</h2>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col"> Direccion HTML</th>
-                                                    <th scope="col">Editor</th>
-                                                    <th scope="col">Fecha de Creacion</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let ad of adsWithHTML; index as indexOfelement">
-                                                    <th scope="row">{{indexOfelement+1}}</th>
-                                                    <td>
-                                                        <div innerHTML="{{ad.text}}"></div>
-                                                    </td>
-                                                    <td>{{ad.editor}</td>
-                                                    <td>{{ad.entryDate.initial}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                            <h2 class="title text-center mb-2">Anuncios tipo html</h2>
+                            <div class="d-flex">
+                                <div class="card me-2" style="width: 18rem;" *ngFor="let ad of adsWithHTML">
+                                    <div class="card-body">
+                                        <h3>Resumen:</h3>
+                                        <p>Texto del anuncio: </p>
+
+                                        <div innerHTML="{{ad.text}}"></div>
+                                        <div class="alert alert-primary" role="alert">
+                                            Escanea el siguiente código qr para ver mas detalles
+                                        </div>
+                                        <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id" [width]="256"
+                                            [errorCorrectionLevel]="'M'">
+                                        </qrcode>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

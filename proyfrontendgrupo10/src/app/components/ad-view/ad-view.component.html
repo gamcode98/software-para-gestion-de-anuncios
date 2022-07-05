@@ -7,13 +7,16 @@
             <h1 class="text-center mb-4">Mis anuncios</h1>
             <div class="row mx-2">
 
-              <div class="col-4 py-3 border ms-4 me-5">
+              <div class="col-12 col-sm-4 py-3 border me-5 mb-2">
 
                 <!-- Anuncios con html  -->
                 <div class="card mb-3" *ngFor="let ad of adsWithHTML">
                   <div class="card-body">
-                    <h5 class="card-title">Tipo de contenido: HTML</h5>
-                    <!-- <p class="card-text">Fecha: {{ad.entryDate.initial}}</p> -->
+                    <h3>Resumen:</h3>
+                    <h4 class="card-title">Tipo de contenido: HTML</h4>
+                    <p class="card-text">Fecha: {{ad.entryDate.initial | date: 'dd/mm/yy'}}</p>
+                    <p class="card-text">Fecha: {{ad.entryDate.final | date: 'dd/mm/yy'}}</p>
+                    <p class="card-text truncate-text">{{ad.text}}</p>
                     <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
                   </div>
                 </div>
@@ -21,8 +24,11 @@
                 <!-- Anuncios con imagenes  -->
                 <div class="card mb-3" *ngFor="let ad of adsWithImages">
                   <div class="card-body">
-                    <h5 class="card-title">Tipo de contenido: Imagenes</h5>
-                    <!-- <p class="card-text">Fecha: {{ad.entryDate.initial}}</p> -->
+                    <h3>Resumen:</h3>
+                    <h4 class="card-title">Tipo de contenido: Imagenes</h4>
+                    <p class="card-text">Fecha: {{ad.entryDate.initial | date: 'dd/mm/yy'}}</p>
+                    <p class="card-text">Fecha: {{ad.entryDate.final | date: 'dd/mm/yy'}}</p>
+                    <p class="card-text truncate-text">{{ad.text}}</p>
                     <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
                   </div>
                 </div>
@@ -30,8 +36,11 @@
                 <!-- Anuncios con texto plano   -->
                 <div class="card mb-3" *ngFor="let ad of adsWithPlaneText">
                   <div class="card-body">
-                    <h5 class="card-title">Tipo de contenido: Texto plano</h5>
-                    <!-- <p class="card-text">Fecha: {{ad.entryDate.initial}}</p> -->
+                    <h3>Resumen:</h3>
+                    <h4 class="card-title">Tipo de contenido: Texto plano</h4>
+                    <p class="card-text">Fecha: {{ad.entryDate.initial | date: 'dd/mm/yy'}}</p>
+                    <p class="card-text">Fecha: {{ad.entryDate.final | date: 'dd/mm/yy'}}</p>
+                    <p class="card-text truncate-text">{{ad.text}}</p>
                     <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
                   </div>
                 </div>
@@ -39,28 +48,31 @@
               </div>
 
               <!-- Detalles del anuncio seleccionado -->
-              <div class="col-7 border">
+              <div class="col-12 col-sm-7 border">
 
                 <div class="card mb-3 mt-2" *ngIf="adToDoActions">
                   <div class="card-body">
-                    <h5 class="card-title">Tipo de contenido: </h5>
+                    <h2>Detalles:</h2>
+                    <h3 *ngIf="adToDoActions.typeOfContent.html" class="card-title">Tipo de contenido: html</h3>
+                    <h3 *ngIf="adToDoActions.typeOfContent.image" class="card-title">Tipo de contenido: imagen</h3>
+                    <h3 *ngIf="adToDoActions.typeOfContent.planeText" class="card-title">Tipo de contenido: texto plano
+                    </h3>
+
                     <p class="card-text" *ngIf="!adToDoActions.typeOfContent.image">Texto:
                       {{adToDoActions.text}}
                     </p>
-                    <!-- <img *ngIf="adToDoActions.typeOfContent.image" src="{{adToDoActions.text}}"
-                      class="card-img-top mb-2" alt="..."> -->
-                    <!-- <img *ngIf="adToDoActions.typeOfContent.image" src="{{adToDoActions.resources.images[0]}}"
-                      class="card-img-top mb-2"> -->
+
+                    <p class="card-text">Fecha inicial: {{adToDoActions.entryDate.initial | date: 'dd/mm/yy'}}</p>
+                    <p class="card-text">Fecha final : {{adToDoActions.entryDate.final | date: 'dd/mm/yy'}}</p>
+
                     <div *ngFor="let img of adToDoActions.resources.images">
                       <img [src]="img" class="card-img-top mb-2">
                     </div>
 
-                    <!-- <p>{{adToDoActions.resources.images[0] | json }}</p> -->
                     <a type="button" class="btn btn-primary me-2"
                       [routerLink]="['/form-ad/edit', adToDoActions._id]">Modificar</a>
                     <button class="btn btn-success me-2" (click)="sendAd()">Enviar</button>
-                    <button class="btn btn-danger"
-                      (click)="showPopUp(adToDoActions._id)">Eliminar</button>
+                    <button class="btn btn-danger" (click)="showPopUp(adToDoActions._id)">Eliminar</button>
                   </div>
                 </div>
 
@@ -71,16 +83,13 @@
         </div>
 
         <!-- Modal para eliminar el anuncio -->
-        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}"
-          *ngIf="adToDoActions">
+        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}" *ngIf="adToDoActions">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h4 class="modal-title text-center"> ¿Está seguro que desea eliminar el anuncio?</h4>
               </div>
-              <div class="modal-body">
-                <p>{{adToDoActions.text}}</p>
-              </div>
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" (click)="closePopup()">
                   Cerrar
