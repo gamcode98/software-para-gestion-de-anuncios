@@ -114,8 +114,59 @@
 
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-6 offset-lg-3">
-                            <echarts [initOpts]="initOpts" [options]="options"></echarts>
+                        <div class="col-5">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                    id="flexSwitchCheckDefault" name="z" [(ngModel)]="bar" (change)="stadistic()">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Torta</label>
+                            </div>
+                            <echarts *ngIf="bar" [initOpts]="initOpts" [options]="options"></echarts>
+                            <div *ngIf="!bar" echarts [options]="options" class="demo-chart"></div>
+                        </div>
+                        <div class="col-5">
+
+
+                            <nav class="navbar navbar-expand-lg navbar-light ">
+                                <div class="container-fluid">
+                                    <a class="navbar-brand mt-2"> Seleccione Filtro : </a>
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#filterContent" aria-controls="filterContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="filterContent">
+
+                                        <form class="d-flex">
+
+
+
+
+
+                                            <select class="form-select" name="af" (change)="areaChange()"
+                                                [(ngModel)]="areaFilter._id">
+                                                <option value="">Ninguno</option>
+                                                <option *ngFor="let i of areas" value="{{i._id}}">
+                                                    {{i.name}}
+                                                </option>
+
+                                            </select>
+                                            <select *ngIf="areaFilter" class="form-select" name="rf"
+                                                [(ngModel)]="roleFilter">
+                                                <option value="">Ninguno</option>
+                                                <option *ngFor="let i of areaFilter.areaRoles" value="{{i}}">
+                                                    {{i}}
+                                                </option>
+
+                                            </select>
+                                            <input type="date" class="form-control" id="init" name="idd"
+                                                [(ngModel)]="dateFilter" />
+
+                                            <button class="btn btn-outline-warning btn-lg"
+                                                (click)="stadistic()">Aplicar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </nav>
                         </div>
                     </div>
                 </div>

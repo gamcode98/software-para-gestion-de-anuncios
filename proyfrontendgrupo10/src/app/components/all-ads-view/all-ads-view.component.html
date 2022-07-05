@@ -103,16 +103,16 @@
                                     <div class="alert alert-primary" role="alert">
                                         Escanea el siguiente código qr para ver mas detalles
                                     </div>
-                                    <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id" [width]="256"
+                                    <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad?._id" [width]="256"
                                         [errorCorrectionLevel]="'M'">
                                     </qrcode>
                                 </div>
                                 <div class="col-8 mt-5">
                                     <h3>Resumen:</h3>
-                                    <p>Fecha inicial: {{ad.entryDate.initial | date: 'dd/mm/yy'}}</p>
-                                    <p>Fecha final: {{ad.entryDate.final | date: 'dd/mm/yy'}}</p>
+                                    <p>Fecha inicial: {{ad?.entryDate?.initial | date: 'dd/mm/yy'}}</p>
+                                    <p>Fecha final: {{ad?.entryDate?.final | date: 'dd/mm/yy'}}</p>
                                     <p>Texto del anuncio: </p>
-                                    <p>{{ad.text}}</p>
+                                    <p>{{ad?.text}}</p>
                                 </div>
                             </div>
 

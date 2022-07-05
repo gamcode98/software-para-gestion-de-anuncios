@@ -1,44 +1,46 @@
 import { Component, OnInit } from '@angular/core';
+import { Person } from 'src/app/models/person';
 import { AuthService } from 'src/app/services/auth.service';
 import { PersonService } from 'src/app/services/person.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-
   infoUsuario: any = 'ninguno';
+  me: Person = new Person();
   isEncargadoAndAutorizado: Boolean = false;
 
-  constructor(public authService: AuthService, private personService: PersonService) { }
+  constructor(
+    public authService: AuthService,
+    private personService: PersonService
+  ) {}
 
   ngOnInit(): void {
     this.obtenerInfoUsuario();
   }
 
-  obtenerInfoUsuario(){
-
-    this.personService.myInfo().subscribe(infoUsuario => {
+  obtenerInfoUsuario() {
+    this.personService.myInfo().subscribe((infoUsuario) => {
+      this.me = infoUsuario;
       // console.log(infoUsuario);
-      this.infoUsuario = infoUsuario.infoAreas ;
+      this.infoUsuario = infoUsuario.infoAreas;
       console.log(this.infoUsuario);
 
-      this.getArr()
-    })
-
+      this.getArr();
+    });
   }
 
-  getArr(){
-    [...this.infoUsuario].forEach((rol: any) =>{
-      let isEncargado = rol.userRoles.includes('Encargado')
+  getArr() {
+    [...this.infoUsuario].forEach((rol: any) => {
+      let isEncargado = rol.userRoles.includes('Encargado');
       let isAceptado = rol.status == 'aceptado';
-      if(isEncargado == true && isAceptado == true) {
+      if (isEncargado == true && isAceptado == true) {
         this.isEncargadoAndAutorizado = true;
         console.log('Es autorizado: ' + this.isEncargadoAndAutorizado);
       }
-    })
+    });
   }
-
 }
