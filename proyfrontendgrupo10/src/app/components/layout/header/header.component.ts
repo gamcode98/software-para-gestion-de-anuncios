@@ -18,17 +18,10 @@ export class HeaderComponent implements OnInit {
     this.obtenerInfoUsuario();
   }
 
-  //* Metodo Get
-  // get infoUser() {
-  //   console.log(this.personService.InfoUser);
-  //   return this.personService.InfoUser;
-  // }
-
   obtenerInfoUsuario(){
-    // console.log(this.infoUser);
 
     this.personService.myInfo().subscribe(infoUsuario => {
-      console.log(infoUsuario);
+      // console.log(infoUsuario);
       this.infoUsuario = infoUsuario.infoAreas ;
       console.log(this.infoUsuario);
 
@@ -38,14 +31,9 @@ export class HeaderComponent implements OnInit {
   }
 
   getArr(){
-    // debugger
     [...this.infoUsuario].forEach((rol: any) =>{
-      console.log(rol.userRoles);
-      const isEncargado = rol.userRoles.includes('Encargado')
-      const isAceptado = rol.status == 'aceptado';
-      console.log('isEncargado: ' + isEncargado);
-      console.log('Status: ' + isAceptado);
-
+      let isEncargado = rol.userRoles.includes('Encargado')
+      let isAceptado = rol.status == 'aceptado';
       if(isEncargado == true && isAceptado == true) {
         this.isEncargadoAndAutorizado = true;
         console.log('Es autorizado: ' + this.isEncargadoAndAutorizado);
