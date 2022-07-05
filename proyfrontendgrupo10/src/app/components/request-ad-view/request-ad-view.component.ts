@@ -29,7 +29,6 @@ export class RequestAdViewComponent implements OnInit {
   user!: Person;
   idAreaToUpdate!: string;
   html: number = 0;
-  video: number = 0;
   img: number = 0;
   txt: number = 0;
   areas!: Area[];
@@ -37,7 +36,8 @@ export class RequestAdViewComponent implements OnInit {
   roleFilter: string = '';
   dateFilter!: Date;
   formS: string = 'bar';
-
+  bar: boolean = false;
+  chartInstance: any;
   myAreas: string[] = [];
 
   ads: any[] = [];
@@ -106,7 +106,6 @@ export class RequestAdViewComponent implements OnInit {
   stadistic() {
     this.adService.getAdsAll().subscribe((q) => {
       this.html = 0;
-      this.video = 0;
       this.img = 0;
       this.txt = 0;
       let adsStadistic: Ad[] = [];
@@ -161,52 +160,117 @@ export class RequestAdViewComponent implements OnInit {
         if (a.typeOfContent.planeText) {
           this.txt++;
         }
-        if (a.typeOfContent.video) {
-          this.video++;
-        }
       });
-      this.options = {
-        title: {
-          text: 'Estadisticas de Anuncios',
-          subtext: 'Datos',
-          x: 'center',
-        },
-        color: ['#3398DB'],
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow',
+      if (this.bar) {
+        this.options = {
+          title: {
+            text: 'Estadisticas de Anuncios',
+            subtext: 'Datos',
+            x: 'center',
           },
-        },
-        grid: {
-          left: '2%',
-          right: '3%',
-          bottom: '2%',
-          containLabel: true,
-        },
-        xAxis: [
-          {
-            type: 'category',
-            data: ['Html', 'Imagenes', 'Texto', 'Video'],
-            axisTick: {
-              alignWithLabel: true,
+          color: ['#3398DB'],
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow',
             },
           },
-        ],
-        yAxis: [
-          {
-            type: 'value',
+          grid: {
+            left: '2%',
+            right: '3%',
+            bottom: '2%',
+            containLabel: true,
           },
-        ],
-        series: [
-          {
-            name: 'Cantidad',
-            type: this.formS,
-            barWidth: '60%',
-            data: [this.html, this.img, this.txt, this.video],
+          xAxis: [
+            {
+              type: 'category',
+              data: ['Html', 'Imagenes', 'Texto'],
+              axisTick: {
+                alignWithLabel: true,
+              },
+            },
+          ],
+          yAxis: [
+            {
+              type: 'value',
+            },
+          ],
+          series: [
+            {
+              name: 'Cantidad',
+              type: this.formS,
+              barWidth: '60%',
+              data: [this.html, this.img, this.txt],
+            },
+          ],
+        };
+      } else {
+        this.options = {
+          backgroundColor: '#2c343c',
+          title: {
+            text: 'Estadisticas de Anuncios',
+            left: 'center',
+            top: 20,
+            textStyle: {
+              color: '#ccc',
+            },
           },
-        ],
-      };
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)',
+          },
+          visualMap: {
+            show: false,
+            min: 80,
+            max: 600,
+            inRange: {
+              colorLightness: [0, 1],
+            },
+          },
+          series: [
+            {
+              name: 'Cantidad',
+              type: 'pie',
+              radius: '55%',
+              center: ['50%', '50%'],
+              data: [
+                { value: this.html, name: 'HTML' },
+                { value: this.txt, name: 'TEXT' },
+                { value: this.img, name: 'IMAGE' },
+              ].sort((a, b) => a.value - b.value),
+              roseType: 'radius',
+              label: {
+                normal: {
+                  textStyle: {
+                    color: 'rgba(255, 255, 255, 1)',
+                  },
+                },
+              },
+              labelLine: {
+                normal: {
+                  lineStyle: {
+                    color: 'rgba(0, 255, 255, 1)',
+                  },
+                  smooth: 0.2,
+                  length: 10,
+                  length2: 20,
+                },
+              },
+              itemStyle: {
+                normal: {
+                  color: '#ccc',
+                  shadowBlur: 200,
+                  shadowColor: 'rgba(255,255, 255, 1)',
+                },
+              },
+
+              animationType: 'scale',
+              animationEasing: 'elasticOut',
+              animationDelay: () => Math.random() * 200,
+            },
+          ],
+        };
+      }
     });
   }
 

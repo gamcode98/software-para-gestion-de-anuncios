@@ -105,7 +105,13 @@
                     </div>
                     <div class="row">
                         <div class="col-5">
-                            <echarts [initOpts]="initOpts" [options]="options"></echarts>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                    id="flexSwitchCheckDefault" name="z" [(ngModel)]="bar" (change)="stadistic()">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Torta</label>
+                            </div>
+                            <echarts *ngIf="bar" [initOpts]="initOpts" [options]="options"></echarts>
+                            <div *ngIf="!bar" echarts [options]="options" class="demo-chart"></div>
                         </div>
                         <div class="col-5">
 
