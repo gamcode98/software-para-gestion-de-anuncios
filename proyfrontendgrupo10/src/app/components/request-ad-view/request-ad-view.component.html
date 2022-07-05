@@ -4,16 +4,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        <h1 class="text-center mb-4">Acciones para anuncios</h1>
+                        <h1 class="text-center mb-4 title">Acciones para anuncios</h1>
                         <div class="row mx-2">
 
-                            <div class="col-4 py-3 border ms-4 me-5">
+                            <div class="col-12 col-sm-4 py-3 border me-5">
 
                                 <!-- Anuncios con imagenes  -->
                                 <div class="card mb-3" *ngFor="let ad of adsWithHTML">
                                     <div class="card-body">
-                                        <h5 class="card-title">Tipo de contenido: HTML</h5>
-
+                                        <h3>Resumen:</h3>
+                                        <h4 class="card-title">Tipo de contenido: html</h4>
+                                        <p class="card-text">Fecha: {{ad.entryDate.initial | date: 'dd/mm/yy'}}</p>
+                                        <p class="card-text">Fecha: {{ad.entryDate.final | date: 'dd/mm/yy'}}</p>
+                                        <p class="card-text truncate-text">Contenido: {{ad.text}}</p>
                                         <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
                                     </div>
                                 </div>
@@ -21,8 +24,11 @@
                                 <!-- Anuncios con imagenes  -->
                                 <div class="card mb-3" *ngFor="let ad of adsWithImages">
                                     <div class="card-body">
-                                        <h5 class="card-title">Tipo de contenido: Imagenes</h5>
-
+                                        <h3>Resumen:</h3>
+                                        <h4 class="card-title">Tipo de contenido: Imagenes</h4>
+                                        <p class="card-text">Fecha: {{ad.entryDate.initial | date: 'dd/mm/yy'}}</p>
+                                        <p class="card-text">Fecha: {{ad.entryDate.final | date: 'dd/mm/yy'}}</p>
+                                        <p class="card-text truncate-text">Contenido: {{ad.text}}</p>
                                         <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
                                     </div>
                                 </div>
@@ -30,8 +36,11 @@
                                 <!-- Anuncios con texto plano   -->
                                 <div class="card mb-3" *ngFor="let ad of adsWithPlaneText">
                                     <div class="card-body">
-                                        <h5 class="card-title">Tipo de contenido: Texto plano</h5>
-
+                                        <h3>Resumen:</h3>
+                                        <h4 class="card-title">Tipo de contenido: Texto plano</h4>
+                                        <p class="card-text">Fecha: {{ad.entryDate.initial | date: 'dd/mm/yy'}}</p>
+                                        <p class="card-text">Fecha: {{ad.entryDate.final | date: 'dd/mm/yy'}}</p>
+                                        <p class="card-text truncate-text">Contenido: {{ad.text}}</p>
                                         <button class="btn btn-primary" (click)="selectAd(ad._id)">Ver detalles</button>
                                     </div>
                                 </div>
@@ -39,12 +48,21 @@
                             </div>
 
                             <!-- Detalles del anuncio seleccionado -->
-                            <div class="col-7 border">
+                            <div class="col-12 col-sm-7 border">
 
                                 <div class="card mb-3 mt-2" *ngIf="adToDoActions">
                                     <div class="card-body">
-                                        <h5 class="card-title">Tipo de contenido: </h5>
-                                        <p class="card-text" *ngIf="!adToDoActions.typeOfContent.image">Texto:
+                                        <h2>Detalles:</h2>
+                                        <h3 *ngIf="adToDoActions.typeOfContent.html" class="card-title">Tipo de
+                                            contenido: html</h3>
+                                        <h3 *ngIf="adToDoActions.typeOfContent.image" class="card-title">Tipo de
+                                            contenido: imagen</h3>
+                                        <h3 *ngIf="adToDoActions.typeOfContent.planeText" class="card-title">Tipo de
+                                            contenido: texto plano
+                                        </h3>
+
+                                        <p class="card-text" *ngIf="!adToDoActions.typeOfContent.image">Texto del
+                                            anuncio:
                                             {{adToDoActions.text}}
                                         </p>
                                         <img *ngIf="adToDoActions.typeOfContent.image" src="{{adToDoActions.text}}"
@@ -52,7 +70,7 @@
 
                                         <div class="card-text" *ngFor="let receivers of adToDoActions.receivers">
                                             <p>Area: {{receivers.area.name}}</p>
-                                            <p>Area: {{receivers.status}}</p>
+                                            <p>Estado: {{receivers.status}}</p>
                                             <button class="btn btn-danger me-2"
                                                 (click)="showPopUp(receivers.area._id,'decline')">Rechazar</button>
                                             <button class="btn btn-success"
@@ -76,9 +94,7 @@
                                     {{authorize?"autorizar":"rechazar"}} el
                                     anuncio?</h4>
                             </div>
-                            <div class="modal-body">
-                                <p>{{adToAuthorize}}</p>
-                            </div>
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" (click)="closePopup()">
                                     Cancelar
@@ -95,68 +111,11 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary" (click)="getInfo()">get info</button>
 
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 offset-lg-3">
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch"
-                                    id="flexSwitchCheckDefault" name="z" [(ngModel)]="bar" (change)="stadistic()">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Torta</label>
-                            </div>
-                            <echarts *ngIf="bar" [initOpts]="initOpts" [options]="options"></echarts>
-                            <div *ngIf="!bar" echarts [options]="options" class="demo-chart"></div>
-                        </div>
-                        <div class="col-5">
-
-
-                            <nav class="navbar navbar-expand-lg navbar-light ">
-                                <div class="container-fluid">
-                                    <a class="navbar-brand mt-2"> Seleccione Filtro : </a>
-                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#filterContent" aria-controls="filterContent"
-                                        aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"></span>
-                                    </button>
-                                    <div class="collapse navbar-collapse" id="filterContent">
-
-                                        <form class="d-flex">
-
-
-
-
-
-                                            <select class="form-select" name="af" (change)="areaChange()"
-                                                [(ngModel)]="areaFilter._id">
-                                                <option value="">Ninguno</option>
-                                                <option *ngFor="let i of areas" value="{{i._id}}">
-                                                    {{i.name}}
-                                                </option>
-
-                                            </select>
-                                            <select *ngIf="areaFilter" class="form-select" name="rf"
-                                                [(ngModel)]="roleFilter">
-                                                <option value="">Ninguno</option>
-                                                <option *ngFor="let i of areaFilter.areaRoles" value="{{i}}">
-                                                    {{i}}
-                                                </option>
-
-                                            </select>
-                                            <input type="date" class="form-control" id="init" name="idd"
-                                                [(ngModel)]="dateFilter" />
-
-                                            <button class="btn btn-outline-warning btn-lg"
-                                                (click)="stadistic()">Aplicar</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </nav>
+                            <echarts [initOpts]="initOpts" [options]="options"></echarts>
                         </div>
                     </div>
                 </div>
