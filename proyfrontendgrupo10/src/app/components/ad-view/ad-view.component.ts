@@ -101,7 +101,7 @@ export class AdViewComponent implements OnInit {
         this.isSuperAdmin=true
       }
       this.isLogged=true      
-      this.authService.disparador.emit({login: this.logged, isEncarAndAut: this.isEncargadoAndAutorizado, isSupAdm: this.isSuperAdmin})
+      this.authService.disparador.emit({login: this.logged, isEncarAndAut: this.isEncargadoAndAutorizado, isSupAdm: this.isSuperAdmin, user: this.me})
     },
     (err) => {      
       this.isLogged=false

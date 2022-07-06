@@ -25,9 +25,11 @@ export class HeaderComponent implements OnInit {
       this.isLogged=data.login
       this.isEncargadoAndAutorizado=data.isEncarAndAut
       this.isSuperAdmin=data.isSupAdm
-      console.log("this.isLogged", this.isLogged)
-      console.log("this.isEncargadoAndAutorizado", this.isEncargadoAndAutorizado)
-      console.log("this.isSuperAdmin", this.isSuperAdmin)
+      this.me=data.user
+      // console.log("this.isLogged", this.isLogged)
+      // console.log("this.isEncargadoAndAutorizado", this.isEncargadoAndAutorizado)
+      // console.log("this.isSuperAdmin", this.isSuperAdmin)
+      // console.log("this.me", this.me)
     })
     // this.obtenerInfoUsuario();
   }
