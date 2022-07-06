@@ -10,6 +10,11 @@ class Area {
     }
   }
 
+  async getPublicArea () {
+    const area = await AreaModel.find({ name: 'publica' })
+    return area
+  }
+
   async create (data) {
     try {
       const area = await AreaModel.create(data)
