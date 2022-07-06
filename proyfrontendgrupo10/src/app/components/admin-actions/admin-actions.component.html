@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+      <div class="card mt-3 mb-3 " style="border-radius: 1.2rem;">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Nombre y apellido</th>
+                          <th scope="col">Dni</th>
+                          <th scope="col">Legajo</th>
+                          <th scope="col">Correo</th>
+                          <th scope="col">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let user of users ;index as indexOfelement">
+                          <th scope="row">{{indexOfelement+1}}</th>
+                          <td>{{user.firstName}} {{user.lastName}}</td>
+                          <td>{{user.dni}}</td>
+                          <td>{{user.legajo}}</td>
+                          <td>{{user.email}}</td>
+                          <td>
+                            <button type="button" class="btn btn-danger b-block mb-2 mb-md-0 me-md-2"
+                              (click)="showPopUp(user._id)">Eliminar</button>
+                            <a type="button" class="btn btn-primary"
+                              [routerLink]="['/form-person/edit', user._id]">Modificar</a>
+                          </td>
+                        </tr>                    
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+ <!-- Modal para eliminar -->
+ <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title text-center">¿Esta seguro que desea eliminar al usuario?</h4>
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="closePopup()">
+                  Cancelar
+              </button>
+              
+              <button type="button" class="btn btn-danger" (click)="deleteUser()">
+                  Aceptar
+              </button>
+          </div>
+      </div>
+  </div>
+</div>

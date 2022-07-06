@@ -9,8 +9,15 @@ function user (app) {
   const userServ = new UserService()
 
   router.get('/', async (req, res) => {
-    const users = await userServ.getAll()
-    return res.json(users)
+    try {
+      const users = await userServ.getAll()
+      return res.json(users)
+    } catch (error) {
+      return res.status(500).json({
+        error: true,
+        message: 'Something went wrong'
+      })
+    }
   })
 
   router.get('/request-enter-area', authValidation, async (req, res) => {
@@ -135,11 +142,18 @@ function user (app) {
     return res.json(user)
   })
 
-  router.delete('/:id', async (req, res) => {
-    const { id } = req.params
-    const { body } = req
-    const user = await userServ.delete(id, body)
-    return res.json(user)
+  router.delete('/:id', authValidation, async (req, res) => {
+    try {
+      const { id } = req.params
+      const { body } = req
+      const user = await userServ.delete(id, body)
+      return res.json(user)
+    } catch (error) {
+      return res.status(500).json({
+        error: true,
+        message: 'Something went wrong'
+      })
+    }
   })
 
   router.put('/:id', async (req, res) => {

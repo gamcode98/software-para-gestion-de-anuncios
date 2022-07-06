@@ -3,7 +3,7 @@ import { Person } from 'src/app/models/person';
 import { PersonService } from 'src/app/services/person.service';
 import { Area } from 'src/app/models/area';
 import { AreaService } from 'src/app/services/area.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-form-person',
   templateUrl: './form-person.component.html',
@@ -13,12 +13,16 @@ export class FormPersonComponent implements OnInit {
   person: Person = new Person();
   areas: Area[] = [];
   areaAux: Area[] = [];
+  edit: boolean = false;
   startArea: boolean = true;
+  title: string = 'Registrate';
+
 
   constructor(
     private servicePerson: PersonService,
     private serviceArea: AreaService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.serviceArea.getAreas().subscribe((resp: any) => {
       console.log(resp);
@@ -33,7 +37,16 @@ export class FormPersonComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const params = this.activatedRoute.snapshot.params;
+    if (params['id']) {
+      this.servicePerson.getPersonById(params['id']).subscribe((data) => {
+        this.person = data;
+        this.edit = true;
+        this.title = 'Actualizar usuario';
+      });
+    }
+  }
 
   requestArea(id: string, name: string) {
     if (this.startArea) {
