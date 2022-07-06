@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto border rounded my-4 p-4 bg-white">
+      <form>
+        <h1 class="text-center">{{title}}</h1>
+
+        <div class="mb-3">
+          <label for="areaName" class="form-label">Nombre de area: </label>
+          <input type="text" class="form-control" id="areaName" name="areaName" [(ngModel)]="area.name" />
+        </div>
+      
+        <div class="mb-3">
+          <label for="roles" class="form-label d-block">Roles: </label>
+          <input type="text" class="form-control mb-3" name="areaRol" id="roles" [(ngModel)]="role" />
+          <button class="btn btn-primary" [disabled]="!role" (click)="adRole()">{{count===0?'Añadir rol':'Añadir otro rol'}}</button>
+        </div>
+
+        <div class="mb-3" *ngIf="roles.length!==0">
+          <label for="roles added" class="form-label d-block">Roles añadidos: </label>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre del rol</th>                
+                <th scope="col">Quitar rol</th>                
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let role of roles; index as indexOfelement">
+                <th scope="row">{{indexOfelement+1}}</th>
+                <td>{{role}}</td>                
+                <td><button class="btn btn-danger" (click)="deleteRole(indexOfelement)">Eliminar</button></td>                
+              </tr>     
+            </tbody>
+          </table>
+        </div>
+
+        <div class="m-auto">
+          <button type="submit" class="btn btn-primary me-2" (click)="edit ? editArea() : createArea()">Guardar</button>          
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

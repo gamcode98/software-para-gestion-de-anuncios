@@ -12,6 +12,8 @@ import { RequestPersonViewComponent } from './components/request-person-view/req
 import { AuthGuard } from './auth.guard';
 import { AdDetailsComponent } from './components/ad-details/ad-details.component';
 import { AdminActionsComponent } from './components/admin-actions/admin-actions.component';
+import { AdminActionsToAreaComponent } from './components/admin-actions-to-area/admin-actions-to-area.component';
+import { FormAreaComponent } from './components/form-area/form-area.component';
 
 const routes: Routes = [
   { path: 'form-ad', component: FormAdComponent, canActivate: [AuthGuard] },
@@ -25,6 +27,9 @@ const routes: Routes = [
   { path: 'admin-reques-person-v2', component: RequestPersonViewComponent },
   { path: 'ad-details/:id', component: AdDetailsComponent },
   { path: 'users', component: AdminActionsComponent },
+  { path: 'areas', component: AdminActionsToAreaComponent },
+  { path: 'form-area', component: FormAreaComponent },
+  { path: 'form-area/edit/:id', component: FormAreaComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' },
 ];
 

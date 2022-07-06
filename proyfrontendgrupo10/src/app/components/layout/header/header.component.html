@@ -13,21 +13,22 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div  class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-        <ul *ngIf="isLogged" class="navbar-nav ml-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
+       
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" style="font-size: 18px;" routerLink="/ads">Todos los Anuncios</a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="isLogged">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
-              Opciones para Anuncios
+              anuncios
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li>
-                <a class="dropdown-item" routerLink="/my-ads">Mis Anuncios</a>
-              </li>
+                <a class="dropdown-item" routerLink="/my-ads">Mis anuncios</a>
+              </li>              
               <li>
-                <a class="dropdown-item" routerLink="/ads">Todos los Anuncios</a>
-              </li>
-              <li>
-                <a class="dropdown-item" routerLink="/form-ad">Registrar Anuncio</a>
+                <a class="dropdown-item" routerLink="/form-ad">Crear anuncio</a>
               </li>
             </ul>
           </li>
@@ -36,13 +37,17 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                Opciones de Acciones
+                administración
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" routerLink="/admin-reques-ad-v2">Acciones Para Anuncio</a></li>
-                <li><a class="dropdown-item" routerLink="/admin-reques-person-v2">Acciones Para Persona</a>
+                <li><a class="dropdown-item" routerLink="/admin-reques-ad-v2">Solicitudes de  anuncios</a></li>
+                <li><a class="dropdown-item" routerLink="/admin-reques-person-v2">Solicitudes de usuarios</a>
                 </li>
-                <li *ngIf="isSuperAdmin"><a class="dropdown-item" routerLink="/users">Acciones sobre usuarios</a>
+                <li *ngIf="isSuperAdmin"><a class="dropdown-item" routerLink="/users">Registro de usuarios</a>
+                </li>
+                <li *ngIf="isSuperAdmin"><a class="dropdown-item" routerLink="/areas">Registro de areas</a>
+                </li>
+                <li *ngIf="isSuperAdmin"><a class="dropdown-item" routerLink="/form-area">Crear nueva area</a>
                 </li>
               </ul>
             </li>

@@ -42,7 +42,7 @@ const checkRoles = (...roles) => {
 }
 
 const checkSuperAdmin = (req, res, next) => {
-  const tokenId = req.user.id
+  const tokenId = req.user.role
 
   if (tokenId === 2) return next()
 
