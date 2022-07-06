@@ -30,6 +30,8 @@ const importConfig = async () => {
       for (let index = 0; index < allAreas.length; index++) {
         newUsers[index].infoAreas.area = allAreas[index]._id
         newUsers[index].infoAreas.userRoles = allAreas[index].areaRoles[0]
+        admin.infoAreas[index].area = allAreas[index]._id
+        admin.infoAreas[index].userRoles = allAreas[index].areaRoles[0]
       }
     }
     await UserModel.insertMany(newUsers)

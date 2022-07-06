@@ -5,6 +5,31 @@ const superAdmin = {
   dni: '1111',
   email: 'superadmin@gmail.com',
   password: '123ok',
+  infoAreas: [{
+    area: '',
+    userRoles: '',
+    status: 'aceptado'
+  }, {
+    area: '',
+    userRoles: '',
+    status: 'aceptado'
+  },
+  {
+    area: '',
+    userRoles: '',
+    status: 'aceptado'
+  },
+  {
+    area: '',
+    userRoles: '',
+    status: 'aceptado'
+  },
+  {
+    area: '',
+    userRoles: '',
+    status: 'aceptado'
+  }],
+
   role: 2
 }
 

@@ -15,4 +15,5 @@ export class Person {
       status: string;
     }
   ];
+  role!: number
 }

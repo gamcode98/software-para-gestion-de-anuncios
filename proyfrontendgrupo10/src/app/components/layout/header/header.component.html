@@ -12,8 +12,8 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+      <div  class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+        <ul *ngIf="isLogged" class="navbar-nav ml-auto mb-2 mb-lg-0">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,9 +31,8 @@
               </li>
             </ul>
           </li>
-
-          <!-- <p class="text-white">{{ isEncargadoAndAutorizado }}</p> -->
-          <div *ngIf="isEncargadoAndAutorizado">
+          
+          <div *ngIf="isLogged && isEncargadoAndAutorizado">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,7 +42,7 @@
                 <li><a class="dropdown-item" routerLink="/admin-reques-ad-v2">Acciones Para Anuncio</a></li>
                 <li><a class="dropdown-item" routerLink="/admin-reques-person-v2">Acciones Para Persona</a>
                 </li>
-                <li><a class="dropdown-item" routerLink="/users">Acciones sobre usuarios</a>
+                <li *ngIf="isSuperAdmin"><a class="dropdown-item" routerLink="/users">Acciones sobre usuarios</a>
                 </li>
               </ul>
             </li>
@@ -56,16 +55,16 @@
           <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
             <li class="nav-item">
               <a class="btn btn-outline-warning" routerLink="/login" routerLinkActive="active">Iniciar
-                Sesión</a>
+                sesión</a>
             </li>
             <li class="nav-item">
               <a class="btn btn-outline-warning" routerLink="/form-person" routerLinkActive="active">Registrarse</a>
             </li>
           </ng-container>
 
-          <ng-template #loggedIn>
+          <ng-template #loggedIn>            
             <li class="nav-item">
-              <a class="btn btn-primary" (click)="authService.logout()">Logout</a>
+              <a class="btn btn-danger" (click)="logout()">Cerrar sesión</a>
             </li>
           </ng-template>
         </form>

@@ -21,7 +21,7 @@ export class AdminActionsComponent implements OnInit {
   }
   
   getUsers(){    
-    this.usersService.getUsers().subscribe(users=> {
+    this.usersService.getUsersToSuperAdmin().subscribe(users=> {
       this.users = users
     })
   }

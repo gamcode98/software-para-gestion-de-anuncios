@@ -42,4 +42,8 @@ export class PersonService {
     return this._http.delete<Person>(`${this.urlApi}/${id}`)
   }
 
+  getUsersToSuperAdmin(){
+    return this._http.get<Person[]>(`${this.urlApi}/users-to-superadmin`)
+  }
+
 }

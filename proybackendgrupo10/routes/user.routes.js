@@ -1,5 +1,5 @@
 const express = require('express')
-const { authValidation } = require('../middlewares/authValidation')
+const { authValidation, checkSuperAdmin } = require('../middlewares/authValidation')
 const UserService = require('../services/user.service')
 
 function user (app) {
@@ -9,6 +9,18 @@ function user (app) {
   const userServ = new UserService()
 
   router.get('/', async (req, res) => {
+    try {
+      const users = await userServ.getAll()
+      return res.json(users)
+    } catch (error) {
+      return res.status(500).json({
+        error: true,
+        message: 'Something went wrong'
+      })
+    }
+  })
+
+  router.get('/users-to-superadmin', authValidation, checkSuperAdmin, async (req, res) => {
     try {
       const users = await userServ.getAll()
       return res.json(users)
@@ -142,7 +154,7 @@ function user (app) {
     return res.json(user)
   })
 
-  router.delete('/:id', authValidation, async (req, res) => {
+  router.delete('/:id', authValidation, checkSuperAdmin, async (req, res) => {
     try {
       const { id } = req.params
       const { body } = req
