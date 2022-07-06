@@ -13,6 +13,11 @@ export class PersonService {
   getPerson() {
     return this._http.get<Person[]>(`${this.urlApi}`);
   }
+
+  getUsers(){
+    return this._http.get<Person[]>(`${this.urlApi}`)
+  }
+
   getPersonById(id: string) {
     return this._http.get<Person>(`${this.urlApi}/${id}`);
   }
@@ -31,6 +36,14 @@ export class PersonService {
 
   updateUser(p: Person) {
     return this._http.patch<Person>(`${this.urlApi}/` + p._id, p);
+  }
+
+  deleteUser(id:string){
+    return this._http.delete<Person>(`${this.urlApi}/${id}`)
+  }
+
+  getUsersToSuperAdmin(){
+    return this._http.get<Person[]>(`${this.urlApi}/users-to-superadmin`)
   }
 
 }

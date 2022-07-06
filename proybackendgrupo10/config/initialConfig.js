@@ -6,11 +6,17 @@ const administrators = require('../data/user')
 const AreaModel = require('../models/area.model')
 const UserModel = require('../models/user.model')
 const { connection } = require('./db')
+const superAdmin = require('../data/superAdmin')
 
 const newUsers = administrators.map(admin => {
   admin.password = bcrypt.hashSync(admin.password, 10)
   return admin
 })
+
+const admin = {
+  ...superAdmin,
+  password: bcrypt.hashSync(superAdmin.password, 10)
+}
 
 dotenv.config()
 
@@ -24,9 +30,12 @@ const importConfig = async () => {
       for (let index = 0; index < allAreas.length; index++) {
         newUsers[index].infoAreas.area = allAreas[index]._id
         newUsers[index].infoAreas.userRoles = allAreas[index].areaRoles[0]
+        admin.infoAreas[index].area = allAreas[index]._id
+        admin.infoAreas[index].userRoles = allAreas[index].areaRoles[0]
       }
     }
     await UserModel.insertMany(newUsers)
+    await UserModel.create(admin)
     console.log('Data Imported')
     process.exit()
   } catch (error) {

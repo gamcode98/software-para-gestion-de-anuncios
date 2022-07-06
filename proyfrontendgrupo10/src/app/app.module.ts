@@ -22,6 +22,9 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
+import { AdminActionsComponent } from './components/admin-actions/admin-actions.component';
+import { AdminActionsToAreaComponent } from './components/admin-actions-to-area/admin-actions-to-area.component';
+import { FormAreaComponent } from './components/form-area/form-area.component';
 
 //Angular Material
 
@@ -38,6 +41,9 @@ import { AlifeFileToBase64Module } from 'alife-file-to-base64';
     RequestPersonViewComponent,
     AdDetailsComponent,
     FooterComponent,
+    AdminActionsComponent,
+    AdminActionsToAreaComponent,
+    FormAreaComponent,
   ],
   imports: [
     BrowserModule,

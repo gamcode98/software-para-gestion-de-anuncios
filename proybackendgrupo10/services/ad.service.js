@@ -9,9 +9,9 @@ class Ad {
     return ads
   }
 
-  async getPublic () {
+  async getPublic (id) {
     const ads = await AdModel.find({
-      'receivers.area': '62c2181876e998700343038b',
+      'receivers.area': id,
       'receivers.status': 'autorizado'
     }).populate({
       path: 'receivers',

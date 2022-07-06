@@ -41,4 +41,15 @@ const checkRoles = (...roles) => {
   }
 }
 
-module.exports = { authValidation, checkRoles }
+const checkSuperAdmin = (req, res, next) => {
+  const tokenId = req.user.role
+
+  if (tokenId === 2) return next()
+
+  return res.status(401).json({
+    error: true,
+    message: 'Insufficient permissions'
+  })
+}
+
+module.exports = { authValidation, checkRoles, checkSuperAdmin }

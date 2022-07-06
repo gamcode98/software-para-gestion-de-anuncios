@@ -60,7 +60,9 @@ export class RequestAdViewComponent implements OnInit {
     private router: Router,
     private areaService: AreaService,
     private fb: FacebookService
-  ) {}
+  ) {
+    this.iniciarFb();
+  }
 
   ngOnInit(): void {
     this.adService.getAdsWhereUserIsEncargado().subscribe((res) => {
@@ -98,7 +100,7 @@ export class RequestAdViewComponent implements OnInit {
     let apiMethod: ApiMethod = 'post';
     // token a refrescar cada media hora
     let token =
-      'EAAFAYJvrhDcBADEZCEDw2ZCI10vXl8p39gh6S3exTXNP9IbFeCntvwzWnJOgZB2fe9nAxO1Jx9KpqZA4KhKOwxDCQYhtCzWfBiIvis9wWs45WXabToIJ0OKVtVFGIDUl5F8E0PIS5KmPGNdRHwWHAhQMMSfQVKYZCM7IWWQtFj7MxtOdxC5QghWtrZC5RQZCEmqBKEGtGR2GkYU8aSFHYuI';
+      'EAAFAYJvrhDcBAJppcHlVR9Oy7N1ZCZBDbtH7y6qKHPAllEZAfuzS8RGoGZBEXpe49ZA2e2K9oFqzPmf2VKAr1L4mZBIayZAFvu8MsaP2qnbfGRmn14yaMB3r33Y1FZA3RJtJXqQwUlNdoT2HJJSTyXzsqK1ybM3CdNUBKMQFDZCNl3SQzmzRDgW7YLgWZCFiYAITGBeUZBeAWraZBsyNA6C6zVaA';
 
     // id de la pagina de facebook
     let pageId = '109497428485411';

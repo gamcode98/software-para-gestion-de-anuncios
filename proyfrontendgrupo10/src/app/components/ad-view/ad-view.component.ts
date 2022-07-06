@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ad } from 'src/app/models/ad';
+import { Person } from 'src/app/models/person';
 import { AdService } from 'src/app/services/ad.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { PersonService } from 'src/app/services/person.service';
 
 @Component({
   selector: 'app-ad-view',
@@ -18,8 +21,19 @@ export class AdViewComponent implements OnInit {
   displayStyle!: string;
   idOfAdToDelete!: string;
   adToDoActions!: Ad;
+  me!:Person
+  infoUsuario: any = 'ninguno';
+  isEncargadoAndAutorizado: Boolean = false;
+  isSuperAdmin: Boolean = false;
+  isLogged:boolean = false
 
-  constructor(private adService: AdService, private router: Router) {}
+
+
+  logged:boolean = true
+
+  constructor(private personService: PersonService ,private authService: AuthService, private adService: AdService, private router: Router) {
+    this.obtenerInfoUsuario();
+  }
 
   sendAd() {
     console.log(this.adToDoActions);
@@ -74,6 +88,36 @@ export class AdViewComponent implements OnInit {
           this.adsWithVideo.push(ad);
         }
       });
+    });
+  }
+
+  obtenerInfoUsuario() {
+    this.personService.myInfo().subscribe((infoUsuario) => {
+      console.log("me =>", infoUsuario)
+      this.me = infoUsuario;      
+      this.infoUsuario = infoUsuario.infoAreas;    
+      this.getArr();
+      if(infoUsuario.role===2){
+        this.isSuperAdmin=true
+      }
+      this.isLogged=true      
+      this.authService.disparador.emit({login: this.logged, isEncarAndAut: this.isEncargadoAndAutorizado, isSupAdm: this.isSuperAdmin, user: this.me})
+    },
+    (err) => {      
+      this.isLogged=false
+    },
+    );
+  }
+
+
+  getArr() {
+    [...this.infoUsuario].forEach((rol: any) => {
+      let isEncargado = rol.userRoles.includes('Encargado');
+      let isAceptado = rol.status == 'aceptado';
+      if (isEncargado == true && isAceptado == true) {
+        this.isEncargadoAndAutorizado = true;
+        console.log('Es autorizado: ' + this.isEncargadoAndAutorizado);
+      }
     });
   }
 

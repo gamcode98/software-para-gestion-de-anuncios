@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Person } from '../models/person';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  @Output() disparador: EventEmitter<any> = new EventEmitter()
+
   private URL = 'http://localhost:3000/api/auth';
   constructor(private http: HttpClient, private router: Router) {}
 
