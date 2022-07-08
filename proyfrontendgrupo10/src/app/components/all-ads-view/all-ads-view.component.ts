@@ -82,7 +82,6 @@ export class AllAdsViewComponent implements OnInit {
         });
       },
       (err) => {
-        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
         this.adService.getAdsPublic().subscribe((p) => {
           this.ads = p;
           console.log(p);
@@ -93,14 +92,13 @@ export class AllAdsViewComponent implements OnInit {
             } else if (el.typeOfContent.image) {
               this.adsWithImages.push(el);
             } else if (el.typeOfContent.planeText) {
-              console.log('llllllllllllllllllllllllllll');
               this.adsWithPlaneText.push(el);
             } else if (el.typeOfContent.video) {
               this.adsWithVideo.push(el);
             }
           });
+          this.init();
         });
-        this.init();
       }
     );
   }
