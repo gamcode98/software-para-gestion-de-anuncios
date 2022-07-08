@@ -8,7 +8,7 @@ function user (app) {
   app.use('/api/users', router)
   const userServ = new UserService()
 
-  router.get('/', async (req, res) => {
+  router.get('/', authValidation, async (req, res) => {
     try {
       const users = await userServ.getAll()
       return res.json(users)
@@ -61,8 +61,6 @@ function user (app) {
         areasId.push(el.area._id.toString())
       )
 
-      // console.log(areasId)
-
       let isIncluded2 = true
 
       for (let j = 0; j < users.length; j++) {
@@ -83,7 +81,7 @@ function user (app) {
           j = 0
         }
       }
-      // console.log(users[1].infoAreas);
+
       let index = 0
       while (index < users.length) {
         let i = 0
@@ -107,25 +105,6 @@ function user (app) {
         }
       }
 
-      // for (let index = 0; index < users.length; index++) {
-      //   //console.log("users[index].infoAreas => ", users[index].infoAreas);
-      //   if (users[index].infoAreas !== undefined) {
-      //     console.log(index);
-      //     for (let j = 0; j < users[index].infoAreas.length; j++) {
-      //       // console.log(
-      //       //   "users[index].infoAreas[j]=> ",
-      //       //   users[index].infoAreas[j]
-      //       // );
-      //       if (users[index].infoAreas[j].status !== "pendiente") {
-      //         users.splice(index, 1);
-      //         index = -1;
-      //       }
-      //     }
-      //   }
-      // }
-
-      // console.log(users);
-
       return res.json(users)
     } catch (error) {
       console.log(error)
@@ -137,21 +116,42 @@ function user (app) {
   })
 
   router.get('/my-info', authValidation, async (req, res) => {
-    const { id } = req.user
-    const user = await userServ.getOne(id)
-    return res.json(user)
+    try {
+      const { id } = req.user
+      const user = await userServ.getOne(id)
+      return res.json(user)
+    } catch (error) {
+      return res.status(500).json({
+        error: true,
+        message: 'Something went wrong'
+      })
+    }
   })
 
   router.get('/:id', authValidation, async (req, res) => {
-    const { id } = req.params
-    const user = await userServ.getOne(id)
-    return res.json(user)
+    try {
+      const { id } = req.params
+      const user = await userServ.getOne(id)
+      return res.json(user)
+    } catch (error) {
+      return res.status(500).json({
+        error: true,
+        message: 'Something went wrong'
+      })
+    }
   })
 
   router.post('/', async (req, res) => {
-    const { body } = req
-    const user = await userServ.create(body)
-    return res.json(user)
+    try {
+      const { body } = req
+      const user = await userServ.create(body)
+      return res.json(user)
+    } catch (error) {
+      return res.status(500).json({
+        error: true,
+        message: 'Something went wrong'
+      })
+    }
   })
 
   router.delete('/:id', authValidation, checkSuperAdmin, async (req, res) => {
@@ -168,34 +168,45 @@ function user (app) {
     }
   })
 
-  router.put('/:id', async (req, res) => {
-    const { id } = req.params
-    const { body } = req
-    const user = await userServ.update(id, body)
-    return res.json(user)
+  router.put('/:id', authValidation, async (req, res) => {
+    try {
+      const { id } = req.params
+      const { body } = req
+      const user = await userServ.update(id, body)
+      return res.json(user)
+    } catch (error) {
+      return res.status(500).json({
+        error: true,
+        message: 'Something went wrong'
+      })
+    }
   })
 
-  router.patch('/:id', async (req, res) => {
-    const { id } = req.params
-    const { infoAreas } = req.body
+  router.patch('/:id', authValidation, async (req, res) => {
+    try {
+      const { id } = req.params
+      const { infoAreas } = req.body
 
-    const user = await userServ.getOne(id)
+      const user = await userServ.getOne(id)
 
-    // console.log(infoAreas);
-
-    for (let index = 0; index < infoAreas.length; index++) {
-      for (let j = 0; j < user.infoAreas.length; j++) {
-        if (
-          infoAreas[index].area._id === user.infoAreas[j].area._id.toString()
-        ) {
-          user.infoAreas[j] = infoAreas[index]
+      for (let index = 0; index < infoAreas.length; index++) {
+        for (let j = 0; j < user.infoAreas.length; j++) {
+          if (
+            infoAreas[index].area._id === user.infoAreas[j].area._id.toString()
+          ) {
+            user.infoAreas[j] = infoAreas[index]
+          }
         }
       }
-    }
 
-    const userUpdated = await userServ.updatePartial(id, user)
-    return res.json(userUpdated)
-    // return res.json({ message: 'working' })
+      const userUpdated = await userServ.updatePartial(id, user)
+      return res.json(userUpdated)
+    } catch (error) {
+      return res.status(500).json({
+        error: true,
+        message: 'Something went wrong'
+      })
+    }
   })
 }
 

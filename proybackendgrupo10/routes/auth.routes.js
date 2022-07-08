@@ -111,7 +111,7 @@ const auth = (app) => {
       html: `
             <p>El usuario: ${body.firstName} ${body.lastName} a solicitado el ingreso al area.</p>
             <p>Ingresa al sistema para tomar acciones</p>                        
-            <a href="http://localhost:4200/api/auth/login">Link de acceso al sistema</a>
+            <a href="https://localhost:4200/api/auth/login">Link de acceso al sistema</a>
             `
     }
 
