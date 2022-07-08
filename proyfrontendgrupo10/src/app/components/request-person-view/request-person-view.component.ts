@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Person } from 'src/app/models/person';
 import { PersonService } from 'src/app/services/person.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-request-person-view',
@@ -18,7 +19,8 @@ export class RequestPersonViewComponent implements OnInit {
   idAreaToUpdate!: string;
   // displayStyle!: string;
 
-  constructor(private userService: PersonService, private router: Router) {}
+  constructor(private userService: PersonService, private router: Router,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.userService.requestToEnterArea().subscribe((users) => {
@@ -66,8 +68,9 @@ export class RequestPersonViewComponent implements OnInit {
         this.userToDoActions.infoAreas[i].status = 'aceptado';
       }
     }
-    
-    this.userService.updateUser(this.userToDoActions).subscribe((res) => {      
+
+    this.userService.updateUser(this.userToDoActions).subscribe((res) => {
+      this.toastr.success('Se autorizo con exito al usuario!', '😀 Autorizado!');
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() => this.router.navigate(['admin-reques-person-v2']));
@@ -82,6 +85,7 @@ export class RequestPersonViewComponent implements OnInit {
     }
     this.userService.updateUser(this.userToDoActions).subscribe((res) => {
       console.log(res);
+      this.toastr.success('Se denego con exito al usuario!', '😀 Denegado!');
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() => this.router.navigate(['admin-reques-person-v2']));

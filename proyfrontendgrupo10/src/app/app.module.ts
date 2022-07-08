@@ -25,6 +25,7 @@ import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { AdminActionsComponent } from './components/admin-actions/admin-actions.component';
 import { AdminActionsToAreaComponent } from './components/admin-actions-to-area/admin-actions-to-area.component';
 import { FormAreaComponent } from './components/form-area/form-area.component';
+import { ToastrModule } from 'ngx-toastr';
 
 //Angular Material
 
@@ -57,6 +58,9 @@ import { FormAreaComponent } from './components/form-area/form-area.component';
     FacebookModule.forRoot(),
     BrowserAnimationsModule,
     AlifeFileToBase64Module,
+    ToastrModule.forRoot({
+      progressBar: true,
+    }),
   ],
   providers: [
     AuthGuard,

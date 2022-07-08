@@ -5,6 +5,7 @@ import { Person } from 'src/app/models/person';
 import { AdService } from 'src/app/services/ad.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PersonService } from 'src/app/services/person.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ad-view',
@@ -31,7 +32,8 @@ export class AdViewComponent implements OnInit {
 
   logged:boolean = true
 
-  constructor(private personService: PersonService ,private authService: AuthService, private adService: AdService, private router: Router) {
+  constructor(private personService: PersonService ,private authService: AuthService, private adService: AdService, private router: Router,
+    private toastr: ToastrService) {
     this.obtenerInfoUsuario();
   }
 
@@ -42,6 +44,7 @@ export class AdViewComponent implements OnInit {
     });
     this.adService.updateAd(this.adToDoActions).subscribe((q) => {
       console.log(q);
+      this.toastr.success('Se envio con exito el anuncio!', '😀 Enviado!');
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() => this.router.navigate(['my-ads']));
@@ -56,6 +59,7 @@ export class AdViewComponent implements OnInit {
   deleteAd() {
     this.adService.deleteAd(this.idOfAdToDelete).subscribe((res) => {
       this.closePopup();
+      this.toastr.success('Se borro con exito el anuncio!', '😀 Borrado!');
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() => this.router.navigate(['my-ads']));
@@ -94,16 +98,16 @@ export class AdViewComponent implements OnInit {
   obtenerInfoUsuario() {
     this.personService.myInfo().subscribe((infoUsuario) => {
       console.log("me =>", infoUsuario)
-      this.me = infoUsuario;      
-      this.infoUsuario = infoUsuario.infoAreas;    
+      this.me = infoUsuario;
+      this.infoUsuario = infoUsuario.infoAreas;
       this.getArr();
       if(infoUsuario.role===2){
         this.isSuperAdmin=true
       }
-      this.isLogged=true      
+      this.isLogged=true
       this.authService.disparador.emit({login: this.logged, isEncarAndAut: this.isEncargadoAndAutorizado, isSupAdm: this.isSuperAdmin, user: this.me})
     },
-    (err) => {      
+    (err) => {
       this.isLogged=false
     },
     );

@@ -8,6 +8,7 @@ import { AreaService } from 'src/app/services/area.service';
 import { PersonService } from 'src/app/services/person.service';
 import { FacebookService, InitParams } from 'ngx-facebook';
 import { ApiMethod } from 'ngx-facebook/providers/facebook';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-request-ad-view',
@@ -59,7 +60,8 @@ export class RequestAdViewComponent implements OnInit {
     private serviceUser: PersonService,
     private router: Router,
     private areaService: AreaService,
-    private fb: FacebookService
+    private fb: FacebookService,
+    private toastr: ToastrService
   ) {
     this.iniciarFb();
   }
@@ -366,6 +368,7 @@ export class RequestAdViewComponent implements OnInit {
     console.log(this.adToDoActions);
     this.adService.updatePartialAd(this.adToDoActions).subscribe((q) => {
       console.log(q);
+      this.toastr.success('Se autorizo con exito el anuncio!', '😃 Autorizado!');
       this.postFb();
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
@@ -381,6 +384,7 @@ export class RequestAdViewComponent implements OnInit {
     }
     this.adService.updatePartialAd(this.adToDoActions).subscribe((q) => {
       console.log(q);
+      this.toastr.success('Se denego con exito el anuncio!', '😃 Denegado!');
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() => this.router.navigate(['admin-reques-ad-v2']));

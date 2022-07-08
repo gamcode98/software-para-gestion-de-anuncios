@@ -8,6 +8,7 @@ import { PersonService } from 'src/app/services/person.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FacebookService, InitParams } from 'ngx-facebook';
 import { ApiMethod } from 'ngx-facebook/providers/facebook';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-form-ad',
@@ -35,7 +36,8 @@ export class FormAdComponent implements OnInit {
     private userService: PersonService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private fb: FacebookService
+    private fb: FacebookService,
+    private toastr: ToastrService
   ) {
     this.ad = new Ad();
 
@@ -60,6 +62,7 @@ export class FormAdComponent implements OnInit {
 
   editAd(ad: Ad) {
     this.service.updateAd(ad).subscribe((data) => {
+      this.toastr.success('Se modifico el anuncio con exito!', '😀 Actualizado!');
       this.router.navigate(['/my-ads']);
     });
   }
@@ -119,7 +122,10 @@ export class FormAdComponent implements OnInit {
   createAd() {
     this.service.createAd(this.ad).subscribe((q) => {
       console.log(q);
+      this.toastr.success('Se creo el anuncio con exito!', '😀 Creado!');
       this.router.navigate(['my-ads']);
+    }, err => {
+      this.toastr.error('No se pudo crear el anuncio!', '😥 Error!');
     });
   }
   sendAd() {
@@ -128,7 +134,10 @@ export class FormAdComponent implements OnInit {
     });
     this.service.createAd(this.ad).subscribe((q) => {
       console.log(q);
+      this.toastr.success('Se creo y envio el anuncio con exito!', '😀 Creado!');
       this.router.navigate(['my-ads']);
+    }, err => {
+      this.toastr.error('No se pudo enviar el anuncio!', 'Error!');
     });
   }
 
