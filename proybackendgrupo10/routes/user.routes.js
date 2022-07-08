@@ -1,12 +1,14 @@
 const express = require('express')
 const { authValidation, checkSuperAdmin } = require('../middlewares/authValidation')
 const UserService = require('../services/user.service')
+const AdService = require('./../services/ad.service')
 
 function user (app) {
   const router = express.Router()
 
   app.use('/api/users', router)
   const userServ = new UserService()
+  const adServ = new AdService()
 
   router.get('/', authValidation, async (req, res) => {
     try {
@@ -157,8 +159,16 @@ function user (app) {
   router.delete('/:id', authValidation, checkSuperAdmin, async (req, res) => {
     try {
       const { id } = req.params
-      const { body } = req
-      const user = await userServ.delete(id, body)
+
+      const ads = await adServ.getAdsByEditorIdToDelete(id)
+
+      if (ads.length !== 0) {
+        return res.status(403).json({
+          error: true,
+          message: 'This user has ads'
+        })
+      }
+      const user = await userServ.delete(id)
       return res.json(user)
     } catch (error) {
       return res.status(500).json({

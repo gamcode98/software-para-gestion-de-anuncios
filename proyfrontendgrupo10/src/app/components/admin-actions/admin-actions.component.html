@@ -46,14 +46,18 @@
               <h4 class="modal-title text-center">¿Esta seguro que desea eliminar al usuario?</h4>
           </div>
 
+          <div class="alert alert-danger" *ngIf="invalidRequest" role="alert">
+            No puedes eliminar este usuario porque contiene anuncios registrados.
+          </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-primary" (click)="closePopup()">
                   Cancelar
               </button>
-              
-              <button type="button" class="btn btn-danger" (click)="deleteUser()">
-                  Aceptar
-              </button>
+              <div [ngStyle]="{'display': invalidRequest ? 'none' : 'block'}">
+                <button type="button" class="btn btn-danger" (click)="deleteUser()">
+                    Aceptar
+                </button>
+              </div>
           </div>
       </div>
   </div>

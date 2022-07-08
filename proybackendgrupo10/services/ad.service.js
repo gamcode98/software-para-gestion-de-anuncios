@@ -82,6 +82,11 @@ class Ad {
     return ads
   }
 
+  async getAdsByEditorIdToDelete (id) {
+    const ads = await AdModel.find({ editor: id })
+    return ads
+  }
+
   async create (data) {
     const ad = await AdModel.create(data)
     return {

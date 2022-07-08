@@ -12,7 +12,7 @@ export class AdminActionsComponent implements OnInit {
   users!: Person[];
   displayStyle!: string;
   idOfUserToDelete!:string
-
+  invalidRequest: boolean = false
 
   constructor(private usersService: PersonService) { }
 
@@ -30,7 +30,11 @@ export class AdminActionsComponent implements OnInit {
     this.usersService.deleteUser(this.idOfUserToDelete).subscribe(res=>{      
       this.getUsers()
       this.displayStyle = 'none';    
-    })
+    },
+      (error)=> {
+        this.invalidRequest=true
+      }
+    )
   }
 
   showPopUp(id: string) {    
@@ -40,6 +44,7 @@ export class AdminActionsComponent implements OnInit {
 
   closePopup() {
     this.displayStyle = 'none';    
+    this.invalidRequest=false   
   }
   
 
