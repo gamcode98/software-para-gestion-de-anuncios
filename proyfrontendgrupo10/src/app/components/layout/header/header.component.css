@@ -30,3 +30,13 @@ header {
     rgba(0, 0, 0, 1) 100%
   );
 }
+
+li{
+  list-style: none;
+}
+
+@media (max-width: 768px) {
+  .hero-title{
+    font-size: clamp(16px, 6vw, 70px) !important;
+  }
+}
