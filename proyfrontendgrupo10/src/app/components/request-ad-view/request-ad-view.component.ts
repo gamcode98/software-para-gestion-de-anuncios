@@ -100,7 +100,7 @@ export class RequestAdViewComponent implements OnInit {
     let apiMethod: ApiMethod = 'post';
     // token a refrescar cada media hora
     let token =
-      'EAAFAYJvrhDcBAJppcHlVR9Oy7N1ZCZBDbtH7y6qKHPAllEZAfuzS8RGoGZBEXpe49ZA2e2K9oFqzPmf2VKAr1L4mZBIayZAFvu8MsaP2qnbfGRmn14yaMB3r33Y1FZA3RJtJXqQwUlNdoT2HJJSTyXzsqK1ybM3CdNUBKMQFDZCNl3SQzmzRDgW7YLgWZCFiYAITGBeUZBeAWraZBsyNA6C6zVaA';
+      'EAAFAYJvrhDcBAOfDVni1IQcZC0fzMNCoDN50y3ZA8ss3bSfqir1DdMqzfxkZBO4TxGGnbkiD2CKtVcoypxCo3vFgSp0RVWj286FZCNagqdADpgBhZBcYeztZCHYwjSG4lOcq8BaZBJ07Kf8QSEz0FOwjrzICt1GedLZCDNrNI8lZBqxALD3tzzZCLlZBaP8chCifZB1TSoZAl4vGklnLEYX7LQqDJ';
 
     // id de la pagina de facebook
     let pageId = '109497428485411';
@@ -366,7 +366,17 @@ export class RequestAdViewComponent implements OnInit {
     console.log(this.adToDoActions);
     this.adService.updatePartialAd(this.adToDoActions).subscribe((q) => {
       console.log(q);
-      this.postFb();
+
+      this.adToDoActions.publishingMedia.forEach((x) => {
+        if (x.name === 'Facebook') {
+          x.accounts.forEach((z) => {
+            if (z === 'Pysw') {
+              this.postFb();
+              alert('Se ha publicado en Facebook en la pagina Pysw');
+            }
+          });
+        }
+      });
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() => this.router.navigate(['admin-reques-ad-v2']));
