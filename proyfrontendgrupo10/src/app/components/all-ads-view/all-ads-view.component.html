@@ -1,168 +1,168 @@
 <div class="container">
-    <div class="row">
-        <div class="card mt-3 mb-3 " style="border-radius: 1.2rem;">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <nav class="navbar navbar-expand-lg navbar-light ">
-                            <div class="container-fluid">
-                                <a class="navbar-brand mt-2" href="#">Seleccione filtro : </a>
-                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#filterContent" aria-controls="filterContent" aria-expanded="false"
-                                    aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
-                                <div class="collapse navbar-collapse" id="filterContent">
+  <div class="row">
+    <div class="card mt-3 mb-3 " style="border-radius: 1.2rem;">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <nav class="navbar navbar-expand-lg navbar-light ">
+              <div class="container-fluid">
+                <a class="navbar-brand mt-2" href="#">Seleccione filtro : </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#filterContent" aria-controls="filterContent" aria-expanded="false"
+                  aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="filterContent">
 
-                                    <form class="d-flex">
-                                        <input class="form-control me-2" type="search" placeholder="Buscar"
-                                            aria-label="Search" name="tx" [(ngModel)]="textfilter">
+                  <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Buscar"
+                      aria-label="Search" name="tx" [(ngModel)]="textfilter">
 
-                                        <select class="form-select" aria-label="Default select example" name="so"
-                                            [(ngModel)]="socialFilter">
-                                            <option value="">Ninguno</option>
-                                            <option value="Twitter">Twitter</option>
-                                            <option value="Facebook">Facebook</option>
-                                            <option value="Youtube">Youtube</option>
-                                            <option value="Instagram">Instagram</option>
-                                            <option value="Tv">Tv</option>
-                                            <option value="Email">Email</option>
-                                        </select>
+                    <select class="form-select" aria-label="Default select example" name="so"
+                      [(ngModel)]="socialFilter">
+                      <option value="">Ninguno</option>
+                      <option value="Twitter">Twitter</option>
+                      <option value="Facebook">Facebook</option>
+                      <option value="Youtube">Youtube</option>
+                      <option value="Instagram">Instagram</option>
+                      <option value="Tv">Tv</option>
+                      <option value="Email">Email</option>
+                    </select>
 
-                                        <select class="form-select" name="typeOfContent" [(ngModel)]="typeFilter">
-                                            <option value="">Ninguno</option>
-                                            <option value="image">Imagen</option>
-                                            <option value="html">HTML</option>
-                                            <option value="video">Video</option>
-                                            <option value="planeText">Texto</option>
-                                        </select>
+                    <select class="form-select" name="typeOfContent" [(ngModel)]="typeFilter">
+                      <option value="">Ninguno</option>
+                      <option value="image">Imagen</option>
+                      <option value="html">HTML</option>
+                      <option value="video">Video</option>
+                      <option value="planeText">Texto</option>
+                    </select>
 
-                                        <select class="form-select" name="editor" [(ngModel)]="userFiler">
-                                            <option value="">Ninguno</option>
-                                            <option *ngFor="let q of users" value="{{q._id}}">{{q.firstName}}</option>
+                    <select class="form-select" name="editor" [(ngModel)]="userFiler">
+                      <option value="">Ninguno</option>
+                      <option *ngFor="let q of users" value="{{q._id}}">{{q.firstName}}</option>
 
-                                        </select>
+                    </select>
 
-                                        <input type="date" class="form-control" id="init" name="idd"
-                                            [(ngModel)]="dateFilter" />
+                    <input type="date" class="form-control" id="init" name="idd"
+                      [(ngModel)]="dateFilter" />
 
-                                        <select class="form-select" name="af" [(ngModel)]="areasFilter">
-                                            <option value="">Ninguno</option>
-                                            <option *ngFor="let i of me?.infoAreas" value="{{i.area._id}}">
-                                                {{i.area.name}}
-                                            </option>
+                    <select class="form-select" name="af" [(ngModel)]="areasFilter">
+                      <option value="">Ninguno</option>
+                      <option *ngFor="let i of me?.infoAreas" value="{{i.area._id}}">
+                        {{i.area.name}}
+                      </option>
 
-                                        </select>
+                    </select>
 
-                                        <button class="btn btn-outline-warning btn-lg"
-                                            (click)="filter()">Aplicar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </nav>
-                        <div class="row mt-2">
-                            <div *ngFor="let i of adsFilter">Filtro : {{i.text}}</div>
-                        </div>
-                    </div>
+                    <button class="btn btn-outline-warning btn-lg"
+                      (click)="filter()">Aplicar</button>
+                  </form>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <!-- Anuncios con imagenes -->
-                        <div class="container my-3">
-                            <h2 class="title text-center mb-2">Anuncios con imagenes</h2>
-                            <div class="row mb-1" *ngIf="ad">
-                                <div class="col mb-4 mb-md-1">
-                                    <div id="carouselExampleDark" class="carousel slide">
-
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active" data-bs-interval="10000">
-                                                <img src="{{ad.resources.images[0]}}" class="d-block w-100" alt="...">
-                                                <div class="carousel-caption d-none d-md-block text-white">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button class="carousel-control-prev" type="button" (click)="back()">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button" (click)="next()">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Next</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-
-                                <div class="d-md-none text-center">
-                                    <h5 class="card-title">{{ad.readingTime}}</h5>
-                                </div>
-                            </div>
-                            <div class="row border">
-                                <div class="col-4">
-                                    <div class="alert alert-primary" role="alert">
-                                        Escanea el siguiente código qr para ver mas detalles
-                                    </div>
-                                    <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad?._id" [width]="256"
-                                        [errorCorrectionLevel]="'M'">
-                                    </qrcode>
-                                </div>
-                                <div class="col-8 mt-5">
-                                    <h3>Resumen:</h3>
-                                    <p>Fecha inicial: {{ad?.entryDate?.initial | date: 'dd/mm/yy'}}</p>
-                                    <p>Fecha final: {{ad?.entryDate?.final | date: 'dd/mm/yy'}}</p>
-                                    <p>Texto del anuncio: </p>
-                                    <p>{{ad?.text}}</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- Anuncios solo con texto -->
-                        <div class="container my-3">
-                            <h2 class="title text-center mb-2">Anuncios tipo texto plano</h2>
-                            <div class="d-flex">
-                                <div class="card me-2" style="width: 18rem;" *ngFor="let ad of adsWithPlaneText">
-                                    <div class="card-body">
-                                        <h3>Resumen:</h3>
-                                        <p>Texto del anuncio: </p>
-
-                                        <p class="card-text">{{ad.text}}</p>
-                                        <div class="alert alert-primary" role="alert">
-                                            Escanea el siguiente código qr para ver mas detalles
-                                        </div>
-                                        <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id" [width]="256"
-                                            [errorCorrectionLevel]="'M'">
-                                        </qrcode>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Anuncios solo con html -->
-                        <div class="container">
-                            <h2 class="title text-center mb-2">Anuncios tipo html</h2>
-                            <div class="d-flex">
-                                <div class="card me-2" style="width: 18rem;" *ngFor="let ad of adsWithHTML">
-                                    <div class="card-body">
-                                        <h3>Resumen:</h3>
-                                        <p>Texto del anuncio: </p>
-
-                                        <div innerHTML="{{ad.text}}"></div>
-                                        <div class="alert alert-primary" role="alert">
-                                            Escanea el siguiente código qr para ver mas detalles
-                                        </div>
-                                        <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id" [width]="256"
-                                            [errorCorrectionLevel]="'M'">
-                                        </qrcode>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+              </div>
+            </nav>
+            <div class="row mt-2">
+              <div *ngFor="let i of adsFilter">Filtro : {{i.text}}</div>
             </div>
+          </div>
         </div>
+        <div class="row">
+          <div class="col">
+            <!-- Anuncios con imagenes -->
+            <div class="container my-3">
+              <h2 class="title text-center mb-2">Anuncios con imagenes</h2>
+              <div class="row mb-1" *ngIf="ad">
+                <div class="col mb-4 mb-md-1">
+                  <div id="carouselExampleDark" class="carousel slide">
 
+                    <div class="carousel-inner">
+                      <div class="carousel-item active" data-bs-interval="10000">
+                        <img src="{{ad.resources.images[0]}}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block text-white">
+
+                        </div>
+                      </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" (click)="back()">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" (click)="next()">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                </div>
+
+
+                <div class="d-md-none text-center">
+                  <h5 class="card-title">{{ad.readingTime}}</h5>
+                </div>
+              </div>
+              <div class="row border">
+                <div class="col-12 col-sm-7 col-md-4">
+                  <div class="alert alert-primary" role="alert">
+                    Escanea el siguiente código qr para ver mas detalles
+                  </div>
+                  <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad?._id" [width]="256"
+                    [errorCorrectionLevel]="'M'">
+                  </qrcode>
+                </div>
+                <div class="col-12 col-md-auto mt-3 mt-md-5 ms-md-5 ms-lg-3 d-flex flex-column justify-content-center">
+                  <h3>Resumen:</h3>
+                  <p>Fecha inicial: {{ad?.entryDate?.initial | date: 'dd/mm/yy'}}</p>
+                  <p>Fecha final: {{ad?.entryDate?.final | date: 'dd/mm/yy'}}</p>
+                  <p>Texto del anuncio: </p>
+                  <p>{{ad?.text}}</p>
+                </div>
+              </div>
+
+            </div>
+            <!-- Anuncios solo con texto -->
+            <div class="container my-3">
+              <h2 class="title text-center mb-2">Anuncios tipo texto plano</h2>
+              <div class="d-flex flex-wrap">
+                <div class="card mx-auto" style="width: 18rem;" *ngFor="let ad of adsWithPlaneText">
+                  <div class="card-body">
+                    <h3>Resumen:</h3>
+                    <p>Texto del anuncio: </p>
+
+                    <p class="card-text">{{ad.text}}</p>
+                    <div class="alert alert-primary" role="alert">
+                      Escanea el siguiente código qr para ver mas detalles
+                    </div>
+                    <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id" [width]="256"
+                      [errorCorrectionLevel]="'M'">
+                    </qrcode>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Anuncios solo con html -->
+            <div class="container">
+              <h2 class="title text-center mb-2">Anuncios tipo html</h2>
+              <div class="d-flex flex-wrap">
+                <div class="card mx-auto" style="width: 18rem;" *ngFor="let ad of adsWithHTML">
+                  <div class="card-body">
+                    <h3>Resumen:</h3>
+                    <p>Texto del anuncio: </p>
+
+                    <div innerHTML="{{ad.text}}"></div>
+                    <div class="alert alert-primary" role="alert">
+                      Escanea el siguiente código qr para ver mas detalles
+                    </div>
+                    <qrcode [qrdata]="'http://localhost:4200/ad-details/'+ad._id" [width]="256"
+                      [errorCorrectionLevel]="'M'">
+                    </qrcode>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
+
+  </div>
 </div>
