@@ -100,13 +100,17 @@ export class RequestAdViewComponent implements OnInit {
     let apiMethod: ApiMethod = 'post';
     // token a refrescar cada media hora
     let token =
-      'EAAFAYJvrhDcBAOfDVni1IQcZC0fzMNCoDN50y3ZA8ss3bSfqir1DdMqzfxkZBO4TxGGnbkiD2CKtVcoypxCo3vFgSp0RVWj286FZCNagqdADpgBhZBcYeztZCHYwjSG4lOcq8BaZBJ07Kf8QSEz0FOwjrzICt1GedLZCDNrNI8lZBqxALD3tzzZCLlZBaP8chCifZB1TSoZAl4vGklnLEYX7LQqDJ';
+      'EAAFAYJvrhDcBANJGbwG2rmGVw1tww0CdFVaxoRvlDtZCsphgZB7NxPllNIW2i5iL8AtO3d7fJtGsnCZBlXVSAFSGOKnefByZAL5QTzYeguX4k4seKVPslYq19wtMdNTaq24p4GjA9qgEgRYkAFCRFShCVogiPHw3uOvKVUnBgS8OnW9tsfnGX12ZAJGd0kbCCETZBrgMhl3mq3bXssLwMP';
 
     // id de la pagina de facebook
     let pageId = '109497428485411';
 
     this.fb.api(`/${pageId}/feed`, apiMethod, {
-      message: this.adToDoActions.text,
+      message:
+        this.adToDoActions.text +
+        '\n' +
+        'more info: https://localhost:4200/ad-details/' +
+        this.adToDoActions._id,
       access_token: token,
     });
   }

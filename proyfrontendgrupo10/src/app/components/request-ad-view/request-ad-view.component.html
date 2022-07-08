@@ -65,8 +65,9 @@
                                             anuncio:
                                             {{adToDoActions.text}}
                                         </p>
-                                        <img *ngIf="adToDoActions.typeOfContent.image" src="{{adToDoActions.text}}"
-                                            class="card-img-top mb-2" alt="...">
+                                        <img *ngIf="adToDoActions.typeOfContent.image"
+                                            src="{{adToDoActions.resources.images[0]}}" class="card-img-top mb-2"
+                                            alt="...">
 
                                         <div class="card-text" *ngFor="let receivers of adToDoActions.receivers">
                                             <p>Area: {{receivers.area.name}}</p>
