@@ -12,6 +12,7 @@ export class AdminActionsToAreaComponent implements OnInit {
   areas!: Area[];
   displayStyle!: string;
   idOfAreaToDelete!:string
+  invalidRequest: boolean = false
 
   constructor(private areaServ: AreaService) { }
 
@@ -26,11 +27,16 @@ export class AdminActionsToAreaComponent implements OnInit {
   }
 
   deleteArea(){
-    this.areaServ.deleteArea(this.idOfAreaToDelete).subscribe(res=>{            
+    this.areaServ.deleteArea(this.idOfAreaToDelete).subscribe(
+      (res:any)=>{            
       console.log(res)
       this.displayStyle = 'none';    
       this.getAreas()
-    })
+    },
+    (err) =>{      
+      this.invalidRequest=true
+    },
+    )
   }
 
   showPopUp(id: string) {    
@@ -39,7 +45,8 @@ export class AdminActionsToAreaComponent implements OnInit {
   }
 
   closePopup() {
-    this.displayStyle = 'none';    
+    this.displayStyle = 'none'; 
+    this.invalidRequest=false   
   }
 
 }

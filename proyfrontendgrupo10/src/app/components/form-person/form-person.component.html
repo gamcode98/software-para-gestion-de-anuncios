@@ -58,18 +58,20 @@
                             </div>
                         </div>
                         <!-- Select area with checkbox -->
-                        <h3>Seleccione el area</h3>
-                        <div class="form-check form-switch border rounded mb-3" *ngFor="let i of areas">
-                            <p>Area:</p>
-                            <input class="form-check-input" type="checkbox" role="switch" id="areas"
-                                (change)="requestArea(i._id, i.name)" />
-                            <label class="form-check-label" for="areas">{{ i.name }}</label>
-                            <div class="form-check" *ngFor="let j of i.areaRoles">
-                                <input class="form-check-input" type="checkbox" value="" id="rol"
-                                    (change)="requestAreaRol(i._id, j)" />
-                                <label class="form-check-label" for="rol">
-                                    {{ j }}
-                                </label>
+                        <div [ngStyle]="{'display': hiddeArea ?'none':'block'}">
+                            <h3>Seleccione el area</h3>
+                            <div class="form-check form-switch border rounded mb-3" *ngFor="let i of areas">
+                                <p>Area:</p>
+                                <input class="form-check-input" type="checkbox" role="switch" id="areas"
+                                    (change)="requestArea(i._id, i.name)" />
+                                <label class="form-check-label" for="areas">{{ i.name }}</label>
+                                <div class="form-check" *ngFor="let j of i.areaRoles">
+                                    <input class="form-check-input" type="checkbox" value="" id="rol"
+                                        (change)="requestAreaRol(i._id, j)" />
+                                    <label class="form-check-label" for="rol">
+                                        {{ j }}
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <button [disabled]="personForm.form.invalid" type="submit" class="btn btn-primary"

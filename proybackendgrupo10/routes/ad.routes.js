@@ -238,10 +238,8 @@ function ad (app) {
       let isIncluded2 = true
 
       receivers.forEach((el) => {
-        areasId.push(el.area.toString())
+        areasId.push(el.area._id.toString())
       })
-
-      console.log(areasId)
 
       for (let j = 0; j < users.length; j++) {
         for (let index = 0; index < users[j].infoAreas.length; index++) {
@@ -310,7 +308,7 @@ function ad (app) {
         html: `
               <p>Se solicita la revision del anuncio confeccionado</p>
               <br>
-              <a href="http://localhost:4200/api/auth/login">Link de acceso al sistema</a>
+              <a href="https://localhost:4200/api/auth/login">Link de acceso al sistema</a>
               `
       }
 
