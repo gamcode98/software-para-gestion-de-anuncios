@@ -1,84 +1,84 @@
 <div class="container">
-    <div class="row">
-        <div class="card mt-3 mb-3 " style="border-radius: 1.2rem;">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <h1 class="text-center mb-4 title">Acciones para aceptar persona</h1>
-                        <div class="row mx-2">
+  <div class="row">
+    <div class="card mt-3 mb-3 " style="border-radius: 1.2rem;">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h1 class="text-center mb-4 title">Acciones para aceptar persona</h1>
+            <div class="row mx-2">
 
-                            <div class="col-4 py-3 border ms-4 me-5">
+              <div class="col-12 col-md-5 py-3 ms-auto ms-md-4 me-auto me-md-4 border">
 
-                                <!-- Anuncios con imagenes  -->
-                                <div class="card mb-3" *ngFor="let user of users">
-                                    <div class="card-body">
-                                        <h2>Resumen del usuario: </h2>
-                                        <p>Nombre del usuario: {{user.firstName}} {{user.lastName}}</p>
-                                        <p>Dni: {{user.dni}}</p>
-                                        <p>Correo electronico: {{user.email}}</p>
-                                        <button class="btn btn-primary" (click)="selectUser(user._id)">Ver
-                                            detalles</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- Detalles del anuncio seleccionado -->
-                            <div class="col-7 border">
-
-                                <div class="card mb-3 mt-2" *ngIf="userToDoActions">
-                                    <div class="card-body">
-                                        <h2 class="card-title">Detalles del usuario:</h2>
-                                        <p>Nombre del usuario: {{userToDoActions.firstName}}
-                                            {{userToDoActions.lastName}}</p>
-                                        <p>Dni: {{userToDoActions.dni}}</p>
-                                        <p>Correo electronico: {{userToDoActions.email}}</p>
-
-                                        <div class="card-text" *ngFor="let infoAreas of userToDoActions.infoAreas">
-                                            <p>Area: {{infoAreas.area.name}}</p>
-                                            <p>Estado: {{infoAreas.status}}</p>
-                                            <button class="btn btn-danger me-2"
-                                                (click)="showPopUp(infoAreas.area._id,'decline')">Rechazar</button>
-                                            <button class="btn btn-success"
-                                                (click)="showPopUp(infoAreas.area._id, 'authorize')">Autorizar</button>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                <!-- Anuncios con imagenes  -->
+                <div class="card mb-3" *ngFor="let user of users">
+                  <div class="card-body">
+                    <h2>Resumen del usuario: </h2>
+                    <p>Nombre del usuario: {{user.firstName}} {{user.lastName}}</p>
+                    <p>Dni: {{user.dni}}</p>
+                    <p>Correo electronico: {{user.email}}</p>
+                    <button class="btn btn-primary" (click)="selectUser(user._id)">Ver
+                      detalles</button>
+                  </div>
                 </div>
 
-                <!-- Modal para eliminar -->
-                <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title text-center">¿Esta seguro que desea
-                                    {{authorize?"autorizar":"rechazar"}} a la
-                                    persona?</h4>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" (click)="closePopup()">
-                                    Cancelar
-                                </button>
+              </div>
 
-                                <button *ngIf="authorize" type="button" class="btn btn-primary"
-                                    (click)="authorizeUser()">
-                                    Autorizar
-                                </button>
-                                <button *ngIf="decline" type="button" class="btn btn-primary" (click)="declineUser()">
-                                    Rechazar
-                                </button>
-                            </div>
-                        </div>
+              <!-- Detalles del anuncio seleccionado -->
+              <div class="col-12 col-sm-12 col-md-6 mt-4 mt-md-0 border">
+
+                <div class="card mb-3 mt-2" *ngIf="userToDoActions">
+                  <div class="card-body">
+                    <h2 class="card-title">Detalles del usuario:</h2>
+                    <p>Nombre del usuario: {{userToDoActions.firstName}}
+                      {{userToDoActions.lastName}}</p>
+                    <p>Dni: {{userToDoActions.dni}}</p>
+                    <p>Correo electronico: {{userToDoActions.email}}</p>
+
+                    <div class="card-text" *ngFor="let infoAreas of userToDoActions.infoAreas">
+                      <p>Area: {{infoAreas.area.name}}</p>
+                      <p>Estado: {{infoAreas.status}}</p>
+                      <button class="btn btn-danger me-2"
+                        (click)="showPopUp(infoAreas.area._id,'decline')">Rechazar</button>
+                      <button class="btn btn-success"
+                        (click)="showPopUp(infoAreas.area._id, 'authorize')">Autorizar</button>
+
                     </div>
+
+                  </div>
                 </div>
 
+              </div>
             </div>
+          </div>
         </div>
+
+        <!-- Modal para eliminar -->
+        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title text-center">¿Esta seguro que desea
+                  {{authorize?"autorizar":"rechazar"}} a la
+                  persona?</h4>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="closePopup()">
+                  Cancelar
+                </button>
+
+                <button *ngIf="authorize" type="button" class="btn btn-primary"
+                  (click)="authorizeUser()">
+                  Autorizar
+                </button>
+                <button *ngIf="decline" type="button" class="btn btn-primary" (click)="declineUser()">
+                  Rechazar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>
