@@ -24,8 +24,8 @@
                           <td>
                             <button type="button" class="btn btn-danger b-block mb-2 mb-md-0 me-md-2"
                               (click)="showPopUp(area._id)">Eliminar</button>
-                            <a type="button" class="btn btn-primary"
-                              [routerLink]="['/form-area/edit', area._id]">Modificar</a>
+                            <!-- <a type="button" class="btn btn-primary"
+                              [routerLink]="['/form-area/edit', area._id]">Modificar</a> -->
                           </td>
                         </tr>                    
                       </tbody>
@@ -45,14 +45,20 @@
               <h4 class="modal-title text-center">¿Esta seguro que desea eliminar el area?</h4>
           </div>
 
+          <div class="alert alert-danger" *ngIf="invalidRequest" role="alert">
+            No puedes esta area porque contiene usuarios registrados.
+          </div>
+        
           <div class="modal-footer">
               <button type="button" class="btn btn-primary" (click)="closePopup()">
                   Cancelar
               </button>
               
-              <button type="button" class="btn btn-danger" (click)="deleteArea()">
+              <div [ngStyle]="{'display': invalidRequest ? 'none' : 'block'}">
+                <button type="button" class="btn btn-danger" (click)="deleteArea()">
                   Aceptar
               </button>
+              </div>
           </div>
       </div>
   </div>

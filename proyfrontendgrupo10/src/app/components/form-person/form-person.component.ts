@@ -16,6 +16,7 @@ export class FormPersonComponent implements OnInit {
   edit: boolean = false;
   startArea: boolean = true;
   title: string = 'Registrate';
+  hiddeArea: boolean = false
 
 
   constructor(
@@ -44,6 +45,8 @@ export class FormPersonComponent implements OnInit {
         this.person = data;
         this.edit = true;
         this.title = 'Actualizar usuario';
+        this.hiddeArea=true
+        console.log("this.hiddeArea", this.hiddeArea)
       });
     }
   }
