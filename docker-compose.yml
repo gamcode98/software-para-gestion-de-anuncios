@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  mongodb:
+    image: "mongo:focal"
+    container_name: mongodb
+    volumes:
+      - ./data:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+
+  proybackendgrupo10:
+    build: ./proybackendgrupo10
+    container_name: proybackendgrupo10
+    environment:
+      - DB_HOST=mongodb
+      - DB_NAME=sistema_anuncios
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - JW_SECRET=adkaslkdlaskd
+      - MONGO_URL=mongodb://db:27017/hia
+      - PORT=3000
+    ports:
+      - 3000:3000
+    links:
+      - mongodb
+
+  proyfrontendgrupo10:
+    build: ./proyfrontendgrupo10
+    container_name: proyfrontendgrupo10
+    ports:
+      - 4200:80
+    links:
+      - proybackendgrupo10
+
+
+volumes:
+  hia-data:

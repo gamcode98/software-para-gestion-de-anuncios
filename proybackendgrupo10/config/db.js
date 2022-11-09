@@ -3,7 +3,7 @@ const { dbUsername, dbPassword, dbHost, dbName } = require('.')
 
 const connection = async function () {
   const conn = await mongoose.connect(
-    'mongodb://localhost:27017/tpfinal'
+    process.env.MONGO_URL
   )
 
   console.log('Mongo DB connected: ', conn.connection.host)
